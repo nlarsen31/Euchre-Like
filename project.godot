@@ -1,0 +1,37 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Euchre-like"
+run/main_scene="res://1StartScene/start_scene.tscn"
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+GlobalProperties="*res://0CommonScene/GlobalProperties.cs"
+GlobalMethods="*res://0CommonScene/GlobalMethods.cs"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
+[dotnet]
+
+project/assembly_name="Euchre-like"
+
+[file_customization]
+
+folder_colors={
+"res://Sprites/": "purple",
+"res://Sprites/Backgrounds/": "purple"
+}

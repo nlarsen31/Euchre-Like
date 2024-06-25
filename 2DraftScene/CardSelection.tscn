@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://tvmx32x1we1a"]
+
+[ext_resource type="Script" path="res://2DraftScene/CardSelection.cs" id="1_m7xhb"]
+[ext_resource type="PackedScene" uid="uid://d3mg2ge0vndwe" path="res://0CommonScene/CardContainer.tscn" id="2_dnap4"]
+
+[node name="CardSelection" type="Node2D"]
+script = ExtResource("1_m7xhb")
+
+[node name="LeftLeft" parent="." instance=ExtResource("2_dnap4")]
+position = Vector2(-168, 0)
+
+[node name="LeftRight" parent="." instance=ExtResource("2_dnap4")]
+position = Vector2(-56, 0)
+
+[node name="RightLeft" parent="." instance=ExtResource("2_dnap4")]
+position = Vector2(56, 0)
+
+[node name="RightRight" parent="." instance=ExtResource("2_dnap4")]
+position = Vector2(168, 0)

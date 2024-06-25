@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmg4y8a1ebk78"]
+
+[ext_resource type="Script" path="res://1StartScene/start_scene.cs" id="1_4dim4"]
+[ext_resource type="Texture2D" uid="uid://boadyaek04xxu" path="res://Sprites/Backgrounds/EuchreStartScreen.png" id="2_wf0cw"]
+[ext_resource type="PackedScene" uid="uid://d3mg2ge0vndwe" path="res://0CommonScene/CardContainer.tscn" id="3_8fexx"]
+
+[node name="StartScene" type="Node2D"]
+script = ExtResource("1_4dim4")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+texture = ExtResource("2_wf0cw")
+
+[node name="Play" type="Button" parent="."]
+offset_left = 624.0
+offset_top = 528.0
+offset_right = 1144.0
+offset_bottom = 624.0
+text = "PLAY"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 16.0
+offset_top = 1048.0
+offset_right = 119.0
+offset_bottom = 1079.0
+text = "DebugCards"
+
+[node name="CardContainer" parent="." instance=ExtResource("3_8fexx")]
+position = Vector2(536, 784)
+
+[connection signal="button_up" from="Play" to="." method="_on_play_button_up"]
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_debug_pressed"]
