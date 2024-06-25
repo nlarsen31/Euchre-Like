@@ -61,7 +61,7 @@ public partial class DraftScene : Node2D
 		cardSelection.DisconnectCards(callable);
 
 		// Add to picked cards
-		GD.Print("SelectCardCallback()" + card);
+		// GD.Print("SelectCardCallback()" + card);
 		HandOfCards hand = GetNode<HandOfCards>("HandOfCards");
 		Tuple<Rank, Suit> tuple =  GetSuitRankFromString(card);
 		GD.Print(tuple);
