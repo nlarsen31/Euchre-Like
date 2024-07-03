@@ -32,6 +32,11 @@ project/assembly_name="Euchre-like"
 [file_customization]
 
 folder_colors={
+"res://0CommonScene/": "red",
+"res://1StartScene/": "purple",
+"res://2DraftScene/": "red",
+"res://3PlayingScene/": "purple",
 "res://Sprites/": "purple",
-"res://Sprites/Backgrounds/": "purple"
+"res://Sprites/Backgrounds/": "red",
+"res://Sprites/Players/": "red"
 }

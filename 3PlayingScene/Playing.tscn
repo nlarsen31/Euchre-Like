@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://b0vas17ygq78u"]
+
+[ext_resource type="Script" path="res://3PlayingScene/Playing.cs" id="1_1576k"]
+[ext_resource type="Texture2D" uid="uid://h0lusuua7idr" path="res://Sprites/Backgrounds/PlayingBackground.png" id="1_sykbu"]
+[ext_resource type="PackedScene" uid="uid://cwe3p6h2qkjkh" path="res://0CommonScene/HandOfCards.tscn" id="3_jddmf"]
+[ext_resource type="Texture2D" uid="uid://j2mfv16t3ccg" path="res://Sprites/Players/RIGHT.png" id="4_2ph6c"]
+[ext_resource type="Texture2D" uid="uid://bu77d7qycd4w5" path="res://Sprites/Players/LEFT.png" id="5_coscm"]
+[ext_resource type="Texture2D" uid="uid://doc2ljysvimuh" path="res://Sprites/Players/PARTNER.png" id="6_pbpgf"]
+
+[node name="Playing" type="Node2D"]
+script = ExtResource("1_1576k")
+
+[node name="PlayingBackground" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+texture = ExtResource("1_sykbu")
+
+[node name="HandOfCards" parent="." instance=ExtResource("3_jddmf")]
+position = Vector2(960, 936)
+
+[node name="RightEnemy" type="Sprite2D" parent="."]
+position = Vector2(1870, 540)
+rotation = -1.5708
+texture = ExtResource("4_2ph6c")
+
+[node name="LetEnemy" type="Sprite2D" parent="."]
+position = Vector2(50, 540)
+rotation = 1.5708
+texture = ExtResource("5_coscm")
+
+[node name="Partner" type="Sprite2D" parent="."]
+position = Vector2(960, 50)
+rotation = 3.14159
+texture = ExtResource("6_pbpgf")
+
+[node name="LeftLabel" type="Label" parent="."]
+offset_left = 100.0
+offset_top = 540.0
+offset_right = 132.0
+offset_bottom = 572.0
+rotation = 1.5708
+tooltip_text = "Left has X Cards left"
+mouse_filter = 1
+text = "13"
+
+[node name="RightLabel" type="Label" parent="."]
+offset_left = 1820.0
+offset_top = 540.0
+offset_right = 1852.0
+offset_bottom = 572.0
+rotation = -1.5708
+tooltip_text = "Left has X Cards left"
+mouse_filter = 1
+text = "13"
+
+[node name="PartnerLabel" type="Label" parent="."]
+offset_left = 960.0
+offset_top = 100.0
+offset_right = 992.0
+offset_bottom = 132.0
+rotation = 3.14159
+tooltip_text = "Left has X Cards left"
+mouse_filter = 1
+text = "13"

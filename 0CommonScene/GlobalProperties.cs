@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 public partial class GlobalProperties : Node
@@ -71,7 +72,9 @@ public partial class GlobalProperties : Node
 		return arr;
 	}
 	
+	// Game state Variables
 	public static Phase GlobalGamePhase;
+	public static List<string> CurrentHand;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

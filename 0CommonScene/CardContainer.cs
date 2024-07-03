@@ -54,7 +54,7 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 			if(input.Pressed && input.ButtonIndex == MouseButton.Left) 
 			{
 				string param = this.ToString();
-				GD.Print($"{SuitToString[(int)this.Suit]}_{RankToString[(int)this.Rank]} was clicked");
+				// GD.Print($"{SuitToString[(int)this.Suit]}_{RankToString[(int)this.Rank]} was clicked");
 				EmitSignal(SignalName.CardSelected, param);
 			}
 		}

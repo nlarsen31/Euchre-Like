@@ -28,7 +28,7 @@ public partial class CardSelection : Node2D
 		card.Position = LeftLeftV;
 	}
 	public void AddCard(CardContainer card) {
-		GD.Print(SuitToString[(int)card.Suit]);
+		// GD.Print(SuitToString[(int)card.Suit]);
 		SelectableCards.Add(card);
 	}
 	public void clearCards()

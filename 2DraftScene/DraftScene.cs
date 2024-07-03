@@ -64,10 +64,18 @@ public partial class DraftScene : Node2D
 		// GD.Print("SelectCardCallback()" + card);
 		HandOfCards hand = GetNode<HandOfCards>("HandOfCards");
 		Tuple<Rank, Suit> tuple =  GetSuitRankFromString(card);
-		GD.Print(tuple);
+		// GD.Print(tuple);
 		hand.addCard(tuple.Item1, tuple.Item2);
 		
 		// Get 4 new cards.
-		DisplayNextCards(4);
+		if(hand.NumberOfCardsInHand() <= 12) {
+			DisplayNextCards(4);
+		}
+		else {
+			CurrentHand = hand.ExportHand();
+			GetTree().ChangeSceneToFile("res://3PlayingScene/Playing.tscn");
+		}
+
+
 	}
 }

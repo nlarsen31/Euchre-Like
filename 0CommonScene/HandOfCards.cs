@@ -14,7 +14,7 @@ public partial class HandOfCards : Node2D
 
 	private const int MAX_HAND_SIZE = 18;
 
-	List<CardContainer> CardsInHand;
+	private List<CardContainer> CardsInHand;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -40,12 +40,7 @@ public partial class HandOfCards : Node2D
 	public void DrawHand()
 	{
 		CardsInHand.Sort();
-
-		// TODO: Remove once debugging is not needed
-		foreach (CardContainer cd in CardsInHand) {
-			GD.Print(cd);
-		}
-
+		
 		if (CardsInHand.Count % 2 == 0)
 		{
 			Vector2 pos = new Vector2((-1)*CARD_WIDTH/2, 0);
@@ -103,5 +98,20 @@ public partial class HandOfCards : Node2D
 				idx ++;
 			}
 		}
+	}
+
+	public int NumberOfCardsInHand()
+	{
+		return CardsInHand.Count;
+	}
+	public List<string> ExportHand()
+	{
+		List<string> list = new List<string>();
+
+		foreach(CardContainer cardContainer in CardsInHand) {
+			list.Add(cardContainer.ToString());
+		}
+
+		return list;
 	}
 }
