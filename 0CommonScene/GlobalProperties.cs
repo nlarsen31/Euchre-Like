@@ -13,10 +13,10 @@ public partial class GlobalProperties : Node
 		DIAMONDS,
 		UNASSIGNED
 	}
-	public static string[] SuitToString = {"spades", "hearts", "clubs", "diamonds", "unf"};
+	public static string[] SuitToString = { "spades", "hearts", "clubs", "diamonds", "unf" };
 	public enum Rank
 	{
-		two, 
+		two,
 		three,
 		four,
 		five,
@@ -31,16 +31,39 @@ public partial class GlobalProperties : Node
 		ace,
 		undefined
 	}
-	public static string[] RankToString = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k", "a", "unf"};
+	public static string[] RankToString = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k", "a", "unf" };
+
+	public enum Player
+	{
+		PLAYER,
+		RIGHT,
+		PARTNER,
+		LEFT,
+		UNDEFINED
+	}
+	public static string[] PlayerToString = {
+		"player",
+		"right",
+		"partner",
+		"left"
+	};
+	public Dictionary<Player, Player> NextPlayer = new Dictionary<Player, Player> {
+		{Player.PLAYER, Player.RIGHT},
+		{Player.RIGHT, Player.PARTNER},
+		{Player.PARTNER, Player.LEFT},
+		{Player.LEFT, Player.PLAYER}
+	};
 
 	public const int CARD_WIDTH = 96;
 	public const int CARD_HEIGHT = 128;
-	public enum Phase {
+	public static Suit Trump = Suit.UNASSIGNED;
+	public enum Phase
+	{
 		loading,
 		drafting,
 		playing
 	}
-	
+
 	public static Suit[] GetAllSuits()
 	{
 		Suit[] arr = new Suit[]{
@@ -52,7 +75,7 @@ public partial class GlobalProperties : Node
 		return arr;
 	}
 
-	public static Rank[] GetAllRanks() 
+	public static Rank[] GetAllRanks()
 	{
 		Rank[] arr = new Rank[]{
 			Rank.ace,
@@ -71,11 +94,11 @@ public partial class GlobalProperties : Node
 		};
 		return arr;
 	}
-	
+
 	// Game state Variables
 	public static Phase GlobalGamePhase;
 	public static List<string> CurrentHand;
-	
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://1weqnld8a74n"]
+
+[ext_resource type="Texture2D" uid="uid://ceynfp21q6kc3" path="res://Sprites/Tokens/MadeItClubs.png" id="1_37q2g"]
+[ext_resource type="Script" path="res://0CommonScene/Chip.cs" id="1_s5q2w"]
+[ext_resource type="Texture2D" uid="uid://dd5nofj6545rb" path="res://Sprites/Tokens/DealerChip.png" id="2_quhpw"]
+[ext_resource type="Texture2D" uid="uid://cmxx3gufttepj" path="res://Sprites/Tokens/MadeItDiamonds.png" id="3_hxx0y"]
+[ext_resource type="Texture2D" uid="uid://0wlbgkme1rrx" path="res://Sprites/Tokens/MadeItHearts.png" id="4_6k0if"]
+[ext_resource type="Texture2D" uid="uid://c7vhnnpaoaxhp" path="res://Sprites/Tokens/MadeItSpades.png" id="5_dafm7"]
+[ext_resource type="Texture2D" uid="uid://btsd248vbrgb" path="res://Sprites/Tokens/Lead.png" id="6_rv4b3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_15w5p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_37q2g")
+}],
+"loop": true,
+"name": &"clubs",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_quhpw")
+}],
+"loop": true,
+"name": &"dealer",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_hxx0y")
+}],
+"loop": true,
+"name": &"diamonds",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_6k0if")
+}],
+"loop": true,
+"name": &"hearts",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_rv4b3")
+}],
+"loop": true,
+"name": &"lead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_dafm7")
+}],
+"loop": true,
+"name": &"spades",
+"speed": 5.0
+}]
+
+[node name="Chip" type="Node2D"]
+script = ExtResource("1_s5q2w")
+
+[node name="ChipAnim" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_15w5p")
+animation = &"lead"

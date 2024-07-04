@@ -29,8 +29,8 @@ public partial class HandOfCards : Node2D
 	public void addCard(Rank rank, Suit suit)
 	{
 		CardContainer card = (CardContainer)CardContainer.Instantiate();
-		card.SetSuit(suit);
-		card.SetRank(rank);
+		card.Suit = suit;
+		card.Rank = rank;
 		card.Visible = false;
 		AddChild(card);
 		CardsInHand.Add(card);
@@ -40,54 +40,54 @@ public partial class HandOfCards : Node2D
 	public void DrawHand()
 	{
 		CardsInHand.Sort();
-		
+
 		if (CardsInHand.Count % 2 == 0)
 		{
-			Vector2 pos = new Vector2((-1)*CARD_WIDTH/2, 0);
+			Vector2 pos = new Vector2((-1) * CARD_WIDTH / 2, 0);
 			// Draw the hand going left
-			int idx = CardsInHand.Count/2 - 1;
-			while (idx >= 0) 
+			int idx = CardsInHand.Count / 2 - 1;
+			while (idx >= 0)
 			{
 				CardsInHand[idx].Position = pos;
 				CardsInHand[idx].Visible = true;
 				CardsInHand[idx].SetAnimation();
 				pos.X -= CARD_WIDTH;
-				idx --;
+				idx--;
 			}
 			// Draw the hand going right
-			idx = CardsInHand.Count/2;
-			pos = new Vector2(CARD_WIDTH/2, 0);
+			idx = CardsInHand.Count / 2;
+			pos = new Vector2(CARD_WIDTH / 2, 0);
 			while (idx < CardsInHand.Count)
 			{
 				CardsInHand[idx].Position = pos;
 				CardsInHand[idx].Visible = true;
 				CardsInHand[idx].SetAnimation();
 				pos.X += CARD_WIDTH;
-				idx ++;
+				idx++;
 			}
 		}
 		else
 		{
 			// Draw the middle card
-			int idx = CardsInHand.Count/2;
+			int idx = CardsInHand.Count / 2;
 			Vector2 pos = new Vector2(0, 0);
 			CardsInHand[idx].Position = pos;
 			CardsInHand[idx].Visible = true;
 			CardsInHand[idx].SetAnimation();
 
 			// Draw the hand going left
-			pos = new Vector2((-1)*CARD_WIDTH, 0);
-			idx = CardsInHand.Count/2 - 1;
-			while (idx >= 0) 
+			pos = new Vector2((-1) * CARD_WIDTH, 0);
+			idx = CardsInHand.Count / 2 - 1;
+			while (idx >= 0)
 			{
 				CardsInHand[idx].Position = pos;
 				CardsInHand[idx].Visible = true;
 				CardsInHand[idx].SetAnimation();
 				pos.X -= CARD_WIDTH;
-				idx --;
+				idx--;
 			}
 			// Draw the hand going right
-			idx = CardsInHand.Count/2 + 1;
+			idx = CardsInHand.Count / 2 + 1;
 			pos = new Vector2(CARD_WIDTH, 0);
 			while (idx < CardsInHand.Count)
 			{
@@ -95,7 +95,7 @@ public partial class HandOfCards : Node2D
 				CardsInHand[idx].Visible = true;
 				CardsInHand[idx].SetAnimation();
 				pos.X += CARD_WIDTH;
-				idx ++;
+				idx++;
 			}
 		}
 	}
@@ -108,7 +108,8 @@ public partial class HandOfCards : Node2D
 	{
 		List<string> list = new List<string>();
 
-		foreach(CardContainer cardContainer in CardsInHand) {
+		foreach (CardContainer cardContainer in CardsInHand)
+		{
 			list.Add(cardContainer.ToString());
 		}
 

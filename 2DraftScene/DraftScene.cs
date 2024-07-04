@@ -8,7 +8,7 @@ public partial class DraftScene : Node2D
 {
 	[Export]
 	private PackedScene CardContainer;
-	
+
 	int currUnselectedIdx = 0;
 	List<CardContainer> UnselectedCards;
 
@@ -21,8 +21,8 @@ public partial class DraftScene : Node2D
 			foreach (Suit suit in GetAllSuits())
 			{
 				CardContainer card = (CardContainer)CardContainer.Instantiate();
-				card.SetSuit(suit);
-				card.SetRank(rank);
+				card.Suit = suit;
+				card.Rank = rank;
 				UnselectedCards.Add(card);
 				card.Visible = false;
 			}
@@ -37,7 +37,7 @@ public partial class DraftScene : Node2D
 		// Add first 4 to the CardSelection
 		CardSelection cardSelection = GetNode<CardSelection>("CardSelection");
 		cardSelection.clearCards();
-		for (int i = currUnselectedIdx; i < currUnselectedIdx+count; i++)
+		for (int i = currUnselectedIdx; i < currUnselectedIdx + count; i++)
 		{
 			CardContainer card = UnselectedCards[i];
 			cardSelection.AddCard(UnselectedCards[i]);
@@ -63,15 +63,17 @@ public partial class DraftScene : Node2D
 		// Add to picked cards
 		// GD.Print("SelectCardCallback()" + card);
 		HandOfCards hand = GetNode<HandOfCards>("HandOfCards");
-		Tuple<Rank, Suit> tuple =  GetSuitRankFromString(card);
+		Tuple<Rank, Suit> tuple = GetSuitRankFromString(card);
 		// GD.Print(tuple);
 		hand.addCard(tuple.Item1, tuple.Item2);
-		
+
 		// Get 4 new cards.
-		if(hand.NumberOfCardsInHand() <= 12) {
+		if (hand.NumberOfCardsInHand() <= 12)
+		{
 			DisplayNextCards(4);
 		}
-		else {
+		else
+		{
 			CurrentHand = hand.ExportHand();
 			GetTree().ChangeSceneToFile("res://3PlayingScene/Playing.tscn");
 		}

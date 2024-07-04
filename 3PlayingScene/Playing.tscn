@@ -1,14 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0vas17ygq78u"]
+[gd_scene load_steps=9 format=3 uid="uid://b0vas17ygq78u"]
 
 [ext_resource type="Script" path="res://3PlayingScene/Playing.cs" id="1_1576k"]
 [ext_resource type="Texture2D" uid="uid://h0lusuua7idr" path="res://Sprites/Backgrounds/PlayingBackground.png" id="1_sykbu"]
+[ext_resource type="PackedScene" uid="uid://d3mg2ge0vndwe" path="res://0CommonScene/CardContainer.tscn" id="2_o4ey7"]
 [ext_resource type="PackedScene" uid="uid://cwe3p6h2qkjkh" path="res://0CommonScene/HandOfCards.tscn" id="3_jddmf"]
 [ext_resource type="Texture2D" uid="uid://j2mfv16t3ccg" path="res://Sprites/Players/RIGHT.png" id="4_2ph6c"]
 [ext_resource type="Texture2D" uid="uid://bu77d7qycd4w5" path="res://Sprites/Players/LEFT.png" id="5_coscm"]
 [ext_resource type="Texture2D" uid="uid://doc2ljysvimuh" path="res://Sprites/Players/PARTNER.png" id="6_pbpgf"]
+[ext_resource type="PackedScene" uid="uid://1weqnld8a74n" path="res://0CommonScene/Chip.tscn" id="8_p1npp"]
 
 [node name="Playing" type="Node2D"]
 script = ExtResource("1_1576k")
+CardContainer = ExtResource("2_o4ey7")
 
 [node name="PlayingBackground" type="Sprite2D" parent="."]
 position = Vector2(960, 540)
@@ -40,7 +43,7 @@ offset_bottom = 572.0
 rotation = 1.5708
 tooltip_text = "Left has X Cards left"
 mouse_filter = 1
-text = "13"
+text = "X"
 
 [node name="RightLabel" type="Label" parent="."]
 offset_left = 1820.0
@@ -50,7 +53,7 @@ offset_bottom = 572.0
 rotation = -1.5708
 tooltip_text = "Left has X Cards left"
 mouse_filter = 1
-text = "13"
+text = "X"
 
 [node name="PartnerLabel" type="Label" parent="."]
 offset_left = 960.0
@@ -60,4 +63,15 @@ offset_bottom = 132.0
 rotation = 3.14159
 tooltip_text = "Left has X Cards left"
 mouse_filter = 1
-text = "13"
+text = "X"
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="TrumpChip" parent="." instance=ExtResource("8_p1npp")]
+position = Vector2(64, 64)
+
+[node name="LeadChip" parent="." instance=ExtResource("8_p1npp")]
+position = Vector2(48, 760)
+rotation = 1.5708
+
+[connection signal="timeout" from="Timer" to="." method="OnTimeout"]
