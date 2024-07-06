@@ -12,22 +12,24 @@ using static GlobalMethods;
 using System.Collections.Generic;
 using System;
 
-public class GlobalMethodsTest : TestClass
+public class GlobalMethodsTests : TestClass
 {
-   private Playing _playing = default!;
+   // private Playing _playing = default!;
    private Fixture _fixture = default!;
 
-   public GlobalMethodsTest(Node testScene) : base(testScene) { }
+   public GlobalMethodsTests(Node testScene) : base(testScene) { }
 
 
    [SetupAll]
    public async Task SetupAll()
    {
+
+      await Task.Delay(100);
       _fixture = new Fixture(TestScene.GetTree());
    }
 
    [Test]
-   public async Task NextPlayerTest()
+   public static void NextPlayerTest()
    {
       Player next = NextPlayer(Player.LEFT);
       next.ShouldBe(Player.PLAYER);

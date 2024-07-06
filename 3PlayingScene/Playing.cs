@@ -21,7 +21,7 @@ public partial class Playing : Node2D
 	private List<CardContainer> LeftHand = new List<CardContainer>();
 	private List<CardContainer> RightHand = new List<CardContainer>();
 	private List<CardContainer> PartnerHand = new List<CardContainer>();
-
+	private Timer PlayTimer;
 
 	// Look at Trump ActivePlayer PlayedCards, assume that ActivePlayer+1 was the player that lead.
 	public Player HandEval()
@@ -35,36 +35,14 @@ public partial class Playing : Node2D
 			Player CurrentPlayer = NextPlayer(LeadPlayer);
 			for (int i = 0; i < 3; i++)
 			{
-				CardContainer winningCard = PlayedCards[(int)winner];
-				CardContainer currCard = PlayedCards[(int)CurrentPlayer];
+				CardContainer winnerCard = PlayedCards[(int)winner];
+				CardContainer currentCard = PlayedCards[(int)CurrentPlayer];
 
-				bool bothTrump = leadSuit == Trump && currCard.Suit == Trump;
-				bool matchedLead = currCard.Suit == leadSuit;
-				bool trumpNotLeadAndCurrTrump = leadSuit != Trump && currCard.Suit == Trump;
-
-				if (bothTrump)
+				if (currentCard.Suit == leadSuit || currentCard.Suit == Trump)
 				{
-					// One player is a jack
-					if (currCard.Rank == Rank.jack && winningCard.Rank != Rank.jack)
-						winner = CurrentPlayer;
-					else if (currCard.Rank == Rank.jack && winningCard.Rank == Rank.jack)
-					{
-						if (currCard.Suit == Trump)
-							winner = CurrentPlayer;
-					}
-					else if (currCard.Rank > winningCard.Rank && winningCard.Rank != Rank.jack)
+					if (currentCard > winnerCard)
 						winner = CurrentPlayer;
 				}
-				else if (matchedLead)
-				{
-					if (currCard.Rank > winningCard.Rank)
-						winner = CurrentPlayer;
-				}
-				else if (trumpNotLeadAndCurrTrump)
-				{
-					winner = CurrentPlayer;
-				}
-
 				CurrentPlayer = NextPlayer(CurrentPlayer);
 			}
 
@@ -76,6 +54,8 @@ public partial class Playing : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		PlayTimer = GetNode<Timer>("%Timer");
+
 		// Make a set with all the cards
 		HashSet<string> Deck = new HashSet<string>();
 		foreach (Rank rank in GetAllRanks())
@@ -136,8 +116,11 @@ public partial class Playing : Node2D
 
 		// Select random player to lead
 		ActivePlayer = (Player)randy.Next(0, 4);
+		ActivePlayer = Player.PLAYER; // Force player to beth active player. for now
 		Chip LeadChip = GetNode<Chip>("LeadChip");
 		LeadChip.SetLeadPosition(ActivePlayer);
+
+		PlayTimer.Start();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -203,8 +186,16 @@ public partial class Playing : Node2D
 	// Each PLayer Functions:
 	public void PlayerTurn()
 	{
+		Callable callable = new Callable(this, "SelectCardCallback");
+		HandOfCards Hand = GetNode<HandOfCards>("HandOfCards");
+		Hand.ConnectVisibleCards(callable);
+	}
+
+	public void SelectCardCallback(string card)
+	{
 
 	}
+
 	// Default Right will play every trump if it can
 	public void RightTurn()
 	{

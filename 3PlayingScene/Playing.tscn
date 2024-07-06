@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b0vas17ygq78u"]
+[gd_scene load_steps=10 format=3 uid="uid://b0vas17ygq78u"]
 
 [ext_resource type="Script" path="res://3PlayingScene/Playing.cs" id="1_1576k"]
 [ext_resource type="Texture2D" uid="uid://h0lusuua7idr" path="res://Sprites/Backgrounds/PlayingBackground.png" id="1_sykbu"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bu77d7qycd4w5" path="res://Sprites/Players/LEFT.png" id="5_coscm"]
 [ext_resource type="Texture2D" uid="uid://doc2ljysvimuh" path="res://Sprites/Players/PARTNER.png" id="6_pbpgf"]
 [ext_resource type="PackedScene" uid="uid://1weqnld8a74n" path="res://0CommonScene/Chip.tscn" id="8_p1npp"]
+[ext_resource type="PackedScene" uid="uid://cni2sbqar4qot" path="res://3PlayingScene/PlayedCards.tscn" id="9_bxlyg"]
 
 [node name="Playing" type="Node2D"]
 script = ExtResource("1_1576k")
@@ -66,6 +67,8 @@ mouse_filter = 1
 text = "X"
 
 [node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
 
 [node name="TrumpChip" parent="." instance=ExtResource("8_p1npp")]
 position = Vector2(64, 64)
@@ -73,5 +76,8 @@ position = Vector2(64, 64)
 [node name="LeadChip" parent="." instance=ExtResource("8_p1npp")]
 position = Vector2(48, 760)
 rotation = 1.5708
+
+[node name="PlayedCards" parent="." instance=ExtResource("9_bxlyg")]
+position = Vector2(960, 540)
 
 [connection signal="timeout" from="Timer" to="." method="OnTimeout"]

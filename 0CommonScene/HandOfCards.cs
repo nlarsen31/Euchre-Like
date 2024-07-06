@@ -115,4 +115,21 @@ public partial class HandOfCards : Node2D
 
 		return list;
 	}
+
+	public void ConnectVisibleCards(Callable method)
+	{
+		foreach (CardContainer cardContainer in CardsInHand)
+			if (cardContainer.Visible)
+			{
+				cardContainer.Connect("CardSelected", method);
+				cardContainer.Selectable = true;
+			}
+	}
+
+	public void DisconnectVisibleCards(Callable method)
+	{
+		foreach (CardContainer cardContainer in CardsInHand)
+			if (cardContainer.Visible)
+				cardContainer.Disconnect("CardSelected", method);
+	}
 }

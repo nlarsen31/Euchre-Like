@@ -9,7 +9,7 @@ public partial class CardSelection : Node2D
 	private List<CardContainer> SelectableCards;
 	// Called when the node enters the scene tree for the first time.
 
-	                                                                                                                                                                                
+
 	public override void _Ready()
 	{
 		SelectableCards = new List<CardContainer>();
@@ -27,7 +27,8 @@ public partial class CardSelection : Node2D
 		card.Visible = true;
 		card.Position = LeftLeftV;
 	}
-	public void AddCard(CardContainer card) {
+	public void AddCard(CardContainer card)
+	{
 		// GD.Print(SuitToString[(int)card.Suit]);
 		SelectableCards.Add(card);
 	}
@@ -36,12 +37,12 @@ public partial class CardSelection : Node2D
 		SelectableCards.Clear();
 	}
 
-	public void  DrawCards()
+	public void DrawCards()
 	{
-		CardContainer LeftLeft =  GetNode<CardContainer>("LeftLeft");
-		CardContainer LeftRight =  GetNode<CardContainer>("LeftRight");
-		CardContainer RightLeft =  GetNode<CardContainer>("RightLeft");
-		CardContainer RightRight =  GetNode<CardContainer>("RightRight");
+		CardContainer LeftLeft = GetNode<CardContainer>("LeftLeft");
+		CardContainer LeftRight = GetNode<CardContainer>("LeftRight");
+		CardContainer RightLeft = GetNode<CardContainer>("RightLeft");
+		CardContainer RightRight = GetNode<CardContainer>("RightRight");
 
 		LeftLeft.SetAnimation(SelectableCards[0].Rank, SelectableCards[0].Suit);
 		LeftRight.SetAnimation(SelectableCards[1].Rank, SelectableCards[1].Suit);
@@ -53,14 +54,24 @@ public partial class CardSelection : Node2D
 		LeftRight.Visible = true;
 		RightLeft.Visible = true;
 		RightRight.Visible = true;
+
+		LeftLeft.Selectable = true;
+		LeftRight.Selectable = true;
+		RightLeft.Selectable = true;
+		RightRight.Selectable = true;
+
+		if (LeftLeft.IsMouseInside()) LeftLeft.SetBorderColor("yellow");
+		if (LeftRight.IsMouseInside()) LeftRight.SetBorderColor("yellow");
+		if (RightLeft.IsMouseInside()) RightLeft.SetBorderColor("yellow");
+		if (RightRight.IsMouseInside()) RightRight.SetBorderColor("yellow");
 	}
 
 	public void ConnectCards(Callable method)
 	{
-		CardContainer LeftLeft =  GetNode<CardContainer>("LeftLeft");
-		CardContainer LeftRight =  GetNode<CardContainer>("LeftRight");
-		CardContainer RightLeft =  GetNode<CardContainer>("RightLeft");
-		CardContainer RightRight =  GetNode<CardContainer>("RightRight");
+		CardContainer LeftLeft = GetNode<CardContainer>("LeftLeft");
+		CardContainer LeftRight = GetNode<CardContainer>("LeftRight");
+		CardContainer RightLeft = GetNode<CardContainer>("RightLeft");
+		CardContainer RightRight = GetNode<CardContainer>("RightRight");
 
 		LeftLeft.Connect("CardSelected", method);
 		LeftRight.Connect("CardSelected", method);
@@ -69,10 +80,10 @@ public partial class CardSelection : Node2D
 	}
 	public void DisconnectCards(Callable method)
 	{
-		CardContainer LeftLeft =  GetNode<CardContainer>("LeftLeft");
-		CardContainer LeftRight =  GetNode<CardContainer>("LeftRight");
-		CardContainer RightLeft =  GetNode<CardContainer>("RightLeft");
-		CardContainer RightRight =  GetNode<CardContainer>("RightRight");
+		CardContainer LeftLeft = GetNode<CardContainer>("LeftLeft");
+		CardContainer LeftRight = GetNode<CardContainer>("LeftRight");
+		CardContainer RightLeft = GetNode<CardContainer>("RightLeft");
+		CardContainer RightRight = GetNode<CardContainer>("RightRight");
 
 		LeftLeft.Disconnect("CardSelected", method);
 		LeftRight.Disconnect("CardSelected", method);

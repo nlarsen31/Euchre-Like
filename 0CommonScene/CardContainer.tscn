@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://d3mg2ge0vndwe"]
+[gd_scene load_steps=60 format=3 uid="uid://d3mg2ge0vndwe"]
 
 [ext_resource type="Script" path="res://0CommonScene/CardContainer.cs" id="1_66f7c"]
 [ext_resource type="Texture2D" uid="uid://cggu4yke4v7up" path="res://Sprites/Cards/10_clubs.png" id="1_hokoa"]
@@ -54,6 +54,8 @@
 [ext_resource type="Texture2D" uid="uid://cvxeljb1y1a4m" path="res://Sprites/Cards/q_diamonds.png" id="51_brk1m"]
 [ext_resource type="Texture2D" uid="uid://b2k7hy75qu53h" path="res://Sprites/Cards/q_hearts.png" id="52_3lhwh"]
 [ext_resource type="Texture2D" uid="uid://bqty82g55w8e0" path="res://Sprites/Cards/q_spades.png" id="53_px0bb"]
+[ext_resource type="Texture2D" uid="uid://d2iuwoqvvwktw" path="res://Sprites/Cards/RedCardBoarder.png" id="55_7mexm"]
+[ext_resource type="Texture2D" uid="uid://6pwcecrmkeny" path="res://Sprites/Cards/YellowCardBoarder.png" id="56_4finw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7tjeh"]
 size = Vector2(96, 128)
@@ -485,6 +487,25 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_ltr2m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("55_7mexm")
+}],
+"loop": true,
+"name": &"red",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("56_4finw")
+}],
+"loop": true,
+"name": &"yellow",
+"speed": 5.0
+}]
+
 [node name="CardContainer" type="StaticBody2D"]
 input_pickable = true
 script = ExtResource("1_66f7c")
@@ -496,4 +517,11 @@ shape = SubResource("RectangleShape2D_7tjeh")
 sprite_frames = SubResource("SpriteFrames_ciseo")
 animation = &"card_back"
 
+[node name="BorderFrames" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_ltr2m")
+animation = &"red"
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="." to="." method="OnMouseExited"]

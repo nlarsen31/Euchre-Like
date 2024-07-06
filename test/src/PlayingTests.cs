@@ -48,13 +48,12 @@ public class PlayingTests : TestClass
 	// 1. Getters and setters of the cardContainer class
 	// 2. Test the IsRight and isLeft properties.
 	[Test]
-	public async Task TestLeftAndRight()
+	public static void LeftRightTests()
 	{
 		CardContainer cardContainer = new CardContainer();
 		cardContainer.Suit = Suit.SPADES;
 		cardContainer.Rank = Rank.jack;
 		Trump = Suit.SPADES;
-		await Task.Delay(100);
 		cardContainer.IsRight.ShouldBe(true);
 		cardContainer.IsLeft.ShouldBe(false);
 		Trump = Suit.CLUBS;
@@ -74,8 +73,9 @@ public class PlayingTests : TestClass
 	// Test the operators of <
 	// they consider what suit is but not what was lead.
 	[Test]
-	public async Task CardContainerOpps()
+	public static void CardContainerOperatorTests()
 	{
+		// await Task.Delay(100);
 		// result stores card1 < card2, card1 > card2, card2 < card1, card2 > card1 values
 		void test(Rank rank1, Suit suit1, Rank rank2, Suit suit2, Suit trump, bool[] result)
 		{
@@ -99,57 +99,90 @@ public class PlayingTests : TestClass
 			GreaterThan = card2 > card1;
 			LessThan.ShouldBe(result[2]);
 			GreaterThan.ShouldBe(result[3]);
+
+			card1.Dispose();
+			card2.Dispose();
 		}
 
-		bool LessThan, GreaterThan;
-		await Task.Delay(100);
-		CardContainer card1 = new CardContainer();
-		CardContainer card2 = new CardContainer();
-
-		// Left vs right of spades
-		// Trump = Suit.SPADES;
-		// card1.Rank = Rank.jack;
-		// card1.Suit = Suit.SPADES;
-		// card2.Rank = Rank.jack;
-		// card2.Suit = Suit.CLUBS;
-		// LessThan = card1 < card2;
-		// LessThan.ShouldBe(false);
-		// GreaterThan = card1 > card2;
-		// GreaterThan.ShouldBe(true);
-		// LessThan = card2 < card1;
-		// LessThan.ShouldBe(true);
-		// GreaterThan = card2 > card1;
-		// GreaterThan.ShouldBe(false);
-
 		// Left vs right of spades:
-		bool[] results = { false, true, true, false };
-		test(Rank.jack, Suit.SPADES, Rank.jack, Suit.CLUBS, Trump, results);
+		test(Rank.jack, Suit.SPADES, Rank.jack, Suit.CLUBS, Suit.SPADES,
+			new bool[] { false, true, true, false });
 
-		// Left vs right of HEARTS
-		Trump = Suit.HEARTS;
-		card1.Rank = Rank.jack;
-		card1.Suit = Suit.HEARTS;
-		card2.Rank = Rank.jack;
-		card2.Suit = Suit.DIAMONDS;
-		LessThan = card1 < card2;
-		LessThan.ShouldBe(false);
-		GreaterThan = card1 > card2;
-		GreaterThan.ShouldBe(true);
-		LessThan = card2 < card1;
-		LessThan.ShouldBe(true);
-		GreaterThan = card2 > card1;
-		GreaterThan.ShouldBe(false);
+		test(Rank.jack, Suit.HEARTS, Rank.jack, Suit.DIAMONDS, Suit.HEARTS,
+			new bool[] { false, true, true, false });
 
-		// ACE vs Random trump
-		Trump = Suit.SPADES;
-		card1.Rank = Rank.ace;
-		card1.Suit = Suit.HEARTS;
-		card2.Rank = Rank.two;
-		card2.Suit = Suit.SPADES;
-		LessThan = card1 < card2;
-		LessThan.ShouldBe(true);
-		GreaterThan = card1 > card2;
-		GreaterThan.ShouldBe(false);
+		test(Rank.ace, Suit.HEARTS, Rank.two, Suit.SPADES, Suit.SPADES,
+			new bool[] { true, false, false, true });
+	}
+
+	[Test]
+	public async Task HandEvalTests()
+	{
+		void test(Rank[] ranks, Suit[] suits, Player winner, Player leadPlayer, Suit trump)
+		{
+			Trump = trump;
+			CardContainer card1 = new CardContainer
+			{
+				Rank = ranks[0],
+				Suit = suits[0]
+			};
+			CardContainer card2 = new CardContainer
+			{
+				Rank = ranks[1],
+				Suit = suits[1]
+			};
+			CardContainer card3 = new CardContainer
+			{
+				Rank = ranks[2],
+				Suit = suits[2]
+			};
+			CardContainer card4 = new CardContainer
+			{
+				Rank = ranks[3],
+				Suit = suits[3]
+			};
+			_playing.PlayedCards[0] = card1;
+			_playing.PlayedCards[1] = card2;
+			_playing.PlayedCards[2] = card3;
+			_playing.PlayedCards[3] = card4;
+			Player activePlayer = leadPlayer;
+			activePlayer = NextPlayer(activePlayer);
+			activePlayer = NextPlayer(activePlayer);
+			activePlayer = NextPlayer(activePlayer);
+			_playing.ActivePlayer = activePlayer;
+
+			Player winnerPred = _playing.HandEval();
+			winnerPred.ShouldBe(winner);
+		}
+		await Task.Delay(100);
+
+		// test top 4 trump
+		test(new Rank[] { Rank.king, Rank.jack, Rank.jack, Rank.ace },
+			  new Suit[] { Suit.SPADES, Suit.SPADES, Suit.CLUBS, Suit.SPADES },
+			  Player.RIGHT,   // winner
+			  Player.RIGHT,   // lead
+			  Suit.SPADES);
+
+		// test trump against an ace
+		test(new Rank[] { Rank.ace, Rank.king, Rank.two, Rank.ace },
+			  new Suit[] { Suit.SPADES, Suit.SPADES, Suit.CLUBS, Suit.SPADES },
+			  Player.PARTNER, // winner
+			  Player.PLAYER,  // lead
+			  Suit.CLUBS);
+
+		// test left against an non trump
+		test(new Rank[] { Rank.ace, Rank.jack, Rank.jack, Rank.ace },
+			  new Suit[] { Suit.SPADES, Suit.SPADES, Suit.DIAMONDS, Suit.SPADES },
+			  Player.PARTNER, // winner
+			  Player.RIGHT,   // lead
+			  Suit.HEARTS);
+
+		// test left against an non trump
+		test(new Rank[] { Rank.ace, Rank.jack, Rank.jack, Rank.jack },
+			  new Suit[] { Suit.SPADES, Suit.SPADES, Suit.DIAMONDS, Suit.HEARTS },
+			  Player.LEFT, // winner
+			  Player.PLAYER,   // lead
+			  Suit.HEARTS);
 	}
 
 	[CleanupAll]

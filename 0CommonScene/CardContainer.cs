@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Net.Security;
+using System.Reflection.Metadata.Ecma335;
 using static GlobalProperties;
 
 public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
@@ -68,6 +69,16 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 		}
 	}
 
+	private bool _selectable;
+	public bool Selectable
+	{
+		get { return _selectable; }
+		set
+		{
+			SetBorderColor("red");
+			_selectable = value;
+		}
+	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
@@ -93,6 +104,19 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 		string animName = RankToString[(int)this.Rank] + "_" + SuitToString[(int)this.Suit];
 		GetNode<AnimatedSprite2D>("AnimatedSprite2D").Animation = animName;
 	}
+	public void SetBorderColor(string color)
+	{
+		AnimatedSprite2D borderSprite = GetNode<AnimatedSprite2D>("BorderFrames");
+		if (color == "black")
+		{
+			borderSprite.Visible = false;
+		}
+		else
+		{
+			borderSprite.Visible = true;
+			borderSprite.Animation = color;
+		}
+	}
 	public void _on_input_event(Node viewport, InputEvent @event, long shape_idx)
 	{
 		if (@event is InputEventMouseButton)
@@ -105,6 +129,16 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 				EmitSignal(SignalName.CardSelected, param);
 			}
 		}
+	}
+	public void OnMouseEntered()
+	{
+		if (Selectable)
+			SetBorderColor("yellow");
+	}
+	public void OnMouseExited()
+	{
+		if (Selectable)
+			SetBorderColor("red");
 	}
 
 	public int CompareTo(CardContainer other)
@@ -149,4 +183,11 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 		return card2 < card1;
 	}
 
+	public bool IsMouseInside()
+	{
+		Vector2 relative = GetLocalMousePosition();
+		if (Math.Abs(relative.X) < CARD_WIDTH / 2 && Math.Abs(relative.Y) < CARD_HEIGHT / 2)
+			return true;
+		return false;
+	}
 }

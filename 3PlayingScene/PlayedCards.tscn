@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://cni2sbqar4qot"]
+
+[ext_resource type="PackedScene" uid="uid://d3mg2ge0vndwe" path="res://0CommonScene/CardContainer.tscn" id="1_isrd1"]
+
+[node name="PlayedCards" type="Node2D"]
+
+[node name="PlayerCard" parent="." instance=ExtResource("1_isrd1")]
+visible = false
+position = Vector2(0, 112)
+
+[node name="RightCard" parent="." instance=ExtResource("1_isrd1")]
+visible = false
+position = Vector2(112, 0)
+rotation = -1.5708
+
+[node name="PartnerCard" parent="." instance=ExtResource("1_isrd1")]
+visible = false
+position = Vector2(0, -112)
+rotation = 3.14159
+
+[node name="LeftCard" parent="." instance=ExtResource("1_isrd1")]
+visible = false
+position = Vector2(-112, 0)
+rotation = 1.5708
