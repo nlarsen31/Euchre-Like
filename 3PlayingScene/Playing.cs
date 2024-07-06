@@ -37,23 +37,34 @@ public partial class Playing : Node2D
 			{
 				CardContainer winningCard = PlayedCards[(int)winner];
 				CardContainer currCard = PlayedCards[(int)CurrentPlayer];
-				bool winningPlayerIsTrump = winningCard.Suit == Trump;
-				bool winningNotTrumpAndLeadSuit = !winningPlayerIsTrump && currCard.Suit == leadSuit;
-				bool winningTrumpAndCurrTrump = winningPlayerIsTrump && currCard.Suit == Trump;
-				if (winningNotTrumpAndLeadSuit)
+
+				bool bothTrump = leadSuit == Trump && currCard.Suit == Trump;
+				bool matchedLead = currCard.Suit == leadSuit;
+				bool trumpNotLeadAndCurrTrump = leadSuit != Trump && currCard.Suit == Trump;
+
+				if (bothTrump)
+				{
+					// One player is a jack
+					if (currCard.Rank == Rank.jack && winningCard.Rank != Rank.jack)
+						winner = CurrentPlayer;
+					else if (currCard.Rank == Rank.jack && winningCard.Rank == Rank.jack)
+					{
+						if (currCard.Suit == Trump)
+							winner = CurrentPlayer;
+					}
+					else if (currCard.Rank > winningCard.Rank && winningCard.Rank != Rank.jack)
+						winner = CurrentPlayer;
+				}
+				else if (matchedLead)
 				{
 					if (currCard.Rank > winningCard.Rank)
-					{
 						winner = CurrentPlayer;
-					}
 				}
-				if (winningTrumpAndCurrTrump)
+				else if (trumpNotLeadAndCurrTrump)
 				{
-					if (currCard.Rank == Rank.jack || winningCard.Rank == Rank.jack)
-					{
-
-					}
+					winner = CurrentPlayer;
 				}
+
 				CurrentPlayer = NextPlayer(CurrentPlayer);
 			}
 

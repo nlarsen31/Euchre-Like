@@ -37,10 +37,35 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 			_suit = value;
 		}
 	}
+
+	public bool IsLeft
+	{
+		get
+		{
+			if (this.Suit == Trump && _rank == Rank.jack && _suit != Trump) return true;
+			return false;
+		}
+	}
+	public bool IsRight
+	{
+		get
+		{
+			if (this.Suit == Trump && _rank == Rank.jack && _suit == Trump) return true;
+			return false;
+		}
+	}
+
 	private Rank _rank;
 	public Rank Rank
 	{
-		get; set;
+		get
+		{
+			return _rank;
+		}
+		set
+		{
+			_rank = value;
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -93,8 +118,35 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 		int otherComp = OtherSuitFactor + OtherRankFactor;
 
 		return comp - otherComp;
+	}
 
-		// return string.Compare(this.ToString(), other.ToString());
+	// comparison operators DOES NOT consider what suit is lead.
+	// Comparison operators DO consider what suit is trump
+	public static bool operator <(CardContainer card1, CardContainer card2)
+	{
+		if (card1.Suit == Trump && card2.Suit != Trump)
+			return false;
+		else if (card1.Suit != Trump && card2.Suit == Trump)
+			return true;
+		else if (card1.Suit == Trump && card2.Suit == Trump)
+		{
+			if (card1.Rank == Rank.jack && card2.Rank != Rank.jack)
+				return false;
+			else if (card1.Rank != Rank.jack && card2.Rank == Rank.jack)
+				return true;
+			else if (card1.Rank == Rank.jack && card2.Rank == Rank.jack)
+				return card2.IsRight; // If card2 is right, < is true
+			else // Neither are jacks
+				return card1.Rank < card2.Rank;
+		}
+		return false;
+	}
+	public static bool operator >(CardContainer card1, CardContainer card2)
+	{
+		if (card1.Rank == card2.Rank && card1.Suit == card2.Suit
+			&& card1.IsRight == card2.IsRight && card1.IsLeft == card2.IsLeft)
+			return false;
+		return card2 < card1;
 	}
 
 }

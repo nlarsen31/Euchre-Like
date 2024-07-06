@@ -11,6 +11,8 @@ using static GlobalProperties;
 using static GlobalMethods;
 using System.Collections.Generic;
 using System;
+using JetBrains.Annotations;
+using System.Runtime.CompilerServices;
 
 public class PlayingTests : TestClass
 {
@@ -41,27 +43,113 @@ public class PlayingTests : TestClass
 		_playing = await _fixture.LoadAndAddScene<Playing>();
 		// _log.Print("Setup everything");
 	}
-	[Test]
-	public async Task TestHandEval1()
-	{
-		List<string> hand = new List<string> {
-			"clubs_a", "clubs_3", "clubs_4", "clubs_5"
-		};
-		LoadPlayedCards(hand);
-		Trump = Suit.SPADES;
-		_playing.ActivePlayer = Player.PLAYER;
-		await Task.Delay(100);
-		Player winner = _playing.HandEval();
-		winner.ShouldBe(Player.PLAYER);
 
-		// hand = new List<string> {
-		// 	"clubs_a", "clubs_3", "clubs_4", "clubs_a"
-		// };
-		// LoadPlayedCards(hand);
-		// Trump = Suit.CLUBS;
-		// await Task.Delay(100);
-		// winner = _playing.HandEval();
-		// winner.ShouldBe(Player.LEFT);
+	// Tests the following:
+	// 1. Getters and setters of the cardContainer class
+	// 2. Test the IsRight and isLeft properties.
+	[Test]
+	public async Task TestLeftAndRight()
+	{
+		CardContainer cardContainer = new CardContainer();
+		cardContainer.Suit = Suit.SPADES;
+		cardContainer.Rank = Rank.jack;
+		Trump = Suit.SPADES;
+		await Task.Delay(100);
+		cardContainer.IsRight.ShouldBe(true);
+		cardContainer.IsLeft.ShouldBe(false);
+		Trump = Suit.CLUBS;
+		cardContainer.IsLeft.ShouldBe(true);
+		cardContainer.IsRight.ShouldBe(false);
+
+		cardContainer.Suit = Suit.DIAMONDS;
+		Trump = Suit.DIAMONDS;
+		cardContainer.IsRight.ShouldBe(true);
+		cardContainer.IsLeft.ShouldBe(false);
+		Trump = Suit.HEARTS;
+		cardContainer.IsLeft.ShouldBe(true);
+		cardContainer.IsRight.ShouldBe(false);
+	}
+
+
+	// Test the operators of <
+	// they consider what suit is but not what was lead.
+	[Test]
+	public async Task CardContainerOpps()
+	{
+		// result stores card1 < card2, card1 > card2, card2 < card1, card2 > card1 values
+		void test(Rank rank1, Suit suit1, Rank rank2, Suit suit2, Suit trump, bool[] result)
+		{
+			Trump = trump;
+			CardContainer card1 = new CardContainer
+			{
+				Rank = rank1,
+				Suit = suit1
+			};
+			CardContainer card2 = new CardContainer
+			{
+				Rank = rank2,
+				Suit = suit2
+			};
+
+			bool LessThan = card1 < card2;
+			bool GreaterThan = card1 > card2;
+			LessThan.ShouldBe(result[0]);
+			GreaterThan.ShouldBe(result[1]);
+			LessThan = card2 < card1;
+			GreaterThan = card2 > card1;
+			LessThan.ShouldBe(result[2]);
+			GreaterThan.ShouldBe(result[3]);
+		}
+
+		bool LessThan, GreaterThan;
+		await Task.Delay(100);
+		CardContainer card1 = new CardContainer();
+		CardContainer card2 = new CardContainer();
+
+		// Left vs right of spades
+		// Trump = Suit.SPADES;
+		// card1.Rank = Rank.jack;
+		// card1.Suit = Suit.SPADES;
+		// card2.Rank = Rank.jack;
+		// card2.Suit = Suit.CLUBS;
+		// LessThan = card1 < card2;
+		// LessThan.ShouldBe(false);
+		// GreaterThan = card1 > card2;
+		// GreaterThan.ShouldBe(true);
+		// LessThan = card2 < card1;
+		// LessThan.ShouldBe(true);
+		// GreaterThan = card2 > card1;
+		// GreaterThan.ShouldBe(false);
+
+		// Left vs right of spades:
+		bool[] results = { false, true, true, false };
+		test(Rank.jack, Suit.SPADES, Rank.jack, Suit.CLUBS, Trump, results);
+
+		// Left vs right of HEARTS
+		Trump = Suit.HEARTS;
+		card1.Rank = Rank.jack;
+		card1.Suit = Suit.HEARTS;
+		card2.Rank = Rank.jack;
+		card2.Suit = Suit.DIAMONDS;
+		LessThan = card1 < card2;
+		LessThan.ShouldBe(false);
+		GreaterThan = card1 > card2;
+		GreaterThan.ShouldBe(true);
+		LessThan = card2 < card1;
+		LessThan.ShouldBe(true);
+		GreaterThan = card2 > card1;
+		GreaterThan.ShouldBe(false);
+
+		// ACE vs Random trump
+		Trump = Suit.SPADES;
+		card1.Rank = Rank.ace;
+		card1.Suit = Suit.HEARTS;
+		card2.Rank = Rank.two;
+		card2.Suit = Suit.SPADES;
+		LessThan = card1 < card2;
+		LessThan.ShouldBe(true);
+		GreaterThan = card1 > card2;
+		GreaterThan.ShouldBe(false);
 	}
 
 	[CleanupAll]

@@ -41,4 +41,23 @@ public class GlobalMethodsTest : TestClass
       next = NextPlayer(Player.PARTNER);
       next.ShouldBe(Player.LEFT);
    }
+
+   [Test]
+   public static void SuitTest()
+   {
+
+      Trump = Suit.CLUBS;
+      CardContainer cardContainer = new CardContainer();
+      cardContainer.Rank = Rank.jack;
+      cardContainer.Suit = Suit.SPADES;
+      cardContainer.Suit.ShouldBe(Suit.CLUBS);
+
+      cardContainer.Rank = Rank.ace;
+      cardContainer.Suit.ShouldBe(Suit.SPADES);
+
+      Trump = Suit.DIAMONDS;
+      cardContainer.Rank = Rank.jack;
+      cardContainer.Suit = Suit.HEARTS;
+      cardContainer.Suit.ShouldBe(Suit.DIAMONDS);
+   }
 }
