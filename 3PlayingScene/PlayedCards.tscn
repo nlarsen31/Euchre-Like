@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cni2sbqar4qot"]
+[gd_scene load_steps=3 format=3 uid="uid://cni2sbqar4qot"]
 
+[ext_resource type="Script" path="res://3PlayingScene/PlayedCards.cs" id="1_i7htc"]
 [ext_resource type="PackedScene" uid="uid://d3mg2ge0vndwe" path="res://0CommonScene/CardContainer.tscn" id="1_isrd1"]
 
 [node name="PlayedCards" type="Node2D"]
+script = ExtResource("1_i7htc")
 
 [node name="PlayerCard" parent="." instance=ExtResource("1_isrd1")]
 visible = false

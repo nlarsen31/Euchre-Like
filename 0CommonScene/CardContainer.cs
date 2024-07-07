@@ -75,7 +75,16 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 		get { return _selectable; }
 		set
 		{
-			SetBorderColor("red");
+			if (value)
+			{
+				SetBorderColor("red");
+				if (IsMouseInside())
+					SetBorderColor("yellow");
+			}
+			else
+			{
+				SetBorderColor("black");
+			}
 			_selectable = value;
 		}
 	}
@@ -85,7 +94,7 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 	}
 	public override string ToString()
 	{
-		return $"{SuitToString[(int)this.Suit]}_{RankToString[(int)this.Rank]}";
+		return $"{SuitToString[(int)_suit]}_{RankToString[(int)_rank]}";
 	}
 
 	public void SetAnimation(Rank rank, Suit suit)

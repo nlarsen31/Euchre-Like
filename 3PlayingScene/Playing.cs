@@ -12,6 +12,8 @@ public partial class Playing : Node2D
 {
 	// Scene Phases
 	public Player ActivePlayer = Player.RIGHT;
+	private PlayedCards _PlayedCards;
+	private HandOfCards _HandOfCards;
 	int TrickCount = 0;
 	public CardContainer[] PlayedCards = new CardContainer[4];
 
@@ -22,6 +24,7 @@ public partial class Playing : Node2D
 	private List<CardContainer> RightHand = new List<CardContainer>();
 	private List<CardContainer> PartnerHand = new List<CardContainer>();
 	private Timer PlayTimer;
+	Callable _Callable;
 
 	// Look at Trump ActivePlayer PlayedCards, assume that ActivePlayer+1 was the player that lead.
 	public Player HandEval()
@@ -55,6 +58,9 @@ public partial class Playing : Node2D
 	public override void _Ready()
 	{
 		PlayTimer = GetNode<Timer>("%Timer");
+		_PlayedCards = GetNode<PlayedCards>("PlayedCards");
+		_HandOfCards = GetNode<HandOfCards>("HandOfCards");
+		_Callable = new Callable(this, "SelectCardCallback");
 
 		// Make a set with all the cards
 		HashSet<string> Deck = new HashSet<string>();
@@ -67,13 +73,12 @@ public partial class Playing : Node2D
 			}
 		}
 
-		HandOfCards Hand = GetNode<HandOfCards>("HandOfCards");
 		foreach (string s in CurrentHand)
 		{
 			// GD.Print(s);
 			Tuple<Rank, Suit> tup = GetSuitRankFromString(s);
 			Deck.Remove(s);
-			Hand.addCard(tup.Item1, tup.Item2);
+			_HandOfCards.addCard(tup.Item1, tup.Item2);
 		}
 
 		// Deal cards randomly to each of the 3 players left
@@ -158,6 +163,7 @@ public partial class Playing : Node2D
 	// Play Turn Functions
 	public void PlayTurn()
 	{
+		PlayTimer.Stop();
 		if (HaveAllPlayersPlayed())
 		{
 			// TODO: Clean up 
@@ -167,54 +173,82 @@ public partial class Playing : Node2D
 			if (ActivePlayer == Player.PLAYER)
 			{
 				PlayerTurn();
+				PlayTimer.Start();
 			}
 			else if (ActivePlayer == Player.LEFT)
 			{
 				LeftTurn();
+				PlayTimer.Start();
 			}
 			else if (ActivePlayer == Player.RIGHT)
 			{
 				RightTurn();
+				PlayTimer.Start();
 			}
 			else if (ActivePlayer == Player.PARTNER)
 			{
 				LeftTurn();
+				PlayTimer.Start();
 			}
+			ActivePlayer = NextPlayer(ActivePlayer);
 		}
 	}
 
 	// Each PLayer Functions:
 	public void PlayerTurn()
 	{
-		Callable callable = new Callable(this, "SelectCardCallback");
-		HandOfCards Hand = GetNode<HandOfCards>("HandOfCards");
-		Hand.ConnectVisibleCards(callable);
+		_HandOfCards.ConnectVisibleCards(_Callable);
 	}
 
 	public void SelectCardCallback(string card)
 	{
+		GD.Print(card);
+		_PlayedCards.ShowAndSetCard(card, Player.PLAYER);
 
+		_HandOfCards.DisconnectVisibleCards(_Callable);
+		_HandOfCards.HideCard(card);
+
+		// PlayTimer.Start();
 	}
 
 	// Default Right will play every trump if it can
 	public void RightTurn()
 	{
-
+		PickRandomCard(Player.RIGHT);
 	}
 	// Default Left will hold trump till the end
 	public void LeftTurn()
 	{
-
+		PickRandomCard(Player.LEFT);
 	}
 	// Partner will play completely randomly
 	public void PartnerTurn()
 	{
+		PickRandomCard(Player.PARTNER);
+	}
 
+	private void PickRandomCard(Player player)
+	{
+		if (player == Player.PLAYER)
+			return;
+
+		List<CardContainer> playerHand;
+		if (player == Player.RIGHT)
+			playerHand = RightHand;
+		else if (player == Player.LEFT)
+			playerHand = LeftHand;
+		else
+			playerHand = PartnerHand;
+
+		int randomIdx = randy.Next(0, playerHand.Count);
+		CardContainer selectedCard = playerHand[randomIdx];
+		_PlayedCards.ShowAndSetCard(selectedCard.ToString(), player);
 	}
 
 	// Connected functions.
 	public void OnTimeout()
 	{
+		PlayTimer.Stop();
 		PlayTurn();
 	}
 }

@@ -59,11 +59,6 @@ public partial class CardSelection : Node2D
 		LeftRight.Selectable = true;
 		RightLeft.Selectable = true;
 		RightRight.Selectable = true;
-
-		if (LeftLeft.IsMouseInside()) LeftLeft.SetBorderColor("yellow");
-		if (LeftRight.IsMouseInside()) LeftRight.SetBorderColor("yellow");
-		if (RightLeft.IsMouseInside()) RightLeft.SetBorderColor("yellow");
-		if (RightRight.IsMouseInside()) RightRight.SetBorderColor("yellow");
 	}
 
 	public void ConnectCards(Callable method)
