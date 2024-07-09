@@ -14,11 +14,12 @@ public partial class HandOfCards : Node2D
 
 	private const int MAX_HAND_SIZE = 18;
 
-	private List<CardContainer> CardsInHand;
+	private List<CardContainer> _CardsInHand;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		CardsInHand = new List<CardContainer>();
+		_CardsInHand = new List<CardContainer>();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,15 +34,15 @@ public partial class HandOfCards : Node2D
 		card.Rank = rank;
 		card.Visible = true;
 		AddChild(card);
-		CardsInHand.Add(card);
+		_CardsInHand.Add(card);
 		DrawHand();
 	}
 
 	public void DrawHand()
 	{
-		CardsInHand.Sort();
+		_CardsInHand.Sort();
 		int count = 0;
-		foreach (CardContainer card in CardsInHand)
+		foreach (CardContainer card in _CardsInHand)
 			if (card.Visible) count++;
 
 		if (count % 2 == 0)
@@ -51,9 +52,13 @@ public partial class HandOfCards : Node2D
 			int idx = count / 2 - 1;
 			while (idx >= 0)
 			{
-				CardsInHand[idx].Position = pos;
-				CardsInHand[idx].Visible = true;
-				CardsInHand[idx].SetAnimation();
+				if (!_CardsInHand[idx].Visible)
+				{
+					idx--;
+					continue;
+				}
+				_CardsInHand[idx].Position = pos;
+				_CardsInHand[idx].SetAnimation();
 				pos.X -= CARD_WIDTH;
 				idx--;
 			}
@@ -62,9 +67,13 @@ public partial class HandOfCards : Node2D
 			pos = new Vector2(CARD_WIDTH / 2, 0);
 			while (idx < count)
 			{
-				CardsInHand[idx].Position = pos;
-				CardsInHand[idx].Visible = true;
-				CardsInHand[idx].SetAnimation();
+				if (!_CardsInHand[idx].Visible)
+				{
+					idx++;
+					continue;
+				}
+				_CardsInHand[idx].Position = pos;
+				_CardsInHand[idx].SetAnimation();
 				pos.X += CARD_WIDTH;
 				idx++;
 			}
@@ -74,18 +83,21 @@ public partial class HandOfCards : Node2D
 			// Draw the middle card
 			int idx = count / 2;
 			Vector2 pos = new Vector2(0, 0);
-			CardsInHand[idx].Position = pos;
-			CardsInHand[idx].Visible = true;
-			CardsInHand[idx].SetAnimation();
+			_CardsInHand[idx].Position = pos;
+			_CardsInHand[idx].SetAnimation();
 
 			// Draw the hand going left
 			pos = new Vector2((-1) * CARD_WIDTH, 0);
 			idx = count / 2 - 1;
 			while (idx >= 0)
 			{
-				CardsInHand[idx].Position = pos;
-				CardsInHand[idx].Visible = true;
-				CardsInHand[idx].SetAnimation();
+				if (!_CardsInHand[idx].Visible)
+				{
+					idx--;
+					continue;
+				}
+				_CardsInHand[idx].Position = pos;
+				_CardsInHand[idx].SetAnimation();
 				pos.X -= CARD_WIDTH;
 				idx--;
 			}
@@ -94,9 +106,13 @@ public partial class HandOfCards : Node2D
 			pos = new Vector2(CARD_WIDTH, 0);
 			while (idx < count)
 			{
-				CardsInHand[idx].Position = pos;
-				CardsInHand[idx].Visible = true;
-				CardsInHand[idx].SetAnimation();
+				if (!_CardsInHand[idx].Visible)
+				{
+					idx++;
+					continue;
+				}
+				_CardsInHand[idx].Position = pos;
+				_CardsInHand[idx].SetAnimation();
 				pos.X += CARD_WIDTH;
 				idx++;
 			}
@@ -105,13 +121,13 @@ public partial class HandOfCards : Node2D
 
 	public int NumberOfCardsInHand()
 	{
-		return CardsInHand.Count;
+		return _CardsInHand.Count;
 	}
 	public List<string> ExportHand()
 	{
 		List<string> list = new List<string>();
 
-		foreach (CardContainer cardContainer in CardsInHand)
+		foreach (CardContainer cardContainer in _CardsInHand)
 		{
 			list.Add(cardContainer.ToString());
 		}
@@ -121,7 +137,7 @@ public partial class HandOfCards : Node2D
 
 	public void ConnectVisibleCards(Callable method)
 	{
-		foreach (CardContainer cardContainer in CardsInHand)
+		foreach (CardContainer cardContainer in _CardsInHand)
 			if (cardContainer.Visible)
 			{
 				cardContainer.Connect("CardSelected", method);
@@ -131,7 +147,7 @@ public partial class HandOfCards : Node2D
 
 	public void DisconnectVisibleCards(Callable method)
 	{
-		foreach (CardContainer cardContainer in CardsInHand)
+		foreach (CardContainer cardContainer in _CardsInHand)
 		{
 			if (cardContainer.Visible)
 				cardContainer.Disconnect("CardSelected", method);
@@ -142,7 +158,7 @@ public partial class HandOfCards : Node2D
 
 	public void HideCard(string card)
 	{
-		foreach (CardContainer cardContainer in CardsInHand)
+		foreach (CardContainer cardContainer in _CardsInHand)
 		{
 			if (card == cardContainer.ToString())
 				cardContainer.Visible = false;

@@ -38,6 +38,10 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 			_suit = value;
 		}
 	}
+	public Suit RealSuit
+	{
+		get { return _suit; }
+	}
 
 	public bool IsLeft
 	{
@@ -110,7 +114,7 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 
 	public void SetAnimation()
 	{
-		string animName = RankToString[(int)this.Rank] + "_" + SuitToString[(int)this.Suit];
+		string animName = RankToString[(int)this.Rank] + "_" + SuitToString[(int)_suit];
 		GetNode<AnimatedSprite2D>("AnimatedSprite2D").Animation = animName;
 	}
 	public void SetBorderColor(string color)

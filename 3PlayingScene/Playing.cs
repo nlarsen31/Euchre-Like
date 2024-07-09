@@ -5,6 +5,7 @@ using System;
 
 using static GlobalProperties;
 using static GlobalMethods;
+using static PlayerAgents;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,12 +28,14 @@ public partial class Playing : Node2D
 	Callable _Callable;
 
 	// Look at Trump ActivePlayer PlayedCards, assume that ActivePlayer+1 was the player that lead.
+	// TODO: Refactor to be a memeber of playedCards...
 	public Player HandEval()
 	{
-		if (HaveAllPlayersPlayed())
+		if (_PlayedCards.HaveAllPlayersPlayed)
 		{
 			Player LeadPlayer = NextPlayer(ActivePlayer);
 			Player winner = LeadPlayer;
+			_PlayedCards.SetPlayedCards(PlayedCards);
 			Suit leadSuit = PlayedCards[(int)NextPlayer(ActivePlayer)].Suit;
 
 			Player CurrentPlayer = NextPlayer(LeadPlayer);
@@ -152,45 +155,44 @@ public partial class Playing : Node2D
 
 	}
 
-	public bool HaveAllPlayersPlayed()
-	{
-		foreach (CardContainer cd in PlayedCards)
-			if (null == cd)
-				return false;
-		return true;
-	}
 
 	// Play Turn Functions
 	public void PlayTurn()
 	{
 		PlayTimer.Stop();
-		if (HaveAllPlayersPlayed())
+		if (_PlayedCards.HaveAllPlayersPlayed)
 		{
-			// TODO: Clean up 
+			Player winner = HandEval();
+			GD.Print("winner is " + PlayerToString[(int)winner]);
 		}
 		else
 		{
 			if (ActivePlayer == Player.PLAYER)
 			{
 				PlayerTurn();
-				PlayTimer.Start();
+				ActivePlayer = NextPlayer(ActivePlayer);
 			}
 			else if (ActivePlayer == Player.LEFT)
 			{
-				LeftTurn();
+				CardContainer choice = LeftTurn(LeftHand);
+				_PlayedCards.ShowAndSetCard(choice.ToString(), Player.LEFT);
+				ActivePlayer = NextPlayer(ActivePlayer);
 				PlayTimer.Start();
 			}
 			else if (ActivePlayer == Player.RIGHT)
 			{
-				RightTurn();
+				CardContainer choice = RightTurn(RightHand);
+				_PlayedCards.ShowAndSetCard(choice.ToString(), Player.RIGHT);
+				ActivePlayer = NextPlayer(ActivePlayer);
 				PlayTimer.Start();
 			}
 			else if (ActivePlayer == Player.PARTNER)
 			{
-				LeftTurn();
+				CardContainer choice = PartnerTurn(PartnerHand);
+				_PlayedCards.ShowAndSetCard(choice.ToString(), Player.PARTNER);
+				ActivePlayer = NextPlayer(ActivePlayer);
 				PlayTimer.Start();
 			}
-			ActivePlayer = NextPlayer(ActivePlayer);
 		}
 	}
 
@@ -202,48 +204,15 @@ public partial class Playing : Node2D
 
 	public void SelectCardCallback(string card)
 	{
-		GD.Print(card);
+		_HandOfCards.DisconnectVisibleCards(_Callable);
 		_PlayedCards.ShowAndSetCard(card, Player.PLAYER);
 
-		_HandOfCards.DisconnectVisibleCards(_Callable);
 		_HandOfCards.HideCard(card);
 
-		// PlayTimer.Start();
+		PlayTimer.Start();
 	}
 
-	// Default Right will play every trump if it can
-	public void RightTurn()
-	{
-		PickRandomCard(Player.RIGHT);
-	}
-	// Default Left will hold trump till the end
-	public void LeftTurn()
-	{
-		PickRandomCard(Player.LEFT);
-	}
-	// Partner will play completely randomly
-	public void PartnerTurn()
-	{
-		PickRandomCard(Player.PARTNER);
-	}
 
-	private void PickRandomCard(Player player)
-	{
-		if (player == Player.PLAYER)
-			return;
-
-		List<CardContainer> playerHand;
-		if (player == Player.RIGHT)
-			playerHand = RightHand;
-		else if (player == Player.LEFT)
-			playerHand = LeftHand;
-		else
-			playerHand = PartnerHand;
-
-		int randomIdx = randy.Next(0, playerHand.Count);
-		CardContainer selectedCard = playerHand[randomIdx];
-		_PlayedCards.ShowAndSetCard(selectedCard.ToString(), player);
-	}
 
 	// Connected functions.
 	public void OnTimeout()

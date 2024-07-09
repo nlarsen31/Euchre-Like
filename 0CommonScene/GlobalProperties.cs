@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 
 public partial class GlobalProperties : Node
 {
+	public static bool Debugging = true;
 	public enum Suit
 	{
 		SPADES,
