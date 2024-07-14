@@ -195,6 +195,12 @@ public class PlayingTests : TestClass
 				Player.PLAYER,
 				Player.PLAYER,
 				Suit.SPADES);
+
+		test(new Rank[] { Rank.ace, Rank.ten, Rank.queen, Rank.eight },
+				new Suit[] { Suit.SPADES, Suit.SPADES, Suit.SPADES, Suit.SPADES },
+				Player.PLAYER,
+				Player.PLAYER,
+				Suit.DIAMONDS);
 	}
 
 	[CleanupAll]

@@ -156,12 +156,18 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 
 	public int CompareTo(CardContainer other)
 	{
-		int suitFactor = (int)Suit * 13;
+		// 14 to contain left in the suits
+		int suitFactor = (int)Suit * 15;
 		int rankOffset = (int)Rank;
+		if (this.IsLeft) rankOffset = 13;
+		if (this.IsRight) rankOffset = 14;
 		int comp = suitFactor + rankOffset;
 
-		int OtherSuitFactor = (int)other.Suit * 13;
+		int OtherSuitFactor = (int)other.Suit * 15;
 		int OtherRankFactor = (int)other.Rank;
+		if (other.IsLeft) OtherRankFactor = 13;
+		if (other.IsRight) OtherRankFactor = 14;
+
 		int otherComp = OtherSuitFactor + OtherRankFactor;
 
 		return comp - otherComp;
@@ -185,6 +191,10 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 				return card2.IsRight; // If card2 is right, < is true
 			else // Neither are jacks
 				return card1.Rank < card2.Rank;
+		}
+		else if (card1.Suit != Trump && card2.Suit != Trump)
+		{
+			return card1.Rank < card2.Rank;
 		}
 		return false;
 	}

@@ -34,12 +34,20 @@ public partial class Playing : Node2D
 	// TODO: Refactor to be a memeber of playedCards...
 	public Player HandEval()
 	{
+		Player winner = Player.UNDEFINED;
+		if (Debugging)
+		{
+			GD.Print("[Enter] HandEval()");
+			GD.Print("LeadSuit: " + SuitToString[(int)_PlayedCards.GetLeadSuit()]);
+			GD.Print("Trump: " + SuitToString[(int)Trump]);
+			_PlayedCards.PrintCards();
+		}
 		if (_PlayedCards.HaveAllPlayersPlayed)
 		{
-			Player LeadPlayer = NextPlayer(ActivePlayer);
-			Player winner = LeadPlayer;
+			Player LeadPlayer = _PlayedCards.GetLeadPlayer();
+			winner = LeadPlayer;
 			_PlayedCards.SetPlayedCards(PlayedCardsArr);
-			Suit leadSuit = PlayedCardsArr[(int)NextPlayer(ActivePlayer)].Suit;
+			Suit leadSuit = _PlayedCards.GetLeadSuit();
 
 			Player CurrentPlayer = NextPlayer(LeadPlayer);
 			for (int i = 0; i < 3; i++)
@@ -54,10 +62,13 @@ public partial class Playing : Node2D
 				}
 				CurrentPlayer = NextPlayer(CurrentPlayer);
 			}
-
-			return winner;
 		}
-		return Player.UNDEFINED;
+		if (Debugging)
+		{
+			GD.Print("Winner is: " + PlayerToString[(int)winner]);
+			GD.Print("[Leave] HandEval()");
+		}
+		return winner;
 	}
 
 	// Called when the node enters the scene tree for the first time.
@@ -143,8 +154,10 @@ public partial class Playing : Node2D
 
 		// Select random player to lead
 		ActivePlayer = (Player)randy.Next(0, 4);
+		ActivePlayer = Player.PLAYER;
 		Chip LeadChip = GetNode<Chip>("LeadChip");
 		LeadChip.SetLeadPosition(ActivePlayer);
+		_HandOfCards.DrawHand();
 
 		PlayTimer.Start();
 	}
@@ -190,9 +203,11 @@ public partial class Playing : Node2D
 
 			_PlayedCards.ClearCards();
 			ActivePlayer = winner;
+			PlayTimer.Start();
 		}
 		else
 		{
+			Suit leadSuit = _PlayedCards.GetLeadSuit();
 			if (ActivePlayer == Player.PLAYER)
 			{
 				PlayerTurn();
@@ -200,7 +215,7 @@ public partial class Playing : Node2D
 			}
 			else if (ActivePlayer == Player.LEFT)
 			{
-				CardContainer choice = LeftTurn(LeftHand);
+				CardContainer choice = LeftTurn(LeftHand, leadSuit);
 				LeftHand.Remove(choice);
 				PlayCard(Player.LEFT, choice.ToString());
 				ActivePlayer = NextPlayer(ActivePlayer);
@@ -208,7 +223,7 @@ public partial class Playing : Node2D
 			}
 			else if (ActivePlayer == Player.RIGHT)
 			{
-				CardContainer choice = RightTurn(RightHand);
+				CardContainer choice = RightTurn(RightHand, leadSuit);
 				RightHand.Remove(choice);
 				PlayCard(Player.RIGHT, choice.ToString());
 				ActivePlayer = NextPlayer(ActivePlayer);
@@ -216,7 +231,7 @@ public partial class Playing : Node2D
 			}
 			else if (ActivePlayer == Player.PARTNER)
 			{
-				CardContainer choice = PartnerTurn(PartnerHand);
+				CardContainer choice = PartnerTurn(PartnerHand, leadSuit);
 				PartnerHand.Remove(choice);
 				PlayCard(Player.PARTNER, choice.ToString());
 				ActivePlayer = NextPlayer(ActivePlayer);
@@ -234,7 +249,7 @@ public partial class Playing : Node2D
 	// Each PLayer Functions:
 	public void PlayerTurn()
 	{
-		_HandOfCards.ConnectVisibleCards(_Callable);
+		_HandOfCards.ConnectVisibleCards(_Callable, _PlayedCards.GetLeadSuit());
 	}
 
 	public void SelectCardCallback(string card)

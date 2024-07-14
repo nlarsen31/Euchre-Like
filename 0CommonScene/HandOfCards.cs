@@ -15,11 +15,13 @@ public partial class HandOfCards : Node2D
 	private const int MAX_HAND_SIZE = 18;
 
 	private List<CardContainer> _CardsInHand;
+	private List<CardContainer> _ConnectedCards;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_CardsInHand = new List<CardContainer>();
+		_ConnectedCards = new List<CardContainer>();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,7 +42,7 @@ public partial class HandOfCards : Node2D
 
 	public void DrawHand()
 	{
-		GD.Print("[Enter] DrawHand");
+		if (Debugging) GD.Print("[Enter] DrawHand");
 		_CardsInHand.Sort();
 		int numberOfVisibleCards = 0;
 		foreach (CardContainer card in _CardsInHand)
@@ -66,7 +68,7 @@ public partial class HandOfCards : Node2D
 		}
 
 
-		GD.Print("[Enter] DrawHand");
+		if (Debugging) GD.Print("[Leave] DrawHand");
 	}
 
 	public int NumberOfCardsInHand()
@@ -85,23 +87,43 @@ public partial class HandOfCards : Node2D
 		return list;
 	}
 
-	public void ConnectVisibleCards(Callable method)
+	public void ConnectVisibleCards(Callable method, Suit iLead)
 	{
+		bool voidInSuit = true;
 		foreach (CardContainer cardContainer in _CardsInHand)
+		{
 			if (cardContainer.Visible)
 			{
-				cardContainer.Connect("CardSelected", method);
-				cardContainer.Selectable = true;
+				if (cardContainer.Suit == iLead || iLead == Suit.UNASSIGNED)
+				{
+					voidInSuit = false;
+					cardContainer.Connect("CardSelected", method);
+					cardContainer.Selectable = true;
+					_ConnectedCards.Add(cardContainer);
+				}
 			}
+		}
+
+		if (voidInSuit)
+		{
+			foreach (CardContainer cardContainer in _CardsInHand)
+				if (cardContainer.Visible)
+				{
+					cardContainer.Connect("CardSelected", method);
+					cardContainer.Selectable = true;
+					_ConnectedCards.Add(cardContainer);
+				}
+		}
 	}
 
 	public void DisconnectVisibleCards(Callable method)
 	{
-		foreach (CardContainer cardContainer in _CardsInHand)
+		while (_ConnectedCards.Count > 0)
 		{
-			if (cardContainer.Visible)
-				cardContainer.Disconnect("CardSelected", method);
-			cardContainer.Selectable = false;
+			CardContainer card = _ConnectedCards[0];
+			card.Disconnect("CardSelected", method);
+			card.Selectable = false;
+			_ConnectedCards.Remove(card);
 		}
 	}
 

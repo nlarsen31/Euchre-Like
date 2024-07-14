@@ -8,6 +8,7 @@ public partial class PlayedCards : Node2D
 {
 	private bool rightPlayed = false, leftPlayed = false,
 		partnerPlayed = false, playerPlayed = false;
+	Player _leadPlayer = Player.UNDEFINED;
 	public bool HaveAllPlayersPlayed
 	{
 		get
@@ -91,15 +92,55 @@ public partial class PlayedCards : Node2D
 		if (CountTrue(playerPlayed, rightPlayed, leftPlayed, partnerPlayed) == 1)
 		{
 			cardContainer.SetBorderColor("yellow");
+			_leadPlayer = player;
 		}
 	}
 
 	public void ClearCards()
 	{
 		resetPlayed();
+		_leadPlayer = Player.UNDEFINED;
 		playerCard.Visible = false;
 		rightCard.Visible = false;
 		leftCard.Visible = false;
 		partnerCard.Visible = false;
+	}
+
+
+	public Player GetLeadPlayer()
+	{
+		return _leadPlayer;
+	}
+	public Suit GetLeadSuit()
+	{
+		CardContainer cardContainer;
+		if (_leadPlayer == Player.PLAYER) cardContainer = playerCard;
+		else if (_leadPlayer == Player.RIGHT) cardContainer = rightCard;
+		else if (_leadPlayer == Player.PARTNER) cardContainer = partnerCard;
+		else if (_leadPlayer == Player.LEFT) cardContainer = leftCard;
+		else cardContainer = null;
+
+		if (null == cardContainer)
+			return Suit.UNASSIGNED;
+		return cardContainer.Suit;
+
+	}
+
+	public void PrintCards()
+	{
+		if (_leadPlayer != Player.UNDEFINED)
+			GD.Print("Lead Player: " + PlayerToString[(int)_leadPlayer]);
+
+		if (playerCard.Visible) GD.Print("Player: " + playerCard.ToString());
+		else GD.Print("Player hasn't played");
+
+		if (rightCard.Visible) GD.Print("Right: " + rightCard.ToString());
+		else GD.Print("Right hasn't played");
+
+		if (partnerCard.Visible) GD.Print("Partner: " + partnerCard.ToString());
+		else GD.Print("Partner hasn't played");
+
+		if (leftCard.Visible) GD.Print("Left: " + leftCard.ToString());
+		else GD.Print("Left hasn't played");
 	}
 }
