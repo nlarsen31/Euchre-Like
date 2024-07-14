@@ -42,84 +42,30 @@ public partial class HandOfCards : Node2D
 	{
 		GD.Print("[Enter] DrawHand");
 		_CardsInHand.Sort();
-		int count = 0;
+		int numberOfVisibleCards = 0;
 		foreach (CardContainer card in _CardsInHand)
-			if (card.Visible) count++;
+			if (card.Visible) numberOfVisibleCards++;
 
-		if (count % 2 == 0)
-		{
-			Vector2 pos = new Vector2((-1) * CARD_WIDTH / 2, 0);
-			// Draw the hand going left
-			int idx = count / 2 - 1;
-			while (idx >= 0)
-			{
-				if (!_CardsInHand[idx].Visible)
-				{
-					idx--;
-					continue;
-				}
-				GD.Print($"Placing {_CardsInHand[idx].ToString()}");
-				_CardsInHand[idx].Position = pos;
-				_CardsInHand[idx].SetAnimation();
-				pos.X -= CARD_WIDTH;
-				idx--;
-			}
-			// Draw the hand going right
-			idx = count / 2;
-			pos = new Vector2(CARD_WIDTH / 2, 0);
-			while (idx < count)
-			{
-				if (!_CardsInHand[idx].Visible)
-				{
-					idx++;
-					continue;
-				}
-				GD.Print($"Placing {_CardsInHand[idx].ToString()}");
-				_CardsInHand[idx].Position = pos;
-				_CardsInHand[idx].SetAnimation();
-				pos.X += CARD_WIDTH;
-				idx++;
-			}
-		}
+		// Add halfWidth if we are an odd number of cards.
+		int xStart;
+		if (numberOfVisibleCards % 2 == 0)
+			xStart = (numberOfVisibleCards - 1) * CARD_WIDTH / 2;
 		else
-		{
-			// Draw the middle card
-			int idx = count / 2;
-			Vector2 pos = new Vector2(0, 0);
-			_CardsInHand[idx].Position = pos;
-			_CardsInHand[idx].SetAnimation();
+			xStart = (numberOfVisibleCards / 2) * CARD_WIDTH;
+		xStart *= -1;
+		Vector2 pos = new Vector2(xStart, 0);
 
-			// Draw the hand going left
-			pos = new Vector2((-1) * CARD_WIDTH, 0);
-			idx = count / 2 - 1;
-			while (idx >= 0)
+		foreach (CardContainer card in _CardsInHand)
+		{
+			if (card.Visible)
 			{
-				if (!_CardsInHand[idx].Visible)
-				{
-					idx--;
-					continue;
-				}
-				_CardsInHand[idx].Position = pos;
-				_CardsInHand[idx].SetAnimation();
-				pos.X -= CARD_WIDTH;
-				idx--;
-			}
-			// Draw the hand going right
-			idx = count / 2 + 1;
-			pos = new Vector2(CARD_WIDTH, 0);
-			while (idx < count)
-			{
-				if (!_CardsInHand[idx].Visible)
-				{
-					idx++;
-					continue;
-				}
-				_CardsInHand[idx].Position = pos;
-				_CardsInHand[idx].SetAnimation();
+				card.SetAnimation();
+				card.Position = pos;
 				pos.X += CARD_WIDTH;
-				idx++;
 			}
 		}
+
+
 		GD.Print("[Enter] DrawHand");
 	}
 
