@@ -17,6 +17,17 @@ public partial class HandOfCards : Node2D
 	private List<CardContainer> _CardsInHand;
 	private List<CardContainer> _ConnectedCards;
 
+	public int NumberOfCardsLeftToPlay
+	{
+		get
+		{
+			int numberOfVisibleCards = 0;
+			foreach (CardContainer card in _CardsInHand)
+				if (card.Visible) numberOfVisibleCards++;
+			return numberOfVisibleCards;
+		}
+	}
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -44,9 +55,7 @@ public partial class HandOfCards : Node2D
 	{
 		if (Debugging) GD.Print("[Enter] DrawHand");
 		_CardsInHand.Sort();
-		int numberOfVisibleCards = 0;
-		foreach (CardContainer card in _CardsInHand)
-			if (card.Visible) numberOfVisibleCards++;
+		int numberOfVisibleCards = NumberOfCardsLeftToPlay;
 
 		// Add halfWidth if we are an odd number of cards.
 		int xStart;

@@ -268,6 +268,15 @@ public partial class Playing : Node2D
 	public void OnTimeout()
 	{
 		PlayTimer.Stop();
-		PlayTurn();
+
+		if (RightHand.Count == 0 && LeftHand.Count == 0 &&
+			PartnerHand.Count == 0 && _HandOfCards.NumberOfCardsLeftToPlay == 0)
+		{
+			Label resultLabel = GetNode<Label>("ResultLabel");
+			resultLabel.Text = $"You won {_ScoreBoard.TricksWon} Tricks!";
+			resultLabel.Visible = true;
+			_PlayedCards.Visible = false;
+		}
+		else PlayTurn();
 	}
 }

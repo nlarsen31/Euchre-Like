@@ -29,7 +29,8 @@ public class PlayerAgents
 
    /*
    Rules:
-      1. Plays lowest trump if able to trump
+      1. Plays lowest trump if able to trump, if trump wasn't lead
+      2. Playes highest trump if trump was lead or leading.
       2. Plays off suit aces with the lead
       3. Always plays highest card possible
    */
@@ -37,16 +38,26 @@ public class PlayerAgents
    {
       if (Debugging) GD.Print("[Enter] RightTurn");
       List<CardContainer> playable = GetPlayableCards(rightHand, iLead);
+      playable.Sort();
+      CardContainer choice = playable[0];
+
+      foreach (CardContainer card in playable)
+         if (card > choice) choice = card;
+
       if (Debugging) GD.Print("[Leave] RightTurn");
-      return PickRandomCard(playable);
+      return choice;
    }
    // Default Left will hold trump till the end
    public static CardContainer LeftTurn(List<CardContainer> leftHand, Suit iLead)
    {
       if (Debugging) GD.Print("[Enter] LeftTurn");
       List<CardContainer> playable = GetPlayableCards(leftHand, iLead);
+      playable.Sort();
+      CardContainer choice = playable[0];
+      foreach (CardContainer card in playable)
+         if (card < choice) choice = card;
       if (Debugging) GD.Print("[Leave] LeftTurn");
-      return PickRandomCard(playable);
+      return choice;
    }
    // Partner will play completely randomly
    public static CardContainer PartnerTurn(List<CardContainer> partnerHand, Suit iLead)

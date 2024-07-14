@@ -196,11 +196,17 @@ public class PlayingTests : TestClass
 				Player.PLAYER,
 				Suit.SPADES);
 
-		test(new Rank[] { Rank.ace, Rank.ten, Rank.queen, Rank.eight },
+		test(new Rank[] { Rank.eight, Rank.ten, Rank.queen, Rank.ace },
 				new Suit[] { Suit.SPADES, Suit.SPADES, Suit.SPADES, Suit.SPADES },
-				Player.PLAYER,
+				Player.LEFT,
 				Player.PLAYER,
 				Suit.DIAMONDS);
+
+		test(new Rank[] { Rank.two, Rank.queen, Rank.seven, Rank.seven },
+				new Suit[] { Suit.DIAMONDS, Suit.DIAMONDS, Suit.CLUBS, Suit.DIAMONDS },
+				Player.RIGHT,
+				Player.PLAYER,
+				Suit.HEARTS);
 	}
 
 	[CleanupAll]

@@ -84,4 +84,15 @@ position = Vector2(960, 540)
 [node name="ScoreBoard" parent="." instance=ExtResource("10_ttpq8")]
 position = Vector2(960, 0)
 
+[node name="ResultLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = 480.0
+offset_top = 448.0
+offset_right = 1446.0
+offset_bottom = 585.0
+theme_override_font_sizes/font_size = 100
+text = "You won X Tricks!"
+uppercase = true
+
 [connection signal="timeout" from="Timer" to="." method="OnTimeout"]
