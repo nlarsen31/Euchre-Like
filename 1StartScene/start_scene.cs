@@ -26,7 +26,7 @@ public partial class start_scene : Node2D
 		}
 #endif
 		// If we don't need to run tests, we can just switch to the game scene.
-		GetTree().ChangeSceneToFile("res://src/start_scene.tscn");
+		// GetTree().ChangeSceneToFile("res://src/start_scene.tscn");
 	}
 
 #if DEBUG

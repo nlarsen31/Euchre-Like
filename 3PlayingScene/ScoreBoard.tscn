@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0cr2855yncbd"]
+
+[ext_resource type="Script" path="res://3PlayingScene/ScoreBoard.cs" id="1_fm1qt"]
+
+[node name="ScoreBoard" type="Node2D"]
+script = ExtResource("1_fm1qt")
+
+[node name="Required" type="Label" parent="."]
+offset_left = -184.0
+offset_right = -24.0
+offset_bottom = 23.0
+text = "Required Tricks: XX"
+
+[node name="TricksWon" type="Label" parent="."]
+offset_left = -16.0
+offset_right = 104.0
+offset_bottom = 23.0
+text = "Tricks won: XX"
+
+[node name="TricksLeft" type="Label" parent="."]
+offset_left = 112.0
+offset_right = 216.0
+offset_bottom = 23.0
+text = "Tricks left: XX"

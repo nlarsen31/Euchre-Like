@@ -11,12 +11,13 @@ using System.Linq;
 
 public partial class Playing : Node2D
 {
+	const int STARTING_REQUIRED_TRICKS = 3;
 	// Scene Phases
 	public Player ActivePlayer = Player.RIGHT;
 	private PlayedCards _PlayedCards;
 	private HandOfCards _HandOfCards;
 	int TrickCount = 0;
-	public CardContainer[] PlayedCards = new CardContainer[4];
+	public CardContainer[] PlayedCardsArr = new CardContainer[4];
 
 	[Export]
 	private PackedScene CardContainer;
@@ -27,6 +28,8 @@ public partial class Playing : Node2D
 	private Timer PlayTimer;
 	Callable _Callable;
 
+	private ScoreBoard _ScoreBoard;
+
 	// Look at Trump ActivePlayer PlayedCards, assume that ActivePlayer+1 was the player that lead.
 	// TODO: Refactor to be a memeber of playedCards...
 	public Player HandEval()
@@ -35,14 +38,14 @@ public partial class Playing : Node2D
 		{
 			Player LeadPlayer = NextPlayer(ActivePlayer);
 			Player winner = LeadPlayer;
-			_PlayedCards.SetPlayedCards(PlayedCards);
-			Suit leadSuit = PlayedCards[(int)NextPlayer(ActivePlayer)].Suit;
+			_PlayedCards.SetPlayedCards(PlayedCardsArr);
+			Suit leadSuit = PlayedCardsArr[(int)NextPlayer(ActivePlayer)].Suit;
 
 			Player CurrentPlayer = NextPlayer(LeadPlayer);
 			for (int i = 0; i < 3; i++)
 			{
-				CardContainer winnerCard = PlayedCards[(int)winner];
-				CardContainer currentCard = PlayedCards[(int)CurrentPlayer];
+				CardContainer winnerCard = PlayedCardsArr[(int)winner];
+				CardContainer currentCard = PlayedCardsArr[(int)CurrentPlayer];
 
 				if (currentCard.Suit == leadSuit || currentCard.Suit == Trump)
 				{
@@ -64,6 +67,10 @@ public partial class Playing : Node2D
 		_PlayedCards = GetNode<PlayedCards>("PlayedCards");
 		_HandOfCards = GetNode<HandOfCards>("HandOfCards");
 		_Callable = new Callable(this, "SelectCardCallback");
+		_ScoreBoard = GetNode<ScoreBoard>("ScoreBoard");
+
+		// Reset scoreboad
+		_ScoreBoard.Reset(STARTING_REQUIRED_TRICKS);
 
 		// Make a set with all the cards
 		HashSet<string> Deck = new HashSet<string>();
@@ -76,6 +83,20 @@ public partial class Playing : Node2D
 			}
 		}
 
+		// Deal cards randomly to each of the 3 players left
+		List<string> cardsLeft = Deck.ToList<string>();
+		RandomizeList<string>(cardsLeft);
+
+		if (CurrentHand == null)
+		{
+			CurrentHand = new List<string>();
+			foreach (string card in Deck)
+			{
+				CurrentHand.Add(card);
+				if (CurrentHand.Count == 13) break;
+			}
+		}
+
 		foreach (string s in CurrentHand)
 		{
 			// GD.Print(s);
@@ -84,9 +105,6 @@ public partial class Playing : Node2D
 			_HandOfCards.addCard(tup.Item1, tup.Item2);
 		}
 
-		// Deal cards randomly to each of the 3 players left
-		List<string> cardsLeft = Deck.ToList<string>();
-		RandomizeList<string>(cardsLeft);
 		// Cards 0-12 are left, 13-25 partner, 26-38 are Right
 		LeftHand.Clear();
 		for (int i = 0; i < 13; i++)
@@ -164,6 +182,7 @@ public partial class Playing : Node2D
 		{
 			Player winner = HandEval();
 			GD.Print("winner is " + PlayerToString[(int)winner]);
+
 		}
 		else
 		{
@@ -175,25 +194,34 @@ public partial class Playing : Node2D
 			else if (ActivePlayer == Player.LEFT)
 			{
 				CardContainer choice = LeftTurn(LeftHand);
-				_PlayedCards.ShowAndSetCard(choice.ToString(), Player.LEFT);
+				// _PlayedCards.ShowAndSetCard(choice.ToString(), Player.LEFT);
+				PlayCard(Player.LEFT, choice.ToString());
 				ActivePlayer = NextPlayer(ActivePlayer);
 				PlayTimer.Start();
 			}
 			else if (ActivePlayer == Player.RIGHT)
 			{
 				CardContainer choice = RightTurn(RightHand);
-				_PlayedCards.ShowAndSetCard(choice.ToString(), Player.RIGHT);
+				// _PlayedCards.ShowAndSetCard(choice.ToString(), Player.RIGHT);
+				PlayCard(Player.RIGHT, choice.ToString());
 				ActivePlayer = NextPlayer(ActivePlayer);
 				PlayTimer.Start();
 			}
 			else if (ActivePlayer == Player.PARTNER)
 			{
 				CardContainer choice = PartnerTurn(PartnerHand);
-				_PlayedCards.ShowAndSetCard(choice.ToString(), Player.PARTNER);
+				// _PlayedCards.ShowAndSetCard(choice.ToString(), Player.PARTNER);
+				PlayCard(Player.PARTNER, choice.ToString());
 				ActivePlayer = NextPlayer(ActivePlayer);
 				PlayTimer.Start();
 			}
 		}
+	}
+
+	public void PlayCard(Player iPlayer, string card)
+	{
+		_PlayedCards.ShowAndSetCard(card, iPlayer);
+		// PlayCard(Player.PLAYER, card);
 	}
 
 	// Each PLayer Functions:

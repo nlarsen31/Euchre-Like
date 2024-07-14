@@ -40,6 +40,7 @@ public partial class HandOfCards : Node2D
 
 	public void DrawHand()
 	{
+		GD.Print("[Enter] DrawHand");
 		_CardsInHand.Sort();
 		int count = 0;
 		foreach (CardContainer card in _CardsInHand)
@@ -57,6 +58,7 @@ public partial class HandOfCards : Node2D
 					idx--;
 					continue;
 				}
+				GD.Print($"Placing {_CardsInHand[idx].ToString()}");
 				_CardsInHand[idx].Position = pos;
 				_CardsInHand[idx].SetAnimation();
 				pos.X -= CARD_WIDTH;
@@ -72,6 +74,7 @@ public partial class HandOfCards : Node2D
 					idx++;
 					continue;
 				}
+				GD.Print($"Placing {_CardsInHand[idx].ToString()}");
 				_CardsInHand[idx].Position = pos;
 				_CardsInHand[idx].SetAnimation();
 				pos.X += CARD_WIDTH;
@@ -117,6 +120,7 @@ public partial class HandOfCards : Node2D
 				idx++;
 			}
 		}
+		GD.Print("[Enter] DrawHand");
 	}
 
 	public int NumberOfCardsInHand()

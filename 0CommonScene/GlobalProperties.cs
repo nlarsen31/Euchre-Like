@@ -5,6 +5,8 @@ using System.Runtime.Serialization;
 
 public partial class GlobalProperties : Node
 {
+	public const int HAND_SIZE = 13;
+
 	public static bool Debugging = true;
 	public enum Suit
 	{

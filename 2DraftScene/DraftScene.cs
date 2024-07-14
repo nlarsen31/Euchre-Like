@@ -68,7 +68,7 @@ public partial class DraftScene : Node2D
 		hand.addCard(tuple.Item1, tuple.Item2);
 
 		// Get 4 new cards.
-		if (hand.NumberOfCardsInHand() <= 12)
+		if (hand.NumberOfCardsInHand() < HAND_SIZE)
 		{
 			DisplayNextCards(4);
 		}

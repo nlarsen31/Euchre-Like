@@ -141,10 +141,15 @@ public class PlayingTests : TestClass
 				Rank = ranks[3],
 				Suit = suits[3]
 			};
-			_playing.PlayedCards[0] = card1;
-			_playing.PlayedCards[1] = card2;
-			_playing.PlayedCards[2] = card3;
-			_playing.PlayedCards[3] = card4;
+			// _playing.PlayedCardsArr[0] = card1;
+			_playing.PlayCard(Player.PLAYER, card1.ToString());
+			// _playing.PlayedCardsArr[1] = card2;
+			_playing.PlayCard(Player.RIGHT, card2.ToString());
+			// _playing.PlayedCardsArr[2] = card3;
+			_playing.PlayCard(Player.PARTNER, card3.ToString());
+			// _playing.PlayedCardsArr[3] = card4;
+			_playing.PlayCard(Player.LEFT, card4.ToString());
+
 			Player activePlayer = leadPlayer;
 			activePlayer = NextPlayer(activePlayer);
 			activePlayer = NextPlayer(activePlayer);
@@ -183,6 +188,13 @@ public class PlayingTests : TestClass
 			  Player.LEFT, // winner
 			  Player.PLAYER,   // lead
 			  Suit.HEARTS);
+
+		// Test from playing game manually
+		test(new Rank[] { Rank.ace, Rank.ten, Rank.king, Rank.seven },
+				new Suit[] { Suit.DIAMONDS, Suit.HEARTS, Suit.HEARTS, Suit.DIAMONDS },
+				Player.PLAYER,
+				Player.PLAYER,
+				Suit.SPADES);
 	}
 
 	[CleanupAll]
@@ -198,7 +210,7 @@ public class PlayingTests : TestClass
 	// Takes a List<string> Load the first 4 elements into the playing.PlayedCards
 	public void LoadPlayedCards(List<string> hand)
 	{
-		foreach (CardContainer card in _playing.PlayedCards)
+		foreach (CardContainer card in _playing.PlayedCardsArr)
 		{
 			if (card != null)
 			{
@@ -213,7 +225,7 @@ public class PlayingTests : TestClass
 			CardContainer cardContainer = new CardContainer();
 			cardContainer.Rank = tup.Item1;
 			cardContainer.Suit = tup.Item2;
-			_playing.PlayedCards[(int)player] = cardContainer;
+			_playing.PlayedCardsArr[(int)player] = cardContainer;
 			player = NextPlayer(player);
 		}
 	}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b0vas17ygq78u"]
+[gd_scene load_steps=11 format=3 uid="uid://b0vas17ygq78u"]
 
 [ext_resource type="Script" path="res://3PlayingScene/Playing.cs" id="1_1576k"]
 [ext_resource type="Texture2D" uid="uid://h0lusuua7idr" path="res://Sprites/Backgrounds/PlayingBackground.png" id="1_sykbu"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://doc2ljysvimuh" path="res://Sprites/Players/PARTNER.png" id="6_pbpgf"]
 [ext_resource type="PackedScene" uid="uid://1weqnld8a74n" path="res://0CommonScene/Chip.tscn" id="8_p1npp"]
 [ext_resource type="PackedScene" uid="uid://cni2sbqar4qot" path="res://3PlayingScene/PlayedCards.tscn" id="9_bxlyg"]
+[ext_resource type="PackedScene" uid="uid://c0cr2855yncbd" path="res://3PlayingScene/ScoreBoard.tscn" id="10_ttpq8"]
 
 [node name="Playing" type="Node2D"]
 script = ExtResource("1_1576k")
@@ -32,7 +33,7 @@ rotation = 1.5708
 texture = ExtResource("5_coscm")
 
 [node name="Partner" type="Sprite2D" parent="."]
-position = Vector2(960, 50)
+position = Vector2(960, 80)
 rotation = 3.14159
 texture = ExtResource("6_pbpgf")
 
@@ -58,9 +59,9 @@ text = "X"
 
 [node name="PartnerLabel" type="Label" parent="."]
 offset_left = 960.0
-offset_top = 100.0
+offset_top = 130.0
 offset_right = 992.0
-offset_bottom = 132.0
+offset_bottom = 162.0
 rotation = 3.14159
 tooltip_text = "Left has X Cards left"
 mouse_filter = 1
@@ -79,5 +80,8 @@ rotation = 1.5708
 
 [node name="PlayedCards" parent="." instance=ExtResource("9_bxlyg")]
 position = Vector2(960, 540)
+
+[node name="ScoreBoard" parent="." instance=ExtResource("10_ttpq8")]
+position = Vector2(960, 0)
 
 [connection signal="timeout" from="Timer" to="." method="OnTimeout"]
