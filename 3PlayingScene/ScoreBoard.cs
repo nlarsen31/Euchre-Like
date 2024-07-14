@@ -12,7 +12,7 @@ public partial class ScoreBoard : Node2D
 	{
 		get
 		{
-			return _tricksLeft;
+			return _tricksWon;
 		}
 		set
 		{

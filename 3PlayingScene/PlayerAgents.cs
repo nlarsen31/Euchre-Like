@@ -6,8 +6,6 @@ using static GlobalMethods;
 
 public class PlayerAgents
 {
-
-
    private static CardContainer PickRandomCard(List<CardContainer> playerHand)
    {
       int randomIdx = randy.Next(0, playerHand.Count);

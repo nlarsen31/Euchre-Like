@@ -51,6 +51,12 @@ public partial class PlayedCards : Node2D
 
 	public void ShowAndSetCard(string card, Player player)
 	{
+
+		static int CountTrue(params bool[] args)
+		{
+			return args.Count(t => t);
+		}
+
 		Tuple<Rank, Suit> cardTup = GetSuitRankFromString(card);
 		CardContainer cardContainer = null;
 		switch (player)
@@ -79,5 +85,21 @@ public partial class PlayedCards : Node2D
 
 		cardContainer.SetAnimation();
 		cardContainer.Visible = true;
+		cardContainer.SetBorderColor("black");
+
+		// If we are the first card played highlight
+		if (CountTrue(playerPlayed, rightPlayed, leftPlayed, partnerPlayed) == 1)
+		{
+			cardContainer.SetBorderColor("yellow");
+		}
+	}
+
+	public void ClearCards()
+	{
+		resetPlayed();
+		playerCard.Visible = false;
+		rightCard.Visible = false;
+		leftCard.Visible = false;
+		partnerCard.Visible = false;
 	}
 }

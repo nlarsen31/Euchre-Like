@@ -83,10 +83,6 @@ public partial class Playing : Node2D
 			}
 		}
 
-		// Deal cards randomly to each of the 3 players left
-		List<string> cardsLeft = Deck.ToList<string>();
-		RandomizeList<string>(cardsLeft);
-
 		if (CurrentHand == null)
 		{
 			CurrentHand = new List<string>();
@@ -97,6 +93,7 @@ public partial class Playing : Node2D
 			}
 		}
 
+		// Remove all of players cards
 		foreach (string s in CurrentHand)
 		{
 			// GD.Print(s);
@@ -104,6 +101,10 @@ public partial class Playing : Node2D
 			Deck.Remove(s);
 			_HandOfCards.addCard(tup.Item1, tup.Item2);
 		}
+
+		// Deal cards randomly to each of the 3 players left
+		List<string> cardsLeft = Deck.ToList<string>();
+		RandomizeList<string>(cardsLeft);
 
 		// Cards 0-12 are left, 13-25 partner, 26-38 are Right
 		LeftHand.Clear();
@@ -142,7 +143,6 @@ public partial class Playing : Node2D
 
 		// Select random player to lead
 		ActivePlayer = (Player)randy.Next(0, 4);
-		ActivePlayer = Player.PLAYER; // Force player to beth active player. for now
 		Chip LeadChip = GetNode<Chip>("LeadChip");
 		LeadChip.SetLeadPosition(ActivePlayer);
 
@@ -182,7 +182,14 @@ public partial class Playing : Node2D
 		{
 			Player winner = HandEval();
 			GD.Print("winner is " + PlayerToString[(int)winner]);
+			if (winner == Player.PLAYER || winner == Player.PARTNER)
+			{
+				_ScoreBoard.TricksWon += 1;
+			}
+			_ScoreBoard.TricksLeft -= 1;
 
+			_PlayedCards.ClearCards();
+			ActivePlayer = winner;
 		}
 		else
 		{
@@ -194,7 +201,7 @@ public partial class Playing : Node2D
 			else if (ActivePlayer == Player.LEFT)
 			{
 				CardContainer choice = LeftTurn(LeftHand);
-				// _PlayedCards.ShowAndSetCard(choice.ToString(), Player.LEFT);
+				LeftHand.Remove(choice);
 				PlayCard(Player.LEFT, choice.ToString());
 				ActivePlayer = NextPlayer(ActivePlayer);
 				PlayTimer.Start();
@@ -202,7 +209,7 @@ public partial class Playing : Node2D
 			else if (ActivePlayer == Player.RIGHT)
 			{
 				CardContainer choice = RightTurn(RightHand);
-				// _PlayedCards.ShowAndSetCard(choice.ToString(), Player.RIGHT);
+				RightHand.Remove(choice);
 				PlayCard(Player.RIGHT, choice.ToString());
 				ActivePlayer = NextPlayer(ActivePlayer);
 				PlayTimer.Start();
@@ -210,7 +217,7 @@ public partial class Playing : Node2D
 			else if (ActivePlayer == Player.PARTNER)
 			{
 				CardContainer choice = PartnerTurn(PartnerHand);
-				// _PlayedCards.ShowAndSetCard(choice.ToString(), Player.PARTNER);
+				PartnerHand.Remove(choice);
 				PlayCard(Player.PARTNER, choice.ToString());
 				ActivePlayer = NextPlayer(ActivePlayer);
 				PlayTimer.Start();
