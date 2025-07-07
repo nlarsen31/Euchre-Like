@@ -1,6 +1,6 @@
 [gd_scene load_steps=60 format=3 uid="uid://d3mg2ge0vndwe"]
 
-[ext_resource type="Script" path="res://0CommonScene/CardContainer.cs" id="1_66f7c"]
+[ext_resource type="Script" uid="uid://fq4s8o107xvc" path="res://0CommonScene/CardContainer.cs" id="1_66f7c"]
 [ext_resource type="Texture2D" uid="uid://cggu4yke4v7up" path="res://Sprites/Cards/10_clubs.png" id="1_hokoa"]
 [ext_resource type="Texture2D" uid="uid://11lesivo8un1" path="res://Sprites/Cards/2_clubs.png" id="1_j5jjd"]
 [ext_resource type="Texture2D" uid="uid://bfxwttifx2qq6" path="res://Sprites/Cards/10_diamonds.png" id="2_asqrb"]

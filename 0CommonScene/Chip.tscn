@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://1weqnld8a74n"]
 
 [ext_resource type="Texture2D" uid="uid://ceynfp21q6kc3" path="res://Sprites/Tokens/MadeItClubs.png" id="1_37q2g"]
-[ext_resource type="Script" path="res://0CommonScene/Chip.cs" id="1_s5q2w"]
+[ext_resource type="Script" uid="uid://blic65wya8cyr" path="res://0CommonScene/Chip.cs" id="1_s5q2w"]
 [ext_resource type="Texture2D" uid="uid://dd5nofj6545rb" path="res://Sprites/Tokens/DealerChip.png" id="2_quhpw"]
 [ext_resource type="Texture2D" uid="uid://cmxx3gufttepj" path="res://Sprites/Tokens/MadeItDiamonds.png" id="3_hxx0y"]
 [ext_resource type="Texture2D" uid="uid://0wlbgkme1rrx" path="res://Sprites/Tokens/MadeItHearts.png" id="4_6k0if"]

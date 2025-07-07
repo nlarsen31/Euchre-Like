@@ -141,8 +141,7 @@
    "omnisharp.enableEditorConfigSupport": true,
    "omnisharp.enableMsBuildLoadProjectsOnDemand": false,
    "omnisharp.enableRoslynAnalyzers": true,
-   "omnisharp.maxFindSymbolsItems": 3000,
-   "omnisharp.organizeImportsOnFormat": true,
+  "omnisharp.maxFindSymbolsItems": 3000,
    "omnisharp.useModernNet": true,
    // Remove these if you're happy with your terminal profiles.
    "terminal.integrated.defaultProfile.windows": "Git Bash",
@@ -170,6 +169,7 @@
     "Eurchelike",
     "Shouldly",
     "tscn"
-  ]
+  ],
+  "dotnet.formatting.organizeImportsOnFormat": true
  }
  

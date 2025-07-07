@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c0cr2855yncbd"]
 
-[ext_resource type="Script" path="res://3PlayingScene/ScoreBoard.cs" id="1_fm1qt"]
+[ext_resource type="Script" uid="uid://dg82shx1rk00d" path="res://3PlayingScene/ScoreBoard.cs" id="1_fm1qt"]
 
 [node name="ScoreBoard" type="Node2D"]
 script = ExtResource("1_fm1qt")

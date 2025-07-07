@@ -1,6 +1,6 @@
-<Project Sdk="Godot.NET.Sdk/4.2.2">
+<Project Sdk="Godot.NET.Sdk/4.4.1">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
@@ -13,17 +13,5 @@
     </DefaultItemExcludes>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Debug' or '$(Configuration)' == 'ExportDebug' ">
-    <!-- Test dependencies go here! -->
-    <!-- Dependencies added here will not be included in release builds. -->
-    <PackageReference Include="Chickensoft.GoDotTest" Version="1.5.3" />
-    <!-- Used to drive test scenes when testing visual code -->
-    <PackageReference Include="GodotTestDriver" Version="2.1.0" />
-    <!-- Bring your own assertion library for tests! -->
-    <!-- We're using Shouldly for this example, but you can use anything. -->
-    <PackageReference Include="Shouldly" Version="4.2.1" />
-    <!-- LightMock is a mocking library that works without reflection. -->
-    <PackageReference Include="LightMock.Generator" Version="1.2.2" />
-    <!-- LightMoq is a Chickensoft package which makes it more like Moq. -->
-    <PackageReference Include="LightMoq" Version="0.1.0" />
   </ItemGroup>
 </Project>

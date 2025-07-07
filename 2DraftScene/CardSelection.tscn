@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://tvmx32x1we1a"]
 
-[ext_resource type="Script" path="res://2DraftScene/CardSelection.cs" id="1_m7xhb"]
+[ext_resource type="Script" uid="uid://by4ltemwmtupr" path="res://2DraftScene/CardSelection.cs" id="1_m7xhb"]
 [ext_resource type="PackedScene" uid="uid://d3mg2ge0vndwe" path="res://0CommonScene/CardContainer.tscn" id="2_dnap4"]
 [ext_resource type="Texture2D" uid="uid://b5nx54o72d4qk" path="res://Sprites/Backgrounds/EuchreHand.png" id="2_jsxab"]
 

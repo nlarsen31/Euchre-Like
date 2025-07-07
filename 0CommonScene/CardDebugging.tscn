@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://4tyh32fyvgmm"]
 
-[ext_resource type="Script" path="res://0CommonScene/CardDebugging.cs" id="1_573oc"]
+[ext_resource type="Script" uid="uid://djht4uei56vi4" path="res://0CommonScene/CardDebugging.cs" id="1_573oc"]
 [ext_resource type="PackedScene" uid="uid://d3mg2ge0vndwe" path="res://0CommonScene/CardContainer.tscn" id="2_vicwr"]
 [ext_resource type="PackedScene" uid="uid://cwe3p6h2qkjkh" path="res://0CommonScene/HandOfCards.tscn" id="3_uwf5h"]
 

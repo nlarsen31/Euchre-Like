@@ -1,14 +1,15 @@
-using Godot;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Net.Security;
 using System.Reflection.Metadata.Ecma335;
+using Godot;
 using static GlobalProperties;
 
 public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 {
 	// Signals
+
 	[Signal]
 	public delegate void CardSelectedEventHandler();
 
@@ -93,6 +94,7 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 		}
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
+
 	public override void _Process(double delta)
 	{
 	}
@@ -139,6 +141,7 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 			{
 				string param = this.ToString();
 				// GD.Print($"{SuitToString[(int)this.Suit]}_{RankToString[(int)this.Rank]} was clicked");
+
 				EmitSignal(SignalName.CardSelected, param);
 			}
 		}
@@ -157,6 +160,7 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 	public int CompareTo(CardContainer other)
 	{
 		// 14 to contain left in the suits
+
 		int suitFactor = (int)Suit * 15;
 		int rankOffset = (int)Rank;
 		if (this.IsLeft) rankOffset = 13;
@@ -175,6 +179,7 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 
 	// comparison operators DOES NOT consider what suit is lead.
 	// Comparison operators DO consider what suit is trump
+
 	public static bool operator <(CardContainer card1, CardContainer card2)
 	{
 		if (card1.Suit == Trump && card2.Suit != Trump)
@@ -190,6 +195,7 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 			else if (card1.Rank == Rank.jack && card2.Rank == Rank.jack)
 				return card2.IsRight; // If card2 is right, < is true
 			else // Neither are jacks
+
 				return card1.Rank < card2.Rank;
 		}
 		else if (card1.Suit != Trump && card2.Suit != Trump)

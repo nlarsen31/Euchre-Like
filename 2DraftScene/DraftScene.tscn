@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b7fialuujqovd"]
 
 [ext_resource type="Texture2D" uid="uid://djqpomyy7b1go" path="res://Sprites/Backgrounds/EuchreDraftBackground.png" id="1_a57vp"]
-[ext_resource type="Script" path="res://2DraftScene/DraftScene.cs" id="1_u81px"]
+[ext_resource type="Script" uid="uid://cxa80fk4y87q4" path="res://2DraftScene/DraftScene.cs" id="1_u81px"]
 [ext_resource type="PackedScene" uid="uid://tvmx32x1we1a" path="res://2DraftScene/CardSelection.tscn" id="2_btkq3"]
 [ext_resource type="PackedScene" uid="uid://d3mg2ge0vndwe" path="res://0CommonScene/CardContainer.tscn" id="4_768jw"]
 [ext_resource type="PackedScene" uid="uid://cwe3p6h2qkjkh" path="res://0CommonScene/HandOfCards.tscn" id="5_at5a5"]

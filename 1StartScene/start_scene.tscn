@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bmg4y8a1ebk78"]
 
-[ext_resource type="Script" path="res://1StartScene/start_scene.cs" id="1_4dim4"]
+[ext_resource type="Script" uid="uid://d0p37p4r4s1fb" path="res://1StartScene/start_scene.cs" id="1_4dim4"]
 [ext_resource type="Texture2D" uid="uid://boadyaek04xxu" path="res://Sprites/Backgrounds/EuchreStartScreen.png" id="2_wf0cw"]
 [ext_resource type="PackedScene" uid="uid://d3mg2ge0vndwe" path="res://0CommonScene/CardContainer.tscn" id="3_8fexx"]
 
