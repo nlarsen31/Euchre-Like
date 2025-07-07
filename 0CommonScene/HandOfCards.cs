@@ -1,14 +1,15 @@
-using Godot;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Security;
 using System.Xml;
+using Godot;
 using static GlobalProperties;
 
 public partial class HandOfCards : Node2D
 {
 	// exports
+
 	[Export]
 	private PackedScene CardContainer;
 
@@ -29,6 +30,7 @@ public partial class HandOfCards : Node2D
 	}
 
 	// Called when the node enters the scene tree for the first time.
+
 	public override void _Ready()
 	{
 		_CardsInHand = new List<CardContainer>();
@@ -36,6 +38,7 @@ public partial class HandOfCards : Node2D
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
+
 	public override void _Process(double delta)
 	{
 	}
@@ -51,6 +54,19 @@ public partial class HandOfCards : Node2D
 		DrawHand();
 	}
 
+	public void clearCards()
+	{
+		foreach (CardContainer card in _CardsInHand)
+		{
+			if (card != null)
+			{
+				card.Visible = false;
+				card.QueueFree();
+			}
+		}
+		_CardsInHand.Clear();
+	}
+
 	public void DrawHand()
 	{
 		if (Debugging) GD.Print("[Enter] DrawHand");
@@ -58,6 +74,7 @@ public partial class HandOfCards : Node2D
 		int numberOfVisibleCards = NumberOfCardsLeftToPlay;
 
 		// Add halfWidth if we are an odd number of cards.
+
 		int xStart;
 		if (numberOfVisibleCards % 2 == 0)
 			xStart = (numberOfVisibleCards - 1) * CARD_WIDTH / 2;

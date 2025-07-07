@@ -1,18 +1,18 @@
 namespace Eurchelike;
 
-using Godot;
 using System;
-
-using static GlobalProperties;
-using static GlobalMethods;
-using static PlayerAgents;
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
+using static GlobalMethods;
+using static GlobalProperties;
+using static PlayerAgents;
 
 public partial class Playing : Node2D
 {
 	const int STARTING_REQUIRED_TRICKS = 3;
 	// Scene Phases
+
 	public Player ActivePlayer = Player.RIGHT;
 	private PlayedCards _PlayedCards;
 	private HandOfCards _HandOfCards;
@@ -32,6 +32,7 @@ public partial class Playing : Node2D
 
 	// Look at Trump ActivePlayer PlayedCards, assume that ActivePlayer+1 was the player that lead.
 	// TODO: Refactor to be a memeber of playedCards...
+
 	public Player HandEval()
 	{
 		Player winner = Player.UNDEFINED;
@@ -71,19 +72,12 @@ public partial class Playing : Node2D
 		return winner;
 	}
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+	// Set up Player hands
+	public void SetupPlayersHands()
 	{
-		PlayTimer = GetNode<Timer>("%Timer");
-		_PlayedCards = GetNode<PlayedCards>("PlayedCards");
-		_HandOfCards = GetNode<HandOfCards>("HandOfCards");
-		_Callable = new Callable(this, "SelectCardCallback");
-		_ScoreBoard = GetNode<ScoreBoard>("ScoreBoard");
-
-		// Reset scoreboad
-		_ScoreBoard.Reset(STARTING_REQUIRED_TRICKS);
-
 		// Make a set with all the cards
+		_HandOfCards.clearCards();
+
 		HashSet<string> Deck = new HashSet<string>();
 		foreach (Rank rank in GetAllRanks())
 		{
@@ -105,19 +99,23 @@ public partial class Playing : Node2D
 		}
 
 		// Remove all of players cards
+
 		foreach (string s in CurrentHand)
 		{
 			// GD.Print(s);
+
 			Tuple<Rank, Suit> tup = GetSuitRankFromString(s);
 			Deck.Remove(s);
 			_HandOfCards.addCard(tup.Item1, tup.Item2);
 		}
 
 		// Deal cards randomly to each of the 3 players left
+
 		List<string> cardsLeft = Deck.ToList<string>();
 		RandomizeList<string>(cardsLeft);
 
 		// Cards 0-12 are left, 13-25 partner, 26-38 are Right
+
 		LeftHand.Clear();
 		for (int i = 0; i < 13; i++)
 		{
@@ -148,21 +146,39 @@ public partial class Playing : Node2D
 		SetHandCountLabels();
 
 		// randomly select trump
+
 		Chip TrumpChip = GetNode<Chip>("TrumpChip");
 		Trump = (Suit)randy.Next(0, 4);
 		TrumpChip.SetAnimation(Trump);
 
 		// Select random player to lead
+
 		ActivePlayer = (Player)randy.Next(0, 4);
 		ActivePlayer = Player.PLAYER;
 		Chip LeadChip = GetNode<Chip>("LeadChip");
 		LeadChip.SetLeadPosition(ActivePlayer);
 		_HandOfCards.DrawHand();
+	}
+
+
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+		PlayTimer = GetNode<Timer>("%Timer");
+		_PlayedCards = GetNode<PlayedCards>("PlayedCards");
+		_HandOfCards = GetNode<HandOfCards>("HandOfCards");
+		_Callable = new Callable(this, "SelectCardCallback");
+		_ScoreBoard = GetNode<ScoreBoard>("ScoreBoard");
+
+		SetupPlayersHands();
+		// Reset scoreboad
+		_ScoreBoard.Reset(STARTING_REQUIRED_TRICKS);
 
 		PlayTimer.Start();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
+
 	public override void _Process(double delta)
 	{
 	}
@@ -186,10 +202,24 @@ public partial class Playing : Node2D
 
 	}
 
+	// Check if player has won the required number of tricks.
+
+	public bool CheckTrickRequirement()
+	{
+		if (_ScoreBoard.TricksWon >= _ScoreBoard.TricksRequired)
+		{
+			return true;
+		}
+		return false;
+	}
 
 	// Play Turn Functions
+
 	public void PlayTurn()
 	{
+		Label resultLabel = GetNode<Label>("ResultLabel");
+		resultLabel.Visible = false;
+		_PlayedCards.Visible = true;
 		PlayTimer.Stop();
 		if (_PlayedCards.HaveAllPlayersPlayed)
 		{
@@ -200,6 +230,15 @@ public partial class Playing : Node2D
 				_ScoreBoard.TricksWon += 1;
 			}
 			_ScoreBoard.TricksLeft -= 1;
+
+			if (CheckTrickRequirement())
+			{
+				resultLabel.Text = $"You won {_ScoreBoard.TricksWon} Tricks!";
+				resultLabel.Visible = true;
+				_PlayedCards.Visible = false;
+				SetupPlayersHands();
+				_ScoreBoard.Reset(_ScoreBoard.TricksRequired + 2);
+			}
 
 			_PlayedCards.ClearCards();
 			ActivePlayer = winner;
@@ -247,6 +286,7 @@ public partial class Playing : Node2D
 	}
 
 	// Each PLayer Functions:
+
 	public void PlayerTurn()
 	{
 		_HandOfCards.ConnectVisibleCards(_Callable, _PlayedCards.GetLeadSuit());
@@ -265,6 +305,7 @@ public partial class Playing : Node2D
 
 
 	// Connected functions.
+
 	public void OnTimeout()
 	{
 		PlayTimer.Stop();

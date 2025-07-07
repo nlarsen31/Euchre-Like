@@ -69,6 +69,7 @@ text = "X"
 
 [node name="Timer" type="Timer" parent="."]
 unique_name_in_owner = true
+wait_time = 0.5
 one_shot = true
 
 [node name="TrumpChip" parent="." instance=ExtResource("8_p1npp")]

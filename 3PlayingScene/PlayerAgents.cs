@@ -1,7 +1,7 @@
-using Godot;
 using System.Collections.Generic;
-using static GlobalProperties;
+using Godot;
 using static GlobalMethods;
+using static GlobalProperties;
 
 
 public class PlayerAgents
@@ -37,13 +37,15 @@ public class PlayerAgents
    public static CardContainer RightTurn(List<CardContainer> rightHand, Suit iLead)
    {
       if (Debugging) GD.Print("[Enter] RightTurn");
+      // List<CardContainer> playable = GetPlayableCards(rightHand, iLead);
+      // playable.Sort();
+      // CardContainer choice = playable[0];
+
+      // foreach (CardContainer card in playable)
+      //    if (card > choice) choice = card;
+
       List<CardContainer> playable = GetPlayableCards(rightHand, iLead);
-      playable.Sort();
-      CardContainer choice = playable[0];
-
-      foreach (CardContainer card in playable)
-         if (card > choice) choice = card;
-
+      CardContainer choice = PickRandomCard(playable);
       if (Debugging) GD.Print("[Leave] RightTurn");
       return choice;
    }
@@ -51,11 +53,13 @@ public class PlayerAgents
    public static CardContainer LeftTurn(List<CardContainer> leftHand, Suit iLead)
    {
       if (Debugging) GD.Print("[Enter] LeftTurn");
+      // List<CardContainer> playable = GetPlayableCards(leftHand, iLead);
+      // playable.Sort();
+      // CardContainer choice = playable[0];
+      // foreach (CardContainer card in playable)
+      //    if (card < choice) choice = card;
       List<CardContainer> playable = GetPlayableCards(leftHand, iLead);
-      playable.Sort();
-      CardContainer choice = playable[0];
-      foreach (CardContainer card in playable)
-         if (card < choice) choice = card;
+      CardContainer choice = PickRandomCard(playable);
       if (Debugging) GD.Print("[Leave] LeftTurn");
       return choice;
    }
