@@ -13,7 +13,7 @@ public partial class HandOfCards : Node2D
 	[Export]
 	private PackedScene CardContainer;
 
-	private const int MAX_HAND_SIZE = 18;
+	private const int MAX_HAND_SIZE = 13;
 
 	private List<CardContainer> _CardsInHand;
 	private List<CardContainer> _ConnectedCards;
@@ -37,8 +37,22 @@ public partial class HandOfCards : Node2D
 		_ConnectedCards = new List<CardContainer>();
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public void addRandomHand()
+	{
+		if (Debugging) GD.Print("[Enter] addRandomHand");
+		clearCards();
+		Random random = new Random();
+		for (int i = 0; i < MAX_HAND_SIZE; i++)
+		{
+			int rank = random.Next(0, 13);
+			int suit = random.Next(0, 4);
+			addCard((Rank)rank, (Suit)suit);
+		}
+		DrawHand();
+		if (Debugging) GD.Print("[Leave] addRandomHand");
+	}
 
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 	}

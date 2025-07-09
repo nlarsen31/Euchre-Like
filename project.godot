@@ -37,6 +37,7 @@ folder_colors={
 "res://1StartScene/": "purple",
 "res://2DraftScene/": "red",
 "res://3PlayingScene/": "purple",
+"res://4UpgradeScene/": "red",
 "res://Sprites/": "purple",
 "res://Sprites/Backgrounds/": "red",
 "res://Sprites/Players/": "red"
