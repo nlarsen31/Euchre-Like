@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Collections;
+using static GlobalProperties;
 
 public partial class Upgrade : Node2D
 {
@@ -12,25 +13,8 @@ public partial class Upgrade : Node2D
     // Member declarations
     private HandOfCards _HandOfCards;
     private UpgradeSelection _UpgradeSelection;
+    private UpgradeType[] _upgrades = new UpgradeType[3];
 
-    public enum Rarity
-    {
-        Common,
-        Uncommon,
-        Rare
-    }
-    public enum UpgradeType
-    {
-        Strength,
-        ChangeHearts,
-        ChangeDiamonds,
-        ChangeClubs,
-        ChangeSpades,
-        ChangeToJack,
-        NoJackToTrump,
-        ChangeToLeftBower,
-        ChangeToRightBower
-    }
     private Dictionary<Rarity, List<UpgradeType>> _upgradeChangeMap = new Dictionary<Rarity, List<UpgradeType>>()
     {
         { Rarity.Common, new List<UpgradeType>
@@ -55,21 +39,6 @@ public partial class Upgrade : Node2D
             }
         }
     };
-    private Dictionary<UpgradeType, string> _upgradeToString = new Dictionary<UpgradeType, string>()
-    {
-        { UpgradeType.Strength, "Strength" },
-        { UpgradeType.ChangeHearts, "Change Hearts" },
-        { UpgradeType.ChangeDiamonds, "Change Diamonds" },
-        { UpgradeType.ChangeClubs, "Change Clubs" },
-        { UpgradeType.ChangeSpades, "Change Spades" },
-        { UpgradeType.ChangeToJack, "Change to Jack" },
-        { UpgradeType.NoJackToTrump, "No Jack to Trump" },
-        { UpgradeType.ChangeToLeftBower, "Change to Left Bower" },
-        { UpgradeType.ChangeToRightBower, "Change to Right Bower" }
-    };
-
-
-
 
     public override void _Ready()
     {
@@ -101,11 +70,21 @@ public partial class Upgrade : Node2D
 
             int upgradeIdx = random.Next(0, _upgradeChangeMap[rarity].Count);
             UpgradeType upgrade = _upgradeChangeMap[rarity][upgradeIdx];
-            string upgradeString = _upgradeToString[upgrade];
-            _UpgradeSelection.SetUnusedUpgrade(upgradeString);
+            string upgradeString = UpgradeToString[upgrade];
+            _UpgradeSelection.SetUnusedUpgrade(upgradeString, upgrade);
 
             _upgradeChangeMap[rarity].RemoveAt(upgradeIdx);
+            _upgrades[i] = upgrade;
         }
 
+        _UpgradeSelection.Connect("UpgradeSelected", new Callable(this, "UpgradeSelectedCallback"));
+    }
+
+    public void UpgradeSelectedCallback(int UpgradeType)
+    {
+        // Handle the upgrade selection
+        // TODO: Store the selected upgrade and prompt user to pick a card to upgrade
+        UpgradeType upgrade = (UpgradeType)UpgradeType;
+        GD.Print("Upgrade selected: " + UpgradeToString[upgrade]);
     }
 }

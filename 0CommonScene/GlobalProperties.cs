@@ -98,6 +98,37 @@ public partial class GlobalProperties : Node
 		return arr;
 	}
 
+    public enum UpgradeType
+    {
+        Strength,
+        ChangeHearts,
+        ChangeDiamonds,
+        ChangeClubs,
+        ChangeSpades,
+        ChangeToJack,
+        NoJackToTrump,
+        ChangeToLeftBower,
+        ChangeToRightBower
+    }
+    public static Dictionary<UpgradeType, string> UpgradeToString = new Dictionary<UpgradeType, string>()
+    {
+        { UpgradeType.Strength, "Strength" },
+        { UpgradeType.ChangeHearts, "Change Hearts" },
+        { UpgradeType.ChangeDiamonds, "Change Diamonds" },
+        { UpgradeType.ChangeClubs, "Change Clubs" },
+        { UpgradeType.ChangeSpades, "Change Spades" },
+        { UpgradeType.ChangeToJack, "Change to Jack" },
+        { UpgradeType.NoJackToTrump, "No Jack to Trump" },
+        { UpgradeType.ChangeToLeftBower, "Change to Left Bower" },
+        { UpgradeType.ChangeToRightBower, "Change to Right Bower" }
+    };
+    public enum Rarity
+    {
+        Common,
+        Uncommon,
+        Rare
+    }
+
 	// Game state Variables
 	public static Phase GlobalGamePhase;
 	public static List<string> CurrentHand;

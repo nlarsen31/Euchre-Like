@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Collections;
+using static GlobalProperties;
 
 public partial class UpgradeSelection : Node2D
 {
@@ -9,6 +10,16 @@ public partial class UpgradeSelection : Node2D
     // Member declarations
     private int _upgradeIndex;
     private List<Button> _UpgradeButtons;
+    private UpgradeType[] _RandomGeneratedUpgrades = new UpgradeType[3]
+    {
+        UpgradeType.Strength,
+        UpgradeType.ChangeHearts,
+        UpgradeType.ChangeDiamonds
+    };
+
+    // Signals going to other scenes
+    [Signal]
+    public delegate void UpgradeSelectedEventHandler();
 
     public override void _Ready()
     {
@@ -19,12 +30,13 @@ public partial class UpgradeSelection : Node2D
         _upgradeIndex = 0;
     }
 
-    public void SetUnusedUpgrade(string upgrade)
+    public void SetUnusedUpgrade(string upgrade, UpgradeType upgradeType)
     {
         if (_upgradeIndex < _UpgradeButtons.Count)
         {
             _UpgradeButtons[_upgradeIndex].Text = upgrade;
             _UpgradeButtons[_upgradeIndex].Visible = true;
+            _RandomGeneratedUpgrades[_upgradeIndex] = upgradeType;
             _upgradeIndex++;
         }
         else
@@ -33,10 +45,18 @@ public partial class UpgradeSelection : Node2D
         }
     }
 
-    
     public void OnUpgradeSelected(int bind)
     {
-        GD.Print("Upgrade selected: " + bind);
-    }
+        GD.Print("Upgrade pressed: " + bind);
 
+        for (int i = 0; i < _UpgradeButtons.Count; i++)
+        {
+            if (i != bind)
+                _UpgradeButtons[i].Visible = false;
+            else
+            {
+                EmitSignal(SignalName.UpgradeSelected, (int)_RandomGeneratedUpgrades[i]);
+            }
+        }
+    }
 }
