@@ -27,6 +27,7 @@ public partial class Playing : Node2D
 	private List<CardContainer> PartnerHand = new List<CardContainer>();
 	private Timer PlayTimer;
 	private Timer _PlayFinishedTimer;
+	private Timer _HandFinishedTimer;
 	Callable _Callable;
 
 	private ScoreBoard _ScoreBoard;
@@ -167,6 +168,7 @@ public partial class Playing : Node2D
 	{
 		PlayTimer = GetNode<Timer>("%Timer");
 		_PlayFinishedTimer = GetNode<Timer>("PlayFinishedTimer");
+		_HandFinishedTimer = GetNode<Timer>("HandFinishedTimer");
 		_PlayedCards = GetNode<PlayedCards>("PlayedCards");
 		_HandOfCards = GetNode<HandOfCards>("HandOfCards");
 		_Callable = new Callable(this, "SelectCardCallback");
@@ -244,9 +246,10 @@ public partial class Playing : Node2D
 			}
 			else
 			{
-				_PlayedCards.ClearCards();
 				ActivePlayer = winner;
-				PlayTimer.Start();
+				resultLabel.Visible = true;
+				resultLabel.Text = $"{PlayerToString[(int)winner]} won the trick!";
+				_HandFinishedTimer.Start();
 			}
 
 		}
@@ -332,5 +335,14 @@ public partial class Playing : Node2D
 		_PlayFinishedTimer.Stop();
 		CurrentHand = _HandOfCards.ExportHand();
 		GetTree().ChangeSceneToFile("res://4UpgradeScene/Upgrade.tscn");
+	}
+
+	public void OnHandFinishedTimeout()
+	{
+		Label resultLabel = GetNode<Label>("ResultLabel");
+		_HandFinishedTimer.Stop();
+		_PlayedCards.ClearCards();
+		resultLabel.Visible = false;
+		PlayTimer.Start();
 	}
 }

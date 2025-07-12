@@ -28,3 +28,4 @@ Current State:
 
 # July 11 
 * Add Transition from Playing to Upgrade
+* Add a Label for each hand
