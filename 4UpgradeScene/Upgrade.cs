@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using static GlobalProperties;
+using static GlobalMethods;
 
 public partial class Upgrade : Node2D
 {
@@ -44,7 +45,18 @@ public partial class Upgrade : Node2D
     {
         // Member variables
 		_HandOfCards = GetNode<HandOfCards>("HandOfCards");
-        _HandOfCards.addRandomHand();
+        if (CurrentHand == null)
+        {
+            _HandOfCards.addRandomHand();
+        }
+        else
+        {
+            foreach (string s in CurrentHand)
+            {
+                Tuple<Rank, Suit> tup = GetSuitRankFromString(s);
+                _HandOfCards.addCard(tup.Item1, tup.Item2);
+            }
+        }
         _HandOfCards.DrawHand();
         _UpgradeSelection = GetNode<UpgradeSelection>("UpgradeSelection");
 

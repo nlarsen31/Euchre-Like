@@ -25,3 +25,6 @@ Current State:
 * Play one round
 * Revert PC to select random card to play that is legal
 * Once required tricks are won, up requirement by 2 and restart
+
+# July 11 
+* Add Transition from Playing to Upgrade

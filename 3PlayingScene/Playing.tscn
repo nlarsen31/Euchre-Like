@@ -96,4 +96,8 @@ theme_override_font_sizes/font_size = 100
 text = "You won X Tricks!"
 uppercase = true
 
+[node name="PlayFinishedTimer" type="Timer" parent="."]
+wait_time = 3.0
+
 [connection signal="timeout" from="Timer" to="." method="OnTimeout"]
+[connection signal="timeout" from="PlayFinishedTimer" to="." method="OnPlayFinishedTimeout"]
