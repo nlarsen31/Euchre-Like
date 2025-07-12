@@ -98,5 +98,13 @@ public partial class Upgrade : Node2D
         // TODO: Store the selected upgrade and prompt user to pick a card to upgrade
         UpgradeType upgrade = (UpgradeType)UpgradeType;
         GD.Print("Upgrade selected: " + UpgradeToString[upgrade]);
+        Callable callable = new Callable(this, "CardSelectedCallback");
+        _HandOfCards.ConnectVisibleCards(callable, upgrade);
+        _UpgradeSelection.DisableButtons();
+    }
+
+    public void CardSelectedCallback(string cardName)
+    {
+        
     }
 }

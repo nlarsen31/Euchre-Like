@@ -59,4 +59,12 @@ public partial class UpgradeSelection : Node2D
             }
         }
     }
+
+    public void DisableButtons()
+    {
+        foreach (Button button in _UpgradeButtons)
+        {
+            button.Disabled = true;
+        }
+    }
 }

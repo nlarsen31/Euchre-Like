@@ -127,6 +127,16 @@ public partial class HandOfCards : Node2D
 		return list;
 	}
 
+	public void ConnectVisibleCards(Callable method, UpgradeType upgradeType)
+	{
+		foreach (CardContainer cardContainer in _CardsInHand)
+		{
+			cardContainer.Connect("CardSelected", method);
+			cardContainer.Selectable = true;
+			_ConnectedCards.Add(cardContainer);
+		}
+	}
+
 	public void ConnectVisibleCards(Callable method, Suit iLead)
 	{
 		bool voidInSuit = true;
