@@ -59,7 +59,6 @@ public partial class GlobalProperties : Node
 
 	public const int CARD_WIDTH = 96;
 	public const int CARD_HEIGHT = 128;
-	public static Suit Trump = Suit.UNASSIGNED;
 	public enum Phase
 	{
 		loading,
@@ -132,6 +131,8 @@ public partial class GlobalProperties : Node
 	// Game state Variables
 	public static Phase GlobalGamePhase;
 	public static List<string> CurrentHand;
+	public static int RequiredTricks = 3;
+	public static Suit CurrentTrump = Suit.UNASSIGNED;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

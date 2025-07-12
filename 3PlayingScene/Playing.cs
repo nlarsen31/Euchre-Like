@@ -10,7 +10,6 @@ using static PlayerAgents;
 
 public partial class Playing : Node2D
 {
-	const int STARTING_REQUIRED_TRICKS = 3;
 	// Scene Phases
 
 	public Player ActivePlayer = Player.RIGHT;
@@ -42,7 +41,7 @@ public partial class Playing : Node2D
 		{
 			GD.Print("[Enter] HandEval()");
 			GD.Print("LeadSuit: " + SuitToString[(int)_PlayedCards.GetLeadSuit()]);
-			GD.Print("Trump: " + SuitToString[(int)Trump]);
+			GD.Print("Trump: " + SuitToString[(int)CurrentTrump]);
 			_PlayedCards.PrintCards();
 		}
 		if (_PlayedCards.HaveAllPlayersPlayed)
@@ -58,7 +57,7 @@ public partial class Playing : Node2D
 				CardContainer winnerCard = PlayedCardsArr[(int)winner];
 				CardContainer currentCard = PlayedCardsArr[(int)CurrentPlayer];
 
-				if (currentCard.Suit == leadSuit || currentCard.Suit == Trump)
+				if (currentCard.Suit == leadSuit || currentCard.Suit == CurrentTrump)
 				{
 					if (currentCard > winnerCard)
 						winner = CurrentPlayer;
@@ -147,11 +146,12 @@ public partial class Playing : Node2D
 		}
 		SetHandCountLabels();
 
-		// randomly select trump
+		// randomly select CurrentTrump
 
 		Chip TrumpChip = GetNode<Chip>("TrumpChip");
-		Trump = (Suit)randy.Next(0, 4);
-		TrumpChip.SetAnimation(Trump);
+		if (CurrentTrump == Suit.UNASSIGNED)
+			CurrentTrump = (Suit)randy.Next(0, 4);
+		TrumpChip.SetAnimation(CurrentTrump);
 
 		// Select random player to lead
 
@@ -176,7 +176,7 @@ public partial class Playing : Node2D
 
 		SetupPlayersHands();
 		// Reset scoreboad
-		_ScoreBoard.Reset(STARTING_REQUIRED_TRICKS);
+		_ScoreBoard.Reset(RequiredTricks);
 
 		PlayTimer.Start();
 	}

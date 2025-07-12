@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://byy4q2nn22l71"]
+[gd_scene load_steps=7 format=3 uid="uid://byy4q2nn22l71"]
 
 [ext_resource type="Texture2D" uid="uid://h0lusuua7idr" path="res://Sprites/Backgrounds/PlayingBackground.png" id="1_3u0ni"]
 [ext_resource type="Script" uid="uid://bthbym57k6fqs" path="res://4UpgradeScene/Upgrade.cs" id="1_oddox"]
 [ext_resource type="PackedScene" uid="uid://d3mg2ge0vndwe" path="res://0CommonScene/CardContainer.tscn" id="2_76xvp"]
 [ext_resource type="PackedScene" uid="uid://cwe3p6h2qkjkh" path="res://0CommonScene/HandOfCards.tscn" id="2_oddox"]
 [ext_resource type="PackedScene" uid="uid://ccn44abr8xkui" path="res://4UpgradeScene/UpgradeSelection.tscn" id="3_76xvp"]
+[ext_resource type="PackedScene" uid="uid://1weqnld8a74n" path="res://0CommonScene/Chip.tscn" id="6_to3go"]
 
 [node name="Upgrade" type="Node2D"]
 script = ExtResource("1_oddox")
@@ -19,3 +20,19 @@ position = Vector2(960, 936)
 
 [node name="UpgradeSelection" parent="." instance=ExtResource("3_76xvp")]
 position = Vector2(959, 601)
+
+[node name="CardSelectedTimer" type="Timer" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+scale = Vector2(1.52405, 2.33139)
+text = "Next trump
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="NextTrumpChip" parent="." instance=ExtResource("6_to3go")]
+position = Vector2(182, 33)
+scale = Vector2(1, 1.04583)
+
+[connection signal="timeout" from="CardSelectedTimer" to="." method="CardSelectedTimerCallback"]

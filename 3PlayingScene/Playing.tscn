@@ -63,6 +63,7 @@ offset_top = 130.0
 offset_right = 992.0
 offset_bottom = 162.0
 rotation = 3.14159
+scale = Vector2(0.947855, 0.813179)
 tooltip_text = "Left has X Cards left"
 mouse_filter = 1
 text = "X"
@@ -87,6 +88,7 @@ position = Vector2(960, 0)
 
 [node name="ResultLabel" type="Label" parent="."]
 unique_name_in_owner = true
+visible = false
 offset_left = 473.0
 offset_top = 138.0
 offset_right = 1439.0

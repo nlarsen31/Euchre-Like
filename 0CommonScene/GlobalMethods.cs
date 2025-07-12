@@ -63,6 +63,27 @@ public partial class GlobalMethods : Node
 		}
 	}
 
+	public static Suit NextTrump(Suit Trump)
+	{
+		if (Trump == Suit.SPADES)
+		{
+			return Suit.HEARTS;
+		}
+		else if (Trump == Suit.HEARTS)
+		{
+			return Suit.CLUBS;
+		}
+		else if (Trump == Suit.CLUBS)
+		{
+			return Suit.DIAMONDS;
+		}
+		else if (Trump == Suit.DIAMONDS)
+		{
+			return Suit.SPADES;
+		}
+		return Suit.UNASSIGNED;
+	}
+
 	public static Player NextPlayer(Player player)
 	{
 		int next = ((int)player) + 1;

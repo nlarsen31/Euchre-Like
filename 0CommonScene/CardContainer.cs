@@ -20,13 +20,13 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 		{
 			if (_rank == Rank.jack)
 			{
-				if (Trump == Suit.DIAMONDS && _suit == Suit.HEARTS)
+				if (CurrentTrump == Suit.DIAMONDS && _suit == Suit.HEARTS)
 					return Suit.DIAMONDS;
-				else if (Trump == Suit.HEARTS && _suit == Suit.DIAMONDS)
+				else if (CurrentTrump == Suit.HEARTS && _suit == Suit.DIAMONDS)
 					return Suit.HEARTS;
-				else if (Trump == Suit.CLUBS && _suit == Suit.SPADES)
+				else if (CurrentTrump == Suit.CLUBS && _suit == Suit.SPADES)
 					return Suit.CLUBS;
-				else if (Trump == Suit.SPADES && _suit == Suit.CLUBS)
+				else if (CurrentTrump == Suit.SPADES && _suit == Suit.CLUBS)
 					return Suit.SPADES;
 				else
 					return _suit;
@@ -48,7 +48,7 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 	{
 		get
 		{
-			if (this.Suit == Trump && _rank == Rank.jack && _suit != Trump) return true;
+			if (this.Suit == CurrentTrump && _rank == Rank.jack && _suit != CurrentTrump) return true;
 			return false;
 		}
 	}
@@ -56,7 +56,7 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 	{
 		get
 		{
-			if (this.Suit == Trump && _rank == Rank.jack && _suit == Trump) return true;
+			if (this.Suit == CurrentTrump && _rank == Rank.jack && _suit == CurrentTrump) return true;
 			return false;
 		}
 	}
@@ -182,11 +182,11 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 
 	public static bool operator <(CardContainer card1, CardContainer card2)
 	{
-		if (card1.Suit == Trump && card2.Suit != Trump)
+		if (card1.Suit == CurrentTrump && card2.Suit != CurrentTrump)
 			return false;
-		else if (card1.Suit != Trump && card2.Suit == Trump)
+		else if (card1.Suit != CurrentTrump && card2.Suit == CurrentTrump)
 			return true;
-		else if (card1.Suit == Trump && card2.Suit == Trump)
+		else if (card1.Suit == CurrentTrump && card2.Suit == CurrentTrump)
 		{
 			if (card1.Rank == Rank.jack && card2.Rank != Rank.jack)
 				return false;
@@ -198,7 +198,7 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 
 				return card1.Rank < card2.Rank;
 		}
-		else if (card1.Suit != Trump && card2.Suit != Trump)
+		else if (card1.Suit != CurrentTrump && card2.Suit != CurrentTrump)
 		{
 			return card1.Rank < card2.Rank;
 		}
