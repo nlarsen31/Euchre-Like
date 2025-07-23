@@ -179,7 +179,6 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 
 	// comparison operators DOES NOT consider what suit is lead.
 	// Comparison operators DO consider what suit is trump
-
 	public static bool operator <(CardContainer card1, CardContainer card2)
 	{
 		if (card1.Suit == CurrentTrump && card2.Suit != CurrentTrump)
