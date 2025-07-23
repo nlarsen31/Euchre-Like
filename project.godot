@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 GlobalProperties="*res://0CommonScene/GlobalProperties.cs"
 GlobalMethods="*res://0CommonScene/GlobalMethods.cs"
+SceneScout="*res://addons/GD_NET_ScOUT/SceneScout.cs"
 
 [display]
 
@@ -29,6 +30,10 @@ window/size/viewport_height=1080
 [dotnet]
 
 project/assembly_name="Euchre-like"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/GD_NET_ScOUT/plugin.cfg")
 
 [file_customization]
 
