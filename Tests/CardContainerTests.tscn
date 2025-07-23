@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgv661es00t5h"]
+
+[ext_resource type="PackedScene" uid="uid://ce83kbl7xjwpr" path="res://addons/GD_NET_ScOUT/test_runner.tscn" id="1_rytbu"]
+[ext_resource type="Script" uid="uid://dykuavmwjyyc1" path="res://Tests/CardContainerTests.cs" id="2_ks808"]
+
+[node name="CardContainerTests" type="Node2D"]
+
+[node name="TestRunner" parent="." instance=ExtResource("1_rytbu")]
+
+[node name="CardContainerTests" type="Node" parent="."]
+script = ExtResource("2_ks808")
