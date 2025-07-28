@@ -1,7 +1,5 @@
-using Godot;
 using System;
-
-
+using Godot;
 using static GlobalProperties;
 
 public partial class Chip : Node2D
@@ -39,8 +37,13 @@ public partial class Chip : Node2D
 		sprite.Animation = SuitToString[(int)suit];
 	}
 
-	public void SetLeadPosition(Player player) {
-		GD.Print(PlayerToString[(int)player]);
+	public void SetLeadPosition(Player player)
+	{
+		if (player == Player.UNDEFINED)
+		{
+			GD.PrintErr("Player is UNASSIGNED, cannot set lead position.");
+			return;
+		}
 		this.Position = LeadPositions[(int)player];
 		this.Rotation = LeadRotations[(int)player];
 	}
