@@ -28,6 +28,18 @@ Euchre Rogue LIke made in Godot
   * Make one card always left (rare)
   * Make one card always right (rare)
 
+# July 28 
+- Add HandOfCards tests
+- Added question, now sure how we want to handle "packedScenes"
+
+# July 12
+* Make Suit rotate in a cycle
+* Display next suit on Upgrade screen.
+
+# July 11 
+* Add Transition from Playing to Upgrade
+* Add a Label for each hand
+
 # July 6 v1.0.1
 Current State:
 * Upgraded to 4.4 took out the unit tests
@@ -35,11 +47,3 @@ Current State:
 * Play one round
 * Revert PC to select random card to play that is legal
 * Once required tricks are won, up requirement by 2 and restart
-
-# July 11 
-* Add Transition from Playing to Upgrade
-* Add a Label for each hand
-
-# July12
-* Make Suit rotate in a cycle
-* Display next suit on Upgrade screen.
