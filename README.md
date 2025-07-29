@@ -1,6 +1,10 @@
 # Euchre-Like
 Euchre Rogue LIke made in Godot
 
+# Getting started 
+- Run ./gd-local-setup.sh - this will install godot to the repo folder
+- Download and install .NET with the current version of GoDot https://dotnet.microsoft.com/en-us/download 8.0 is recomended.
+
 # Changes Starting on July 7 to be included in 1.0.2
 
 ## Long term updates
