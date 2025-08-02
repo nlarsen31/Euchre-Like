@@ -1,11 +1,12 @@
-using Godot;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Godot;
 using static GlobalProperties;
 
 public partial class CardSelection : Node2D
 {
+	// TODO: Refactor this to an array with a fixed size of of N, some configurable N
 	private List<CardContainer> SelectableCards;
 	// Called when the node enters the scene tree for the first time.
 
@@ -84,5 +85,15 @@ public partial class CardSelection : Node2D
 		LeftRight.Disconnect("CardSelected", method);
 		RightLeft.Disconnect("CardSelected", method);
 		RightRight.Disconnect("CardSelected", method);
+	}
+
+	public List<string> GetCardSelectionString()
+	{
+		List<string> cardSelectionStrings = new List<string>();
+		foreach (CardContainer card in SelectableCards)
+		{
+			cardSelectionStrings.Add(card.ToString());
+		}
+		return cardSelectionStrings;
 	}
 }

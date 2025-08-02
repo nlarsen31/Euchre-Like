@@ -28,6 +28,9 @@ Euchre Rogue LIke made in Godot
   * Make one card always left (rare)
   * Make one card always right (rare)
 
+# August 2
+- Add tests for CardSelection 
+
 # July 28 
 - Add HandOfCards tests
 - Added question, now sure how we want to handle "packedScenes"
