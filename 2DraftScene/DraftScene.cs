@@ -1,9 +1,8 @@
-using Godot;
 using System;
 using System.Collections.Generic;
-
-using static GlobalProperties;
+using Godot;
 using static GlobalMethods;
+using static GlobalProperties;
 public partial class DraftScene : Node2D
 {
 	[Export]
@@ -77,7 +76,5 @@ public partial class DraftScene : Node2D
 			CurrentHand = hand.ExportHand();
 			GetTree().ChangeSceneToFile("res://3PlayingScene/Playing.tscn");
 		}
-
-
 	}
 }

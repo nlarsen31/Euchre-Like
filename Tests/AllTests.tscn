@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgv661es00t5h"]
+[gd_scene load_steps=8 format=3 uid="uid://dgv661es00t5h"]
 
 [ext_resource type="PackedScene" uid="uid://ce83kbl7xjwpr" path="res://addons/GD_NET_ScOUT/test_runner.tscn" id="1_x1whm"]
 [ext_resource type="Script" uid="uid://dykuavmwjyyc1" path="res://Tests/CardContainerTests.cs" id="2_nmjbb"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://1weqnld8a74n" path="res://0CommonScene/Chip.tscn" id="4_j8p4g"]
 [ext_resource type="Script" uid="uid://dro60bn68ja0r" path="res://Tests/HandOfCardsTests.cs" id="5_lljoe"]
 [ext_resource type="Script" uid="uid://4slt42t663xs" path="res://Tests/CardSelectionTests.cs" id="6_2ocme"]
+[ext_resource type="Script" uid="uid://c1i1vergrayv0" path="res://Tests/DraftSceneTests.cs" id="7_q63ou"]
 
 [node name="AllTests" type="Node2D"]
 
@@ -23,3 +24,6 @@ script = ExtResource("5_lljoe")
 
 [node name="CardSelectionTests" type="Node" parent="."]
 script = ExtResource("6_2ocme")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("7_q63ou")
