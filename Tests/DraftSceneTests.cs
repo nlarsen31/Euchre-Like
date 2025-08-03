@@ -1,10 +1,11 @@
 using System;
+using System.Collections.Generic;
 using GD_NET_ScOUT;
 using Godot;
 using static GlobalProperties;
 
 [Test]
-public partial class DraftSceneTesets : Node
+public partial class DraftSceneTests : Node
 {
     private DraftScene _draftScene;
 
@@ -35,6 +36,28 @@ public partial class DraftSceneTesets : Node
     public void DraftScenePassingTest()
     {
         Assert.IsTrue(true, "This is a passing test for card selection.");
+    }
+
+    [Test]
+    public void DraftSceneSelectCardsTest()
+    {
+        _draftScene.DisplayNextCards(4);
+
+        var cardSelection = _draftScene.GetNode<CardSelection>("CardSelection");
+        List<string> cardSelectionCards = cardSelection.GetCardSelectionString();
+        string firstCard = cardSelectionCards[0];
+
+        // Select the first card
+        _draftScene.SelectCardCallback(firstCard);
+
+        // Check that the card has been selected
+        HandOfCards hand = _draftScene.GetNode<HandOfCards>("HandOfCards");
+        Assert.AreEqual(1, hand.NumberOfCardsLeftToPlay, "One card should b e added to the hand after selection.");
+
+        // Check the value of the one card is correct
+        List<string> cardsInHand = hand.ExportHand();
+        Assert.IsTrue(cardsInHand.Contains(firstCard), "The selected card should be in the hand.");
+
     }
 
     [AfterAll]
