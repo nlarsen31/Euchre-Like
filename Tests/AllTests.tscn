@@ -27,3 +27,5 @@ script = ExtResource("6_2ocme")
 
 [node name="DraftSceneTests" type="Node" parent="."]
 script = ExtResource("7_q63ou")
+
+[node name="PlayedCardsTests" type="Node" parent="."]
