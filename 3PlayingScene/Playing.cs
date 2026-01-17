@@ -73,54 +73,74 @@ public partial class Playing : Node2D
 		return winner;
 	}
 
-	// Set up Player hands
+	// Set up Player hands, if they are not already set up.
 	public void SetupPlayersHands()
 	{
-		// Make a set with all the cards
-		_HandOfCards.clearCards();
-
-		HashSet<string> Deck = new HashSet<string>();
-		foreach (Rank rank in GetAllRanks())
+		GD.Print("SetupPlayersHand ");
+		// 1. Assign NonPlayerCards if not already done.
+		if (NonPlayerCards.Count == 0 || true)
 		{
-			foreach (Suit suit in GetAllSuits())
+
+			// Make a set with all the cards
+			_HandOfCards.clearCards();
+
+			HashSet<string> Deck = new HashSet<string>();
+			foreach (Rank rank in GetAllRanks())
 			{
-				string s = SuitToString[(int)suit] + "_" + RankToString[(int)rank];
-				Deck.Add(s);
+				foreach (Suit suit in GetAllSuits())
+				{
+					string s = SuitToString[(int)suit] + "_" + RankToString[(int)rank];
+					Deck.Add(s);
+				}
+			}
+
+			if (CurrentHand == null)
+			{
+				CurrentHand = new List<string>();
+				foreach (string card in Deck)
+				{
+					CurrentHand.Add(card);
+					if (CurrentHand.Count == 13) break;
+				}
+			}
+
+			// Remove all of players cards
+
+			foreach (string s in CurrentHand)
+			{
+				// GD.Print(s);
+
+				Tuple<Rank, Suit> tup = GetSuitRankFromString(s);
+				Deck.Remove(s);
+				_HandOfCards.addCard(tup.Item1, tup.Item2);
+			}
+
+			// Deal cards randomly to each of the 3 players left
+
+			NonPlayerCards = Deck.ToList<string>();
+		}
+		else
+		{
+			_HandOfCards.clearCards();
+			// Set up only players hand
+			foreach (string s in CurrentHand)
+			{
+				// GD.Print(s);
+
+				Tuple<Rank, Suit> tup = GetSuitRankFromString(s);
+				_HandOfCards.addCard(tup.Item1, tup.Item2);
 			}
 		}
+		// 2. Randomize the order of NonPlayerCards
+		RandomizeList<string>(NonPlayerCards);
 
-		if (CurrentHand == null)
-		{
-			CurrentHand = new List<string>();
-			foreach (string card in Deck)
-			{
-				CurrentHand.Add(card);
-				if (CurrentHand.Count == 13) break;
-			}
-		}
-
-		// Remove all of players cards
-
-		foreach (string s in CurrentHand)
-		{
-			// GD.Print(s);
-
-			Tuple<Rank, Suit> tup = GetSuitRankFromString(s);
-			Deck.Remove(s);
-			_HandOfCards.addCard(tup.Item1, tup.Item2);
-		}
-
-		// Deal cards randomly to each of the 3 players left
-
-		List<string> cardsLeft = Deck.ToList<string>();
-		RandomizeList<string>(cardsLeft);
-
+		// 3. Deal out cards based on index.
 		// Cards 0-12 are left, 13-25 partner, 26-38 are Right
-
 		LeftHand.Clear();
 		for (int i = 0; i < 13; i++)
 		{
-			Tuple<Rank, Suit> tup = GetSuitRankFromString(cardsLeft[i]);
+			GD.Print("Adding Left" + NonPlayerCards[i]);
+			Tuple<Rank, Suit> tup = GetSuitRankFromString(NonPlayerCards[i]);
 			CardContainer card = (CardContainer)CardContainer.Instantiate();
 			card.Rank = tup.Item1;
 			card.Suit = tup.Item2;
@@ -129,7 +149,8 @@ public partial class Playing : Node2D
 		PartnerHand.Clear();
 		for (int i = 13; i < 26; i++)
 		{
-			Tuple<Rank, Suit> tup = GetSuitRankFromString(cardsLeft[i]);
+			GD.Print("Adding Partner" + NonPlayerCards[i]);
+			Tuple<Rank, Suit> tup = GetSuitRankFromString(NonPlayerCards[i]);
 			CardContainer card = (CardContainer)CardContainer.Instantiate();
 			card.Rank = tup.Item1;
 			card.Suit = tup.Item2;
@@ -138,7 +159,8 @@ public partial class Playing : Node2D
 		RightHand.Clear();
 		for (int i = 26; i < 39; i++)
 		{
-			Tuple<Rank, Suit> tup = GetSuitRankFromString(cardsLeft[i]);
+			GD.Print("Adding Right" + NonPlayerCards[i]);
+			Tuple<Rank, Suit> tup = GetSuitRankFromString(NonPlayerCards[i]);
 			CardContainer card = (CardContainer)CardContainer.Instantiate();
 			card.Rank = tup.Item1;
 			card.Suit = tup.Item2;
@@ -146,14 +168,11 @@ public partial class Playing : Node2D
 		}
 		SetHandCountLabels();
 
-		// randomly select CurrentTrump
-
+		// 4. randomly select CurrentTrump
 		Chip TrumpChip = GetNode<Chip>("TrumpChip");
 		if (CurrentTrump == Suit.UNASSIGNED)
 			CurrentTrump = (Suit)randy.Next(0, 4);
 		TrumpChip.SetAnimation(CurrentTrump);
-
-		// Select random player to lead
 
 		ActivePlayer = (Player)randy.Next(0, 4);
 		ActivePlayer = Player.PLAYER;
@@ -174,8 +193,10 @@ public partial class Playing : Node2D
 		_Callable = new Callable(this, "SelectCardCallback");
 		_ScoreBoard = GetNode<ScoreBoard>("ScoreBoard");
 
+		GD.Print("Playing_Ready " + NonPlayerCards.Count);
 		SetupPlayersHands();
-		// Reset scoreboad
+
+		// Reset scoreboard
 		_ScoreBoard.Reset(RequiredTricks);
 
 		PlayTimer.Start();

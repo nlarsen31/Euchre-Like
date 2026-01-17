@@ -1,7 +1,7 @@
-using Godot;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Godot;
 
 public partial class GlobalProperties : Node
 {
@@ -97,49 +97,55 @@ public partial class GlobalProperties : Node
 		return arr;
 	}
 
-    public enum UpgradeType
-    {
-        Strength,
-        ChangeHearts,
-        ChangeDiamonds,
-        ChangeClubs,
-        ChangeSpades,
-        ChangeToJack,
-        NoJackToTrump,
-        ChangeToLeftBower,
-        ChangeToRightBower
-    }
-    public static Dictionary<UpgradeType, string> UpgradeToString = new Dictionary<UpgradeType, string>()
-    {
-        { UpgradeType.Strength, "Strength" },
-        { UpgradeType.ChangeHearts, "Change Hearts" },
-        { UpgradeType.ChangeDiamonds, "Change Diamonds" },
-        { UpgradeType.ChangeClubs, "Change Clubs" },
-        { UpgradeType.ChangeSpades, "Change Spades" },
-        { UpgradeType.ChangeToJack, "Change to Jack" },
-        { UpgradeType.NoJackToTrump, "No Jack to Trump" },
-        { UpgradeType.ChangeToLeftBower, "Change to Left Bower" },
-        { UpgradeType.ChangeToRightBower, "Change to Right Bower" }
-    };
-    public enum Rarity
-    {
-        Common,
-        Uncommon,
-        Rare
-    }
+	public enum UpgradeType
+	{
+		Strength,
+		ChangeHearts,
+		ChangeDiamonds,
+		ChangeClubs,
+		ChangeSpades,
+		ChangeToJack,
+		NoJackToTrump,
+		ChangeToLeftBower,
+		ChangeToRightBower
+	}
+	public static Dictionary<UpgradeType, string> UpgradeToString = new Dictionary<UpgradeType, string>()
+	 {
+		  { UpgradeType.Strength, "Strength" },
+		  { UpgradeType.ChangeHearts, "Change Hearts" },
+		  { UpgradeType.ChangeDiamonds, "Change Diamonds" },
+		  { UpgradeType.ChangeClubs, "Change Clubs" },
+		  { UpgradeType.ChangeSpades, "Change Spades" },
+		  { UpgradeType.ChangeToJack, "Change to Jack" },
+		  { UpgradeType.NoJackToTrump, "No Jack to Trump" },
+		  { UpgradeType.ChangeToLeftBower, "Change to Left Bower" },
+		  { UpgradeType.ChangeToRightBower, "Change to Right Bower" }
+	 };
+	public enum Rarity
+	{
+		Common,
+		Uncommon,
+		Rare
+	}
 
 	// Game state Variables
+
 	public static Phase GlobalGamePhase;
 	public static List<string> CurrentHand;
 	public static int RequiredTricks = 3;
 	public static Suit CurrentTrump = Suit.UNASSIGNED;
 
+	// List of cards that are not the players. This set remains the same once first hand is drafted.
+
+	public static List<string> NonPlayerCards = new List<string>();
 	// Called when the node enters the scene tree for the first time.
+
 	public override void _Ready()
 	{
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
+
 	public override void _Process(double delta)
 	{
 	}

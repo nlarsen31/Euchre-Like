@@ -33,6 +33,18 @@ Euchre Rogue LIke made in Godot
 
 ## Work log
 
+### Jan 17 2026
+
+- Fix readme issues, change to windows launch file.
+- Try to run 4.4
+- Add traking of what cards are non-players for randomly setting up Playing scene.
+
+#### Upgrades not working
+
+- I have added the tracking of what goes into the oppo's hands, but for some reason it is not rendering after the first round.
+- I just ran through and "change to spades" worked.
+- Fixed the issue, Needed to add set up of players hand on second load of playing.
+
 ### August 3
 
 - Add unit tests for Draft Scene
