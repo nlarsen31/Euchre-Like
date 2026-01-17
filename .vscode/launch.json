@@ -10,7 +10,8 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "./GoDot/Godot_v4.4.1-stable_mono_linux_x86_64/Godot_v4.4.1-stable_mono_linux.x86_64",
+      // "program": "./GoDot/Godot_v4.4.1-stable_mono_linux_x86_64/Godot_v4.4.1-stable_mono_linux.x86_64",
+      "program": "GoDot\\Godot_v4.4.1-stable_mono_win64_console.exe",
       "args": [],
       "cwd": "${workspaceFolder}",
       "stopAtEntry": false,
@@ -23,7 +24,8 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "./GoDot/Godot_v4.4.1-stable_mono_linux_x86_64/Godot_v4.4.1-stable_mono_linux.x86_64",
+      // "program": "./GoDot/Godot_v4.4.1-stable_mono_linux_x86_64/Godot_v4.4.1-stable_mono_linux.x86_64",
+      "program": "GoDot\\Godot_v4.4.1-stable_mono_win64_console.exe",
       "args": [
         "${fileDirname}/${fileBasenameNoExtension}.tscn"
       ],
@@ -38,7 +40,8 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${env:GODOT4}",
+      // "program": "${env:GODOT4}",
+      "program": "GoDot\\Godot_v4.4.1-stable_mono_win64_console.exe",
       "args": [
         "3PlayingScene\\Playing.tscn"
       ],
@@ -51,7 +54,8 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${env:GODOT4}",
+      // "program": "${env:GODOT4}",
+      "program": "GoDot\\Godot_v4.4.1-stable_mono_win64_console.exe",
       "args": [
         // These command line flags are used by GoDotTest to run tests.
         "--run-tests",
@@ -66,7 +70,8 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${env:GODOT4}",
+      // "program": "${env:GODOT4}",
+      "program": "GoDot\\Godot_v4.4.1-stable_mono_win64_console.exe",
       "args": [
         // These command line flags are used by GoDotTest to run tests.
         "--run-tests=${fileBasenameNoExtension}",

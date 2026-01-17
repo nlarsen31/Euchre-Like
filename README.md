@@ -1,55 +1,67 @@
 # Euchre-Like
+
 Euchre Rogue LIke made in Godot
 
-# Getting started 
+## Getting started
+
 - Run ./gd-local-setup.sh - this will install godot to the repo folder
-- Download and install .NET with the current version of GoDot https://dotnet.microsoft.com/en-us/download 8.0 is recomended.
+- Download and install .NET with the current version of GoDot <https://dotnet.microsoft.com/en-us/download> 8.0 is recommended.
 
-# Changes Starting on July 7 to be included in 1.0.2
+## Changes Starting on July 7 to be included in 1.0.2
 
-## Long term updates
-* How to play screen
+### Long term updates
 
-## Known bugs
-* Sometimes when the Upgrade Scene loads one of the options doesn't get replaced and shows "option <n>" Most recenlty this happened after winning 5 tricks.
+- How to play screen
 
-## Add Modifiers
+### Known bugs
 
-* Prerequisite changes
-  * After first hand, we need to keep track of the "other cards" so we deal the same cards every time
-  * <del>Add a "modifier screen" that displays options, for starters this can be just a UI on top of the game</del>
-  
+- Sometimes when the Upgrade Scene loads one of the options doesn't get replaced and shows "option <n>" Most recently this happened after winning 5 tricks.
 
-* Purposed Modifiers
-  * Increase the rank of 1 card in your hand (common)
-  * Change the suit of one card in your hand (common)
-  * Make one card a jack in your hand (uncommon)
-  * Make one card always Trump (uncommon)
-  * Make one card always left (rare)
-  * Make one card always right (rare)
+### Add Modifiers
 
-# August 3
+- Prerequisite changes
+  - After first hand, we need to keep track of the "other cards" so we deal the same cards every time
+  - <del>Add a "modifier screen" that displays options, for starters this can be just a UI on top of the game</del>
+
+- Purposed Modifiers
+  - Increase the rank of 1 card in your hand (common)
+  - Change the suit of one card in your hand (common)
+  - Make one card a jack in your hand (uncommon)
+  - Make one card always Trump (uncommon)
+  - Make one card always left (rare)
+  - Make one card always right (rare)
+
+## Work log
+
+### August 3
+
 - Add unit tests for Draft Scene
 
-# August 2
-- Add tests for CardSelection 
+### August 2
 
-# July 28 
+- Add tests for CardSelection
+
+### July 28
+
 - Add HandOfCards tests
 - Added question, now sure how we want to handle "packedScenes"
 
-# July 12
-* Make Suit rotate in a cycle
-* Display next suit on Upgrade screen.
+### July 12
 
-# July 11 
-* Add Transition from Playing to Upgrade
-* Add a Label for each hand
+- Make Suit rotate in a cycle
+- Display next suit on Upgrade screen.
 
-# July 6 v1.0.1
+### July 11
+
+- Add Transition from Playing to Upgrade
+- Add a Label for each hand
+
+### July 6 v1.0.1
+
 Current State:
-* Upgraded to 4.4 took out the unit tests
-* Draft 13 cards, selecting between 3 face up and one face down card
-* Play one round
-* Revert PC to select random card to play that is legal
-* Once required tricks are won, up requirement by 2 and restart
+
+- Upgraded to 4.4 took out the unit tests
+- Draft 13 cards, selecting between 3 face up and one face down card
+- Play one round
+- Revert PC to select random card to play that is legal
+- Once required tricks are won, up requirement by 2 and restart
