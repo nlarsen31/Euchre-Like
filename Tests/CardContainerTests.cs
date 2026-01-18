@@ -37,6 +37,14 @@ public partial class CardContainerTests : Node
         trumpAce.Suit = Suit.DIAMONDS;
         trumpAce.Rank = Rank.ace;
 
+        CardContainer leftWild = new CardContainer();
+        leftWild.Suit = Suit.TRUMP;
+        leftWild.Rank = Rank.left;
+
+        CardContainer rightWild = new CardContainer();
+        rightWild.Suit = Suit.TRUMP;
+        rightWild.Rank = Rank.right;
+
         Assert.IsTrue(right.IsRight,
             "CardContainer should be recognized as right when suit is trump and rank is jack.");
         Assert.IsFalse(right.IsLeft,
@@ -59,6 +67,24 @@ public partial class CardContainerTests : Node
         Assert.IsFalse(trumpAce > right, "Right of trump should not be greater than ace");
         Assert.IsTrue(left < right, "Left should be less than right");
         Assert.IsFalse(left > right, "Left should not be greater than right");
+
+        Assert.IsTrue(leftWild.IsLeft,
+            "CardContainer should be recognized as left when rank is left.");
+        Assert.IsFalse(leftWild.IsRight,
+            "CardContainer should not be recognized as right when rank is left.");
+        Assert.IsTrue(rightWild.IsRight,
+            "CardContainer should be recognized as right when rank is right.");
+        Assert.IsFalse(rightWild.IsLeft,
+            "CardContainer should not be recognized as left when rank is right.");
+        Assert.IsTrue(leftWild < rightWild,
+            "Left wild should be less than right wild.");
+
+        Assert.IsTrue(trumpAce < leftWild, "Left wild should be greater than ace of trump");
+        Assert.IsFalse(trumpAce > leftWild, "Left wild should not be greater than ace of trump");
+        Assert.IsTrue(trumpAce < rightWild, "Right wild should be greater than ace of trump");
+        Assert.IsFalse(trumpAce > rightWild, "Right wild should not be greater than ace of trump");
+
+
     }
 
     [Test]

@@ -9,14 +9,14 @@
 - ChangeSpades (Works)
 - ChangeToJack (Works)
 - NonJackToTrump  (Works)
-- ChangeToAlwaysLeft (Not Started)
+- ChangeToAlwaysLeft (WIP)
   - Need to add support for always left
-- ChangeToAlwaysRight (Not Started)
+- ChangeToAlwaysRight (WIP)
   - Need to add support for always right
 
 ## Development notes (Notes in reverse order)
 
-- I have noticed that sometimes the third upgrade option is just `option 3`
+- I have noticed that sometimes the third upgrade option is just `option 3` It seems the game is broken when this happens.
 - (Resolved) Noticed a bug, when changing a card to clubs, and selecting that card, it never left my hand. It was the right bower
   - Seems to be that a modified card is not leaving the hand.
   - This had to do with when there was two identical cards in the hand. It would not find the second one because it would find the first non-visible card.

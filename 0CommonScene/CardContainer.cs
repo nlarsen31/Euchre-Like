@@ -20,6 +20,10 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 		{
 			if (_suit == Suit.TRUMP)
 				return CurrentTrump;
+			else if (_rank == Rank.left || _rank == Rank.right || _suit == Suit.TRUMP)
+			{
+				return CurrentTrump;
+			}
 			else if (_rank == Rank.jack)
 			{
 				if (CurrentTrump == Suit.DIAMONDS && _suit == Suit.HEARTS)
@@ -46,10 +50,22 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 		get { return _suit; }
 	}
 
+	public bool IsTrump
+	{
+		get
+		{
+			if (this.Suit == Suit.TRUMP || _rank == Rank.left || _rank == Rank.right)
+				return true;
+			if (this.Suit == CurrentTrump)
+				return true;
+			return false;
+		}
+	}
 	public bool IsLeft
 	{
 		get
 		{
+			if (_rank == Rank.left) return true;
 			if (this.Suit == CurrentTrump && _rank == Rank.jack && _suit != CurrentTrump) return true;
 			return false;
 		}
@@ -58,11 +74,31 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 	{
 		get
 		{
+			if (_rank == Rank.right) return true;
 			if (this.Suit == CurrentTrump && _rank == Rank.jack && _suit == CurrentTrump) return true;
 			return false;
 		}
 	}
 
+	public Dictionary<Rank, Rank> IncreaseRankMap = new Dictionary<Rank, Rank>()
+	{
+		{ Rank.two, Rank.three },
+		{ Rank.three, Rank.four },
+		{ Rank.four, Rank.five },
+		{ Rank.five, Rank.six },
+		{ Rank.six, Rank.seven },
+		{ Rank.seven, Rank.eight },
+		{ Rank.eight, Rank.nine },
+		{ Rank.nine, Rank.ten },
+		{ Rank.ten, Rank.jack },
+		{ Rank.jack, Rank.queen },
+		{ Rank.queen, Rank.king },
+		{ Rank.king, Rank.ace },
+		{ Rank.ace, Rank.two },
+		{ Rank.undefined, Rank.undefined },
+		{ Rank.left, Rank.left },
+		{ Rank.right, Rank.right }
+	};
 	private Rank _rank;
 	public Rank Rank
 	{
@@ -118,8 +154,16 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 
 	public void SetAnimation()
 	{
-		string animName = RankToString[(int)this.Rank] + "_" + SuitToString[(int)_suit];
-		GetNode<AnimatedSprite2D>("AnimatedSprite2D").Animation = animName;
+		if (_rank != Rank.left && _rank != Rank.right)
+		{
+			string animName = RankToString[(int)this.Rank] + "_" + SuitToString[(int)_suit];
+			GetNode<AnimatedSprite2D>("AnimatedSprite2D").Animation = animName;
+		}
+		else
+		{
+			string animName = RankToString[(int)_rank] + "_" + "trump";
+			GetNode<AnimatedSprite2D>("AnimatedSprite2D").Animation = animName;
+		}
 	}
 	public void SetBorderColor(string color)
 	{
@@ -183,20 +227,26 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 	// Comparison operators DO consider what suit is trump
 	public static bool operator <(CardContainer card1, CardContainer card2)
 	{
-		if (card1.Suit == CurrentTrump && card2.Suit != CurrentTrump)
+		if (card1.IsTrump && card2.Suit != CurrentTrump)
 			return false;
-		else if (card1.Suit != CurrentTrump && card2.Suit == CurrentTrump)
+		else if (card1.Suit != CurrentTrump && card2.IsTrump)
 			return true;
-		else if (card1.Suit == CurrentTrump && card2.Suit == CurrentTrump)
+		else if (card1.IsTrump && card2.IsTrump)
 		{
-			if (card1.Rank == Rank.jack && card2.Rank != Rank.jack)
-				return false;
-			else if (card1.Rank != Rank.jack && card2.Rank == Rank.jack)
-				return true;
-			else if (card1.Rank == Rank.jack && card2.Rank == Rank.jack)
-				return card2.IsRight; // If card2 is right, < is true
-			else // Neither are jacks
+			bool card1IsLeft = card1.IsLeft;
+			bool card2IsLeft = card2.IsLeft;
+			bool card1IsRight = card1.IsRight;
+			bool card2IsRight = card2.IsRight;
 
+			if (card1IsRight)
+				return false;
+			else if (card2IsRight)
+				return true;
+			else if (card1IsLeft)
+				return false;
+			else if (card2IsLeft)
+				return true;
+			else
 				return card1.Rank < card2.Rank;
 		}
 		else if (card1.Suit != CurrentTrump && card2.Suit != CurrentTrump)
@@ -228,11 +278,7 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 		switch (upgrade)
 		{
 			case UpgradeType.Strength:
-				_rank = _rank + 1;
-				if (_rank >= Rank.undefined) // if we went past ace, change to two
-				{
-					_rank = Rank.two;
-				}
+				_rank = IncreaseRankMap[_rank];
 				break;
 			case UpgradeType.ChangeHearts:
 				_suit = Suit.HEARTS;
@@ -253,10 +299,12 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 				_suit = Suit.TRUMP;
 				break;
 			case UpgradeType.ChangeToLeftBower:
-				GD.Print("Changing to Left Bower Not implemented");
+				_rank = Rank.left;
+				_suit = CurrentTrump;
 				break;
 			case UpgradeType.ChangeToRightBower:
-				GD.Print("Changing to Right Bower Not implemented");
+				_rank = Rank.right;
+				_suit = CurrentTrump;
 				break;
 			default:
 				GD.Print("Unknown upgrade type");

@@ -7,7 +7,7 @@ public partial class GlobalProperties : Node
 {
 	public const int HAND_SIZE = 13;
 
-	public static bool Debugging = false;
+	public static bool Debugging = true;
 	public enum Suit
 	{
 		SPADES,
@@ -33,9 +33,11 @@ public partial class GlobalProperties : Node
 		queen,
 		king,
 		ace,
+		left,
+		right,
 		undefined
 	}
-	public static string[] RankToString = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k", "a", "unf" };
+	public static string[] RankToString = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k", "a", "l", "r", "unf" };
 
 	public enum Player
 	{

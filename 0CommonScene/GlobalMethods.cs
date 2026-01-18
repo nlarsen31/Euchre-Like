@@ -41,10 +41,10 @@ public partial class GlobalMethods : Node
 		if (StringToRankDict.Keys.Count == 0)
 		{
 			string[] ranksStr = {
-				"a", "k", "q", "j", "10", "9", "8", "7", "6", "5", "4", "3", "2"
+				"a", "k", "q", "j", "10", "9", "8", "7", "6", "5", "4", "3", "2", "r", "l"
 			};
 			Rank[] ranksInt = {
-				Rank.ace, Rank.king, Rank.queen, Rank.jack, Rank.ten, Rank.nine, Rank.eight, Rank.seven, Rank.six, Rank.five, Rank.four, Rank.three, Rank.two
+				Rank.ace, Rank.king, Rank.queen, Rank.jack, Rank.ten, Rank.nine, Rank.eight, Rank.seven, Rank.six, Rank.five, Rank.four, Rank.three, Rank.two, Rank.right, Rank.left
 			};
 			for (int i = 0; i < ranksInt.Length; i++)
 			{

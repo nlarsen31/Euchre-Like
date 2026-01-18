@@ -7,16 +7,18 @@ Euchre Rogue LIke made in Godot
 - Run ./gd-local-setup.sh - this will install godot to the repo folder
 - Download and install .NET with the current version of GoDot <https://dotnet.microsoft.com/en-us/download> 8.0 is recommended.
 
-## Changes Starting on July 7 to be included in 1.0.2
+## Changes Starting on July 7 to be included in 1.1.0
 
 ### Long term updates
 
+- Add speed settings on the main screen
 - How to play screen
 - Win/Loss screen
 
 ### Known bugs
 
 - Sometimes when the Upgrade Scene loads one of the options doesn't get replaced and shows "option <n>" Most recently this happened after winning 5 tricks.
+  - Last time this happened the options were `No Jack to Trump` `Change to Jack` `option 3`
 
 ### Add Modifiers
 
