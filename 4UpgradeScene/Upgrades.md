@@ -3,12 +3,12 @@
 ## Current status of all upgrades
 
 - Strength (Works)
-- ChangeHearts (Initial Development done)
-- ChangeDiamonds (Initial Development done)
-- ChangeClubs (Initial Development done)
-- ChangeSpades (Initial Development done)
-- ChangeToJack (Initial Development done)
-- NonJackToTrump (Not Started)
+- ChangeHearts  (Works)
+- ChangeDiamonds  (Works)
+- ChangeClubs  (Works)
+- ChangeSpades (Works)
+- ChangeToJack (Works)
+- NonJackToTrump  (Works)
 - ChangeToAlwaysLeft (Not Started)
   - Need to add support for always left
 - ChangeToAlwaysRight (Not Started)

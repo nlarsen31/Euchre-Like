@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://d3mg2ge0vndwe"]
+[gd_scene load_steps=75 format=3 uid="uid://d3mg2ge0vndwe"]
 
 [ext_resource type="Script" uid="uid://fq4s8o107xvc" path="res://0CommonScene/CardContainer.cs" id="1_66f7c"]
 [ext_resource type="Texture2D" uid="uid://cggu4yke4v7up" path="res://Sprites/Cards/10_clubs.png" id="1_hokoa"]
@@ -68,7 +68,9 @@
 [ext_resource type="Texture2D" uid="uid://6pwcecrmkeny" path="res://Sprites/Cards/YellowCardBoarder.png" id="56_4finw"]
 [ext_resource type="Texture2D" uid="uid://bkfhofeyrbm38" path="res://Sprites/Cards/j_trump.png" id="57_ya8ul"]
 [ext_resource type="Texture2D" uid="uid://b8e6ow0ddrswf" path="res://Sprites/Cards/k_trump.png" id="62_ruh7p"]
+[ext_resource type="Texture2D" uid="uid://ch2kigckmjs52" path="res://Sprites/Cards/l_trump.png" id="63_xe6ag"]
 [ext_resource type="Texture2D" uid="uid://btgsboqcg2ytq" path="res://Sprites/Cards/q_trump.png" id="67_eekc0"]
+[ext_resource type="Texture2D" uid="uid://bngt6j1baxutc" path="res://Sprites/Cards/r_trump.png" id="69_khne1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7tjeh"]
 size = Vector2(96, 128)
@@ -565,6 +567,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("63_xe6ag")
+}],
+"loop": true,
+"name": &"l_trump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("50_i3av7")
 }],
 "loop": true,
@@ -602,6 +612,14 @@ animations = [{
 "loop": true,
 "name": &"q_trump",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("69_khne1")
+}],
+"loop": true,
+"name": &"r_trump",
+"speed": 5.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ltr2m"]
@@ -632,7 +650,7 @@ shape = SubResource("RectangleShape2D_7tjeh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ciseo")
-animation = &"10_trump"
+animation = &"l_trump"
 
 [node name="BorderFrames" type="AnimatedSprite2D" parent="."]
 visible = false
