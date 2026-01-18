@@ -87,6 +87,14 @@ public partial class HandOfCards : Node2D
 		_CardsInHand.Sort();
 		int numberOfVisibleCards = NumberOfCardsLeftToPlay;
 
+		// Print each element for debugging
+		if (Debugging)
+		{
+			GD.Print("Current Hand:");
+			foreach (CardContainer card in _CardsInHand)
+				GD.Print(card.ToString());
+		}
+
 		// Add half Width if we are an odd number of cards.
 
 		int xStart;
@@ -125,13 +133,47 @@ public partial class HandOfCards : Node2D
 		return list;
 	}
 
+	// Rules for selecting upgrades
+	// 1. No Card is allowed to be Jack and Trump wild
 	public void ConnectVisibleCards(Callable method, UpgradeType upgradeType)
 	{
-		foreach (CardContainer cardContainer in _CardsInHand)
+		if (upgradeType == UpgradeType.NoJackToTrump)
 		{
-			cardContainer.Connect("CardSelected", method);
-			cardContainer.Selectable = true;
-			_ConnectedCards.Add(cardContainer);
+			// Skip allowing any Jacks to be selected for upgrade
+			foreach (CardContainer cardContainer in _CardsInHand)
+			{
+				if (cardContainer.Visible && cardContainer.Rank != Rank.jack)
+				{
+					cardContainer.Connect("CardSelected", method);
+					cardContainer.Selectable = true;
+					_ConnectedCards.Add(cardContainer);
+				}
+			}
+		}
+		else if (upgradeType == UpgradeType.Strength)
+		{
+			// Do not allow 10 of trump to be selected for strength
+			foreach (CardContainer cardContainer in _CardsInHand)
+			{
+				if (cardContainer.Visible && !(cardContainer.Rank == Rank.ten && cardContainer.Suit == CurrentTrump))
+				{
+					cardContainer.Connect("CardSelected", method);
+					cardContainer.Selectable = true;
+					_ConnectedCards.Add(cardContainer);
+				}
+			}
+		}
+		else // Connect all visible cards
+		{
+			foreach (CardContainer cardContainer in _CardsInHand)
+			{
+				if (cardContainer.Visible)
+				{
+					cardContainer.Connect("CardSelected", method);
+					cardContainer.Selectable = true;
+					_ConnectedCards.Add(cardContainer);
+				}
+			}
 		}
 	}
 

@@ -1,8 +1,8 @@
-using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Godot;
 using static GlobalProperties;
 
 public partial class GlobalMethods : Node
@@ -54,8 +54,8 @@ public partial class GlobalMethods : Node
 
 		if (StringToSuitDic.Keys.Count == 0)
 		{
-			string[] suitsStr = { "spades", "hearts", "clubs", "diamonds" };
-			Suit[] suitsInt = { Suit.SPADES, Suit.HEARTS, Suit.CLUBS, Suit.DIAMONDS };
+			string[] suitsStr = { "spades", "hearts", "clubs", "diamonds", "trump" };
+			Suit[] suitsInt = { Suit.SPADES, Suit.HEARTS, Suit.CLUBS, Suit.DIAMONDS, Suit.TRUMP };
 			for (int i = 0; i < suitsStr.Length; i++)
 			{
 				StringToSuitDic.Add(suitsStr[i], suitsInt[i]);

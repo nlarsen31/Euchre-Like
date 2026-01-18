@@ -109,7 +109,6 @@ public partial class Upgrade : Node2D
     public void UpgradeSelectedCallback(int UpgradeType)
     {
         // Handle the upgrade selection
-        // TODO: Store the selected upgrade and prompt user to pick a card to upgrade
         _SelectedUpgrade = (UpgradeType)UpgradeType;
         Callable callable = new Callable(this, "CardSelectedCallback");
         _HandOfCards.ConnectVisibleCards(callable, _SelectedUpgrade);

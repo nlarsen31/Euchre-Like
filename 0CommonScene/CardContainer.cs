@@ -18,7 +18,9 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 	{
 		get
 		{
-			if (_rank == Rank.jack)
+			if (_suit == Suit.TRUMP)
+				return CurrentTrump;
+			else if (_rank == Rank.jack)
 			{
 				if (CurrentTrump == Suit.DIAMONDS && _suit == Suit.HEARTS)
 					return Suit.DIAMONDS;
@@ -248,7 +250,7 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 				_rank = Rank.jack;
 				break;
 			case UpgradeType.NoJackToTrump:
-				GD.Print("Changing to No Jack to Trump Not implemented");
+				_suit = Suit.TRUMP;
 				break;
 			case UpgradeType.ChangeToLeftBower:
 				GD.Print("Changing to Left Bower Not implemented");

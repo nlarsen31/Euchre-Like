@@ -14,9 +14,10 @@ public partial class GlobalProperties : Node
 		HEARTS,
 		CLUBS,
 		DIAMONDS,
+		TRUMP,
 		UNASSIGNED
 	}
-	public static string[] SuitToString = { "spades", "hearts", "clubs", "diamonds", "unf" };
+	public static string[] SuitToString = { "spades", "hearts", "clubs", "diamonds", "trump", "unf" };
 	public enum Rank
 	{
 		two,

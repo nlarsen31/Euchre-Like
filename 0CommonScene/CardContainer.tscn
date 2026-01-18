@@ -1,10 +1,11 @@
-[gd_scene load_steps=60 format=3 uid="uid://d3mg2ge0vndwe"]
+[gd_scene load_steps=73 format=3 uid="uid://d3mg2ge0vndwe"]
 
 [ext_resource type="Script" uid="uid://fq4s8o107xvc" path="res://0CommonScene/CardContainer.cs" id="1_66f7c"]
 [ext_resource type="Texture2D" uid="uid://cggu4yke4v7up" path="res://Sprites/Cards/10_clubs.png" id="1_hokoa"]
 [ext_resource type="Texture2D" uid="uid://11lesivo8un1" path="res://Sprites/Cards/2_clubs.png" id="1_j5jjd"]
 [ext_resource type="Texture2D" uid="uid://bfxwttifx2qq6" path="res://Sprites/Cards/10_diamonds.png" id="2_asqrb"]
 [ext_resource type="Texture2D" uid="uid://66ay65njubv5" path="res://Sprites/Cards/2_diamonds.png" id="2_bh5j1"]
+[ext_resource type="Texture2D" uid="uid://bnwvn80w1alqy" path="res://Sprites/Cards/10_trump.png" id="2_cn08b"]
 [ext_resource type="Texture2D" uid="uid://b1lj1hv0ushfd" path="res://Sprites/Cards/2_hearts.png" id="3_lli5j"]
 [ext_resource type="Texture2D" uid="uid://dp6xonj4q0jqk" path="res://Sprites/Cards/10_hearts.png" id="3_mrvi4"]
 [ext_resource type="Texture2D" uid="uid://c52u3fqa5ri7t" path="res://Sprites/Cards/2_spades.png" id="4_mytu5"]
@@ -13,49 +14,61 @@
 [ext_resource type="Texture2D" uid="uid://bwvicyjdnaxtd" path="res://Sprites/Cards/3_diamonds.png" id="6_74rlu"]
 [ext_resource type="Texture2D" uid="uid://h6jcfql4bbtj" path="res://Sprites/Cards/3_hearts.png" id="7_rtinj"]
 [ext_resource type="Texture2D" uid="uid://bg24tq6647kp6" path="res://Sprites/Cards/3_spades.png" id="8_8gx5q"]
+[ext_resource type="Texture2D" uid="uid://cvbfqbuo8asu2" path="res://Sprites/Cards/2_trump.png" id="11_t7uak"]
 [ext_resource type="Texture2D" uid="uid://cr7nyguvgedm6" path="res://Sprites/Cards/4_clubs.png" id="13_3xhnd"]
 [ext_resource type="Texture2D" uid="uid://b4ribitv0sskx" path="res://Sprites/Cards/4_diamonds.png" id="14_dxcvn"]
 [ext_resource type="Texture2D" uid="uid://va8nbwhlsuqe" path="res://Sprites/Cards/4_hearts.png" id="15_72wtx"]
 [ext_resource type="Texture2D" uid="uid://dfpyhe5tobxn1" path="res://Sprites/Cards/4_spades.png" id="16_rchqn"]
+[ext_resource type="Texture2D" uid="uid://bdle7sv0ybskj" path="res://Sprites/Cards/3_trump.png" id="16_xe6ag"]
 [ext_resource type="Texture2D" uid="uid://wsyc03vmwaoo" path="res://Sprites/Cards/5_clubs.png" id="17_pmyb7"]
 [ext_resource type="Texture2D" uid="uid://c2v3kc8lq2cig" path="res://Sprites/Cards/5_diamonds.png" id="18_cmojp"]
 [ext_resource type="Texture2D" uid="uid://ckiklpsrld1fk" path="res://Sprites/Cards/5_hearts.png" id="19_3nv02"]
 [ext_resource type="Texture2D" uid="uid://bssu0bdfn7t2r" path="res://Sprites/Cards/5_spades.png" id="20_fnn6w"]
+[ext_resource type="Texture2D" uid="uid://c71dnyd1df0ri" path="res://Sprites/Cards/4_trump.png" id="21_khne1"]
 [ext_resource type="Texture2D" uid="uid://qsb6fucekc5k" path="res://Sprites/Cards/6_clubs.png" id="21_sn0rs"]
 [ext_resource type="Texture2D" uid="uid://bkn0q2aas2eij" path="res://Sprites/Cards/6_diamonds.png" id="22_v8p6t"]
 [ext_resource type="Texture2D" uid="uid://d23ilgxygf1j" path="res://Sprites/Cards/6_hearts.png" id="23_w25vg"]
 [ext_resource type="Texture2D" uid="uid://cb4b6is5rbmxu" path="res://Sprites/Cards/6_spades.png" id="24_atabs"]
 [ext_resource type="Texture2D" uid="uid://dnms44rxdrm4f" path="res://Sprites/Cards/7_clubs.png" id="25_xpoko"]
 [ext_resource type="Texture2D" uid="uid://b8gnrf0egr24y" path="res://Sprites/Cards/7_diamonds.png" id="26_nku4h"]
+[ext_resource type="Texture2D" uid="uid://c7wo3uf27lux" path="res://Sprites/Cards/5_trump.png" id="26_qojju"]
 [ext_resource type="Texture2D" uid="uid://dow68t08ehk7q" path="res://Sprites/Cards/7_hearts.png" id="27_djy1g"]
 [ext_resource type="Texture2D" uid="uid://2l0t65w871u" path="res://Sprites/Cards/7_spades.png" id="28_6sk40"]
 [ext_resource type="Texture2D" uid="uid://c14x6i871dy62" path="res://Sprites/Cards/8_clubs.png" id="29_bclt7"]
 [ext_resource type="Texture2D" uid="uid://bfagvtkqjov5k" path="res://Sprites/Cards/8_diamonds.png" id="30_b8w00"]
+[ext_resource type="Texture2D" uid="uid://x7fwutnw5u2a" path="res://Sprites/Cards/6_trump.png" id="31_bor82"]
 [ext_resource type="Texture2D" uid="uid://wefsbfudohxa" path="res://Sprites/Cards/8_hearts.png" id="31_q7ogf"]
 [ext_resource type="Texture2D" uid="uid://dh3sap06gv5u4" path="res://Sprites/Cards/8_spades.png" id="32_s7i50"]
 [ext_resource type="Texture2D" uid="uid://myj54e85ijy7" path="res://Sprites/Cards/9_clubs.png" id="33_uptgy"]
 [ext_resource type="Texture2D" uid="uid://ce6bsm1334dl5" path="res://Sprites/Cards/9_diamonds.png" id="34_kaurs"]
 [ext_resource type="Texture2D" uid="uid://c7wokja2f5mi3" path="res://Sprites/Cards/9_hearts.png" id="35_o6qb5"]
+[ext_resource type="Texture2D" uid="uid://iylrbkmiu7mb" path="res://Sprites/Cards/7_trump.png" id="36_1d5r3"]
 [ext_resource type="Texture2D" uid="uid://dq8oxsbaoc60r" path="res://Sprites/Cards/9_spades.png" id="36_1m5b5"]
 [ext_resource type="Texture2D" uid="uid://bpxlnx4omjy16" path="res://Sprites/Cards/a_clubs.png" id="37_n83kf"]
 [ext_resource type="Texture2D" uid="uid://d33g80iuah2w8" path="res://Sprites/Cards/a_diamonds.png" id="38_06mh3"]
 [ext_resource type="Texture2D" uid="uid://cwo6kjqt78h2v" path="res://Sprites/Cards/a_hearts.png" id="39_4n0rl"]
 [ext_resource type="Texture2D" uid="uid://ceof1udyyoobm" path="res://Sprites/Cards/a_spades.png" id="40_etojr"]
 [ext_resource type="Texture2D" uid="uid://dulteeagfx8lo" path="res://Sprites/Cards/CardBack.png" id="41_ms668"]
+[ext_resource type="Texture2D" uid="uid://cl2f3i1lhbgq5" path="res://Sprites/Cards/8_trump.png" id="41_uffwl"]
 [ext_resource type="Texture2D" uid="uid://cvb8cbj6hyc1r" path="res://Sprites/Cards/j_clubs.png" id="42_eionj"]
 [ext_resource type="Texture2D" uid="uid://67iysk6ua4ai" path="res://Sprites/Cards/j_diamonds.png" id="43_vb2px"]
 [ext_resource type="Texture2D" uid="uid://dj2mljqtq6kcd" path="res://Sprites/Cards/j_hearts.png" id="44_t3eqh"]
 [ext_resource type="Texture2D" uid="uid://cikwnxm8okwln" path="res://Sprites/Cards/j_spades.png" id="45_qy015"]
 [ext_resource type="Texture2D" uid="uid://c12layno834rx" path="res://Sprites/Cards/k_clubs.png" id="46_ekf4b"]
+[ext_resource type="Texture2D" uid="uid://c0gck1pshl62y" path="res://Sprites/Cards/9_trump.png" id="46_pwvvi"]
 [ext_resource type="Texture2D" uid="uid://dlv1usdm31h5p" path="res://Sprites/Cards/k_diamonds.png" id="47_7neau"]
 [ext_resource type="Texture2D" uid="uid://jadtlffkb56i" path="res://Sprites/Cards/k_hearts.png" id="48_w6aib"]
 [ext_resource type="Texture2D" uid="uid://dhf3gxyls55tj" path="res://Sprites/Cards/k_spades.png" id="49_cbc2f"]
 [ext_resource type="Texture2D" uid="uid://hlkrsw36xka5" path="res://Sprites/Cards/q_clubs.png" id="50_i3av7"]
 [ext_resource type="Texture2D" uid="uid://cvxeljb1y1a4m" path="res://Sprites/Cards/q_diamonds.png" id="51_brk1m"]
+[ext_resource type="Texture2D" uid="uid://l2tyvagaftgi" path="res://Sprites/Cards/a_trump.png" id="51_qxsfa"]
 [ext_resource type="Texture2D" uid="uid://b2k7hy75qu53h" path="res://Sprites/Cards/q_hearts.png" id="52_3lhwh"]
 [ext_resource type="Texture2D" uid="uid://bqty82g55w8e0" path="res://Sprites/Cards/q_spades.png" id="53_px0bb"]
 [ext_resource type="Texture2D" uid="uid://d2iuwoqvvwktw" path="res://Sprites/Cards/RedCardBoarder.png" id="55_7mexm"]
 [ext_resource type="Texture2D" uid="uid://6pwcecrmkeny" path="res://Sprites/Cards/YellowCardBoarder.png" id="56_4finw"]
+[ext_resource type="Texture2D" uid="uid://bkfhofeyrbm38" path="res://Sprites/Cards/j_trump.png" id="57_ya8ul"]
+[ext_resource type="Texture2D" uid="uid://b8e6ow0ddrswf" path="res://Sprites/Cards/k_trump.png" id="62_ruh7p"]
+[ext_resource type="Texture2D" uid="uid://btgsboqcg2ytq" path="res://Sprites/Cards/q_trump.png" id="67_eekc0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7tjeh"]
 size = Vector2(96, 128)
@@ -96,6 +109,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("2_cn08b")
+}],
+"loop": true,
+"name": &"10_trump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("1_j5jjd")
 }],
 "loop": true,
@@ -124,6 +145,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"2_spades",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_t7uak")
+}],
+"loop": true,
+"name": &"2_trump",
 "speed": 5.0
 }, {
 "frames": [{
@@ -160,6 +189,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("16_xe6ag")
+}],
+"loop": true,
+"name": &"3_trump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("13_3xhnd")
 }],
 "loop": true,
@@ -188,6 +225,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"4_spades",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_khne1")
+}],
+"loop": true,
+"name": &"4_trump",
 "speed": 5.0
 }, {
 "frames": [{
@@ -224,6 +269,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("26_qojju")
+}],
+"loop": true,
+"name": &"5_trump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("21_sn0rs")
 }],
 "loop": true,
@@ -252,6 +305,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"6_spades",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_bor82")
+}],
+"loop": true,
+"name": &"6_trump",
 "speed": 5.0
 }, {
 "frames": [{
@@ -288,6 +349,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("36_1d5r3")
+}],
+"loop": true,
+"name": &"7_trump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("29_bclt7")
 }],
 "loop": true,
@@ -316,6 +385,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"8_spades",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("41_uffwl")
+}],
+"loop": true,
+"name": &"8_trump",
 "speed": 5.0
 }, {
 "frames": [{
@@ -352,6 +429,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("46_pwvvi")
+}],
+"loop": true,
+"name": &"9_trump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("37_n83kf")
 }],
 "loop": true,
@@ -380,6 +465,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"a_spades",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("51_qxsfa")
+}],
+"loop": true,
+"name": &"a_trump",
 "speed": 5.0
 }, {
 "frames": [{
@@ -424,6 +517,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("57_ya8ul")
+}],
+"loop": true,
+"name": &"j_trump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("46_ekf4b")
 }],
 "loop": true,
@@ -452,6 +553,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"k_spades",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("62_ruh7p")
+}],
+"loop": true,
+"name": &"k_trump",
 "speed": 5.0
 }, {
 "frames": [{
@@ -485,6 +594,14 @@ animations = [{
 "loop": true,
 "name": &"q_spades",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("67_eekc0")
+}],
+"loop": true,
+"name": &"q_trump",
+"speed": 5.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ltr2m"]
@@ -515,7 +632,7 @@ shape = SubResource("RectangleShape2D_7tjeh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ciseo")
-animation = &"card_back"
+animation = &"10_trump"
 
 [node name="BorderFrames" type="AnimatedSprite2D" parent="."]
 visible = false

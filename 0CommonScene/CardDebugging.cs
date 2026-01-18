@@ -1,7 +1,7 @@
-using Godot;
 using System;
 using System.Net.Security;
 using System.Xml;
+using Godot;
 using static GlobalProperties;
 
 public partial class CardDebugging : Node2D
@@ -19,7 +19,9 @@ public partial class CardDebugging : Node2D
 			Suit.HEARTS,
 			Suit.DIAMONDS,
 			Suit.SPADES,
-			Suit.CLUBS};
+			Suit.CLUBS,
+			Suit.TRUMP
+		};
 		Rank[] ranks = {
 			Rank.ace,
 			Rank.two,
@@ -33,17 +35,19 @@ public partial class CardDebugging : Node2D
 			Rank.ten,
 			Rank.jack,
 			Rank.queen,
-			Rank.king
+			Rank.king,
 		};
 
 		int x = 200;
 		int y = 200;
 		int space = 10;
-		foreach (Suit suit in suits) {
-			foreach (Rank rank in ranks) {
+		foreach (Suit suit in suits)
+		{
+			foreach (Rank rank in ranks)
+			{
 				CardContainer card = (CardContainer)CardContainer.Instantiate();
 				card.SetAnimation(rank, suit);
-				card.Position = new Vector2(x,y);
+				card.Position = new Vector2(x, y);
 				x += cardWidth + space;
 				AddChild(card);
 			}
