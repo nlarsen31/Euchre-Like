@@ -33,11 +33,16 @@ Euchre Rogue LIke made in Godot
 
 ## Work log
 
+### Jan 18
+
+- Plan out the work for upgrading cards
+- Try to code out Strength
+
 ### Jan 17 2026
 
 - Fix readme issues, change to windows launch file.
 - Try to run 4.4
-- Add traking of what cards are non-players for randomly setting up Playing scene.
+- Add tracking of what cards are non-players for randomly setting up Playing scene.
 
 #### Upgrades not working
 

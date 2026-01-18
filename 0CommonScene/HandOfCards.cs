@@ -177,7 +177,6 @@ public partial class HandOfCards : Node2D
 		}
 	}
 
-
 	public void HideCard(string card)
 	{
 		foreach (CardContainer cardContainer in _CardsInHand)
@@ -186,5 +185,15 @@ public partial class HandOfCards : Node2D
 				cardContainer.Visible = false;
 		}
 		DrawHand();
+	}
+
+	public CardContainer GetCardContainer(string card)
+	{
+		foreach (CardContainer cardContainer in _CardsInHand)
+		{
+			if (card == cardContainer.ToString())
+				return cardContainer;
+		}
+		return null;
 	}
 }

@@ -32,7 +32,7 @@ public partial class Playing : Node2D
 	private ScoreBoard _ScoreBoard;
 
 	// Look at Trump ActivePlayer PlayedCards, assume that ActivePlayer+1 was the player that lead.
-	// TODO: Refactor to be a memeber of playedCards...
+	// TODO: Refactor to be a member of playedCards...
 
 	public Player HandEval()
 	{
@@ -125,7 +125,7 @@ public partial class Playing : Node2D
 			// Set up only players hand
 			foreach (string s in CurrentHand)
 			{
-				// GD.Print(s);
+				if (Debugging) GD.Print(s);
 
 				Tuple<Rank, Suit> tup = GetSuitRankFromString(s);
 				_HandOfCards.addCard(tup.Item1, tup.Item2);
@@ -139,7 +139,7 @@ public partial class Playing : Node2D
 		LeftHand.Clear();
 		for (int i = 0; i < 13; i++)
 		{
-			GD.Print("Adding Left" + NonPlayerCards[i]);
+			if (Debugging) GD.Print("Adding Left" + NonPlayerCards[i]);
 			Tuple<Rank, Suit> tup = GetSuitRankFromString(NonPlayerCards[i]);
 			CardContainer card = (CardContainer)CardContainer.Instantiate();
 			card.Rank = tup.Item1;
@@ -149,7 +149,7 @@ public partial class Playing : Node2D
 		PartnerHand.Clear();
 		for (int i = 13; i < 26; i++)
 		{
-			GD.Print("Adding Partner" + NonPlayerCards[i]);
+			if (Debugging) GD.Print("Adding Partner" + NonPlayerCards[i]);
 			Tuple<Rank, Suit> tup = GetSuitRankFromString(NonPlayerCards[i]);
 			CardContainer card = (CardContainer)CardContainer.Instantiate();
 			card.Rank = tup.Item1;
@@ -159,7 +159,7 @@ public partial class Playing : Node2D
 		RightHand.Clear();
 		for (int i = 26; i < 39; i++)
 		{
-			GD.Print("Adding Right" + NonPlayerCards[i]);
+			if (Debugging) GD.Print("Adding Right" + NonPlayerCards[i]);
 			Tuple<Rank, Suit> tup = GetSuitRankFromString(NonPlayerCards[i]);
 			CardContainer card = (CardContainer)CardContainer.Instantiate();
 			card.Rank = tup.Item1;

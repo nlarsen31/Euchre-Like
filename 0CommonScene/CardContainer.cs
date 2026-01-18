@@ -218,4 +218,47 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 			return true;
 		return false;
 	}
+
+	// Upgrade methods
+	public void ApplyUpgrade(UpgradeType upgrade)
+	{
+		switch (upgrade)
+		{
+			case UpgradeType.Strength:
+				_rank = _rank + 1;
+				if (_rank >= Rank.undefined) // if we went past ace, change to two
+				{
+					_rank = Rank.two;
+				}
+				break;
+			case UpgradeType.ChangeHearts:
+				GD.Print("Changing to Hearts Not implemented");
+				break;
+			case UpgradeType.ChangeDiamonds:
+				GD.Print("Changing to Diamonds Not implemented");
+				break;
+			case UpgradeType.ChangeClubs:
+				GD.Print("Changing to Clubs Not implemented");
+				break;
+			case UpgradeType.ChangeSpades:
+				GD.Print("Changing to Spades Not implemented");
+				break;
+			case UpgradeType.ChangeToJack:
+				GD.Print("Changing to Jack Not implemented");
+				break;
+			case UpgradeType.NoJackToTrump:
+				GD.Print("Changing to No Jack to Trump Not implemented");
+				break;
+			case UpgradeType.ChangeToLeftBower:
+				GD.Print("Changing to Left Bower Not implemented");
+				break;
+			case UpgradeType.ChangeToRightBower:
+				GD.Print("Changing to Right Bower Not implemented");
+				break;
+			default:
+				GD.Print("Unknown upgrade type");
+				break;
+		}
+		SetAnimation();
+	}
 }
