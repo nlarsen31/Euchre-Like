@@ -22,6 +22,8 @@ public partial class Upgrade : Node2D
     // Objects in Scene
     private Timer _CardSelectedTimer;
 
+    private Callable _CallableCardSelected;
+
     private Dictionary<Rarity, List<UpgradeType>> _upgradeChangeMap = new Dictionary<Rarity, List<UpgradeType>>()
     {
         { Rarity.Common, new List<UpgradeType>
@@ -72,6 +74,7 @@ public partial class Upgrade : Node2D
         }
         _HandOfCards.DrawHand();
         _UpgradeSelection = GetNode<UpgradeSelection>("UpgradeSelection");
+        _CallableCardSelected = new Callable(this, "CardSelectedCallback");
 
         for (int i = 0; i < 3; i++)
         {
@@ -110,13 +113,13 @@ public partial class Upgrade : Node2D
     {
         // Handle the upgrade selection
         _SelectedUpgrade = (UpgradeType)UpgradeType;
-        Callable callable = new Callable(this, "CardSelectedCallback");
-        _HandOfCards.ConnectVisibleCards(callable, _SelectedUpgrade);
+        _HandOfCards.ConnectVisibleCards(_CallableCardSelected, _SelectedUpgrade);
         _UpgradeSelection.DisableButtons();
     }
 
     public void CardSelectedCallback(string cardName)
     {
+        _HandOfCards.DisconnectVisibleCards(_CallableCardSelected);
         UpgradeCard(cardName);
         _CardSelectedTimer.Start();
     }

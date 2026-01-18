@@ -155,7 +155,20 @@ public partial class HandOfCards : Node2D
 			// Do not allow 10 of trump to be selected for strength
 			foreach (CardContainer cardContainer in _CardsInHand)
 			{
-				if (cardContainer.Visible && !(cardContainer.Rank == Rank.ten && cardContainer.Suit == CurrentTrump))
+				if (cardContainer.Visible && !(cardContainer.Rank == Rank.ten && cardContainer.Suit == Suit.TRUMP))
+				{
+					cardContainer.Connect("CardSelected", method);
+					cardContainer.Selectable = true;
+					_ConnectedCards.Add(cardContainer);
+				}
+			}
+		}
+		else if (upgradeType == UpgradeType.ChangeToJack)
+		{
+			// Do not allow any Jacks to be selected for change to Jack or Trump to be selected
+			foreach (CardContainer cardContainer in _CardsInHand)
+			{
+				if (cardContainer.Visible && cardContainer.Rank != Rank.jack && cardContainer.Suit != Suit.TRUMP)
 				{
 					cardContainer.Connect("CardSelected", method);
 					cardContainer.Selectable = true;
