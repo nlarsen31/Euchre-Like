@@ -214,7 +214,6 @@ public partial class CardContainerTests : Node
     [Test]
     public void TestUpgrades()
     {
-        GD.Print("Testing Strength Upgrade...");
         CardContainer card = new CardContainer();
         card.Rank = Rank.ace;
         card.Suit = Suit.HEARTS;
@@ -224,5 +223,15 @@ public partial class CardContainerTests : Node
         card.ApplyUpgrade(UpgradeType.Strength);
         Assert.IsTrue(card.Rank == Rank.three, "Two should upgrade to Three with Strength upgrade");
         Assert.IsTrue(card.Suit == Suit.HEARTS, "Suit should remain the same after Strength upgrade");
+
+        CurrentTrump = Suit.SPADES;
+        card.ApplyUpgrade(UpgradeType.ChangeClubs);
+        Assert.IsTrue(card.Suit == Suit.CLUBS, "Suit should change to Clubs after ChangeClubs upgrade");
+        card.ApplyUpgrade(UpgradeType.ChangeHearts);
+        Assert.IsTrue(card.Suit == Suit.HEARTS, "Suit should change to Hearts after ChangeHearts upgrade");
+        card.ApplyUpgrade(UpgradeType.ChangeDiamonds);
+        Assert.IsTrue(card.Suit == Suit.DIAMONDS, "Suit should change to Diamonds after ChangeDiamonds upgrade");
+        card.ApplyUpgrade(UpgradeType.ChangeSpades);
+        Assert.IsTrue(card.Suit == Suit.SPADES, "Suit should change to Spades after ChangeSpades upgrade");
     }
 }

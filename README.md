@@ -12,6 +12,7 @@ Euchre Rogue LIke made in Godot
 ### Long term updates
 
 - How to play screen
+- Win/Loss screen
 
 ### Known bugs
 

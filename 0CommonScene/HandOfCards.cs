@@ -87,7 +87,7 @@ public partial class HandOfCards : Node2D
 		_CardsInHand.Sort();
 		int numberOfVisibleCards = NumberOfCardsLeftToPlay;
 
-		// Add halfWidth if we are an odd number of cards.
+		// Add half Width if we are an odd number of cards.
 
 		int xStart;
 		if (numberOfVisibleCards % 2 == 0)
@@ -106,8 +106,6 @@ public partial class HandOfCards : Node2D
 				pos.X += CARD_WIDTH;
 			}
 		}
-
-
 		if (Debugging) GD.Print("[Leave] DrawHand");
 	}
 
@@ -181,8 +179,9 @@ public partial class HandOfCards : Node2D
 	{
 		foreach (CardContainer cardContainer in _CardsInHand)
 		{
-			if (card == cardContainer.ToString())
+			if (card == cardContainer.ToString() && cardContainer.Visible)
 			{
+				GD.Print($"Hiding {card}");
 				cardContainer.Visible = false;
 				break;
 			}

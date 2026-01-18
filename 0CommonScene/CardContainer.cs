@@ -222,31 +222,30 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 	// Upgrade methods
 	public void ApplyUpgrade(UpgradeType upgrade)
 	{
-		GD.Print($"Applying upgrade {upgrade} to card {this}");
+		if (Debugging) GD.Print($"Applying upgrade {upgrade} to card {this.ToString()}");
 		switch (upgrade)
 		{
 			case UpgradeType.Strength:
 				_rank = _rank + 1;
 				if (_rank >= Rank.undefined) // if we went past ace, change to two
 				{
-					GD.Print($"Applying upgrade {upgrade} to card {this}");
 					_rank = Rank.two;
 				}
 				break;
 			case UpgradeType.ChangeHearts:
-				GD.Print("Changing to Hearts Not implemented");
+				_suit = Suit.HEARTS;
 				break;
 			case UpgradeType.ChangeDiamonds:
-				GD.Print("Changing to Diamonds Not implemented");
+				_suit = Suit.DIAMONDS;
 				break;
 			case UpgradeType.ChangeClubs:
-				GD.Print("Changing to Clubs Not implemented");
+				_suit = Suit.CLUBS;
 				break;
 			case UpgradeType.ChangeSpades:
-				GD.Print("Changing to Spades Not implemented");
+				_suit = Suit.SPADES;
 				break;
 			case UpgradeType.ChangeToJack:
-				GD.Print("Changing to Jack Not implemented");
+				_rank = Rank.jack;
 				break;
 			case UpgradeType.NoJackToTrump:
 				GD.Print("Changing to No Jack to Trump Not implemented");

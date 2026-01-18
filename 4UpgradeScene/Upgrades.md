@@ -2,12 +2,12 @@
 
 ## Current status of all upgrades
 
-- Strength (Not Started)
-- ChangeHearts (Not Started)
-- ChangeDiamonds (Not Started)
-- ChangeClubs (Not Started)
-- ChangeSpades (Not Started)
-- ChangeToJack (Not Started)
+- Strength (Works)
+- ChangeHearts (Initial Development done)
+- ChangeDiamonds (Initial Development done)
+- ChangeClubs (Initial Development done)
+- ChangeSpades (Initial Development done)
+- ChangeToJack (Initial Development done)
 - NonJackToTrump (Not Started)
 - ChangeToAlwaysLeft (Not Started)
   - Need to add support for always left
@@ -16,6 +16,8 @@
 
 ## Development notes (Notes in reverse order)
 
+- Noticed a bug, when changing a card to clubs, and selecting that card, it never left my hand. It was the right bower
+  - Seems to be that a modified card is not leaving the hand.
 - (Resolved) Known issue, when you have two of the same card, they both disappear when one is played..
 - Got Strength working added somethings for next upgrades
 - Got the upgrade screen to go back to playing with keeping track of the cards that are not players.

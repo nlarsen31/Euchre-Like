@@ -96,13 +96,6 @@ public partial class Upgrade : Node2D
             int upgradeIdx = random.Next(0, _upgradeChangeMap[rarity].Count);
             UpgradeType upgrade = _upgradeChangeMap[rarity][upgradeIdx];
 
-            // Temp force 0 to be Strength for testing
-            if (i == 0)
-            {
-                rarity = Rarity.Common;
-                upgrade = UpgradeType.Strength;
-            }
-
             string upgradeString = UpgradeToString[upgrade];
             _UpgradeSelection.SetUnusedUpgrade(upgradeString, upgrade);
 
