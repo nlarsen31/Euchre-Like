@@ -146,6 +146,7 @@ public partial class Upgrade : Node2D
 
         // Apply upgrade
         card.ApplyUpgrade(_SelectedUpgrade);
+        card.SetAnimation();
 
         CurrentHand = _HandOfCards.ExportHand();
         // replace first instance in CurrentHand

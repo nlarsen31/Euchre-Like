@@ -210,4 +210,19 @@ public partial class CardContainerTests : Node
         Assert.IsTrue(aceHearts < jackDiamonds, "Ace of Hearts should be less than Jack of Diamonds");
         Assert.IsTrue(jackDiamonds < jackHearts, "Jack of Diamonds should be less than Jack of Hearts");
     }
+
+    [Test]
+    public void TestUpgrades()
+    {
+        GD.Print("Testing Strength Upgrade...");
+        CardContainer card = new CardContainer();
+        card.Rank = Rank.ace;
+        card.Suit = Suit.HEARTS;
+
+        card.ApplyUpgrade(UpgradeType.Strength);
+        Assert.IsTrue(card.Rank == Rank.two, "Ace should upgrade to Two with Strength upgrade");
+        card.ApplyUpgrade(UpgradeType.Strength);
+        Assert.IsTrue(card.Rank == Rank.three, "Two should upgrade to Three with Strength upgrade");
+        Assert.IsTrue(card.Suit == Suit.HEARTS, "Suit should remain the same after Strength upgrade");
+    }
 }

@@ -222,12 +222,14 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 	// Upgrade methods
 	public void ApplyUpgrade(UpgradeType upgrade)
 	{
+		GD.Print($"Applying upgrade {upgrade} to card {this}");
 		switch (upgrade)
 		{
 			case UpgradeType.Strength:
 				_rank = _rank + 1;
 				if (_rank >= Rank.undefined) // if we went past ace, change to two
 				{
+					GD.Print($"Applying upgrade {upgrade} to card {this}");
 					_rank = Rank.two;
 				}
 				break;
@@ -259,6 +261,5 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 				GD.Print("Unknown upgrade type");
 				break;
 		}
-		SetAnimation();
 	}
 }

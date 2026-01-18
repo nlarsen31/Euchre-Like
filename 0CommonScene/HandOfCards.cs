@@ -182,7 +182,10 @@ public partial class HandOfCards : Node2D
 		foreach (CardContainer cardContainer in _CardsInHand)
 		{
 			if (card == cardContainer.ToString())
+			{
 				cardContainer.Visible = false;
+				break;
+			}
 		}
 		DrawHand();
 	}
