@@ -1,21 +1,23 @@
-using Godot;
 using System;
-using System.Collections.Generic;
 using System.Collections;
-using static GlobalProperties;
+using System.Collections.Generic;
+using Godot;
 using static GlobalMethods;
+using static GlobalProperties;
 
 public partial class Upgrade : Node2D
 {
 
-	[Export]
-	private PackedScene CardContainer;
+    [Export]
+    private PackedScene CardContainer;
 
     // Member declarations
     private HandOfCards _HandOfCards;
     private UpgradeSelection _UpgradeSelection;
     private UpgradeType[] _upgrades = new UpgradeType[3];
     private Chip _TrumpChip;
+
+    private UpgradeType _SelectedUpgrade = UpgradeType.Unselected;
 
     // Objects in Scene
     private Timer _CardSelectedTimer;
@@ -48,7 +50,7 @@ public partial class Upgrade : Node2D
     public override void _Ready()
     {
         // Member variables
-		_HandOfCards = GetNode<HandOfCards>("HandOfCards");
+        _HandOfCards = GetNode<HandOfCards>("HandOfCards");
         _CardSelectedTimer = GetNode<Timer>("CardSelectedTimer");
         _TrumpChip = GetNode<Chip>("NextTrumpChip");
         if (CurrentTrump == Suit.UNASSIGNED)
@@ -93,6 +95,14 @@ public partial class Upgrade : Node2D
 
             int upgradeIdx = random.Next(0, _upgradeChangeMap[rarity].Count);
             UpgradeType upgrade = _upgradeChangeMap[rarity][upgradeIdx];
+
+            // Temp force 0 to be Strength for testing
+            if (i == 0)
+            {
+                rarity = Rarity.Common;
+                upgrade = UpgradeType.Strength;
+            }
+
             string upgradeString = UpgradeToString[upgrade];
             _UpgradeSelection.SetUnusedUpgrade(upgradeString, upgrade);
 
@@ -107,21 +117,47 @@ public partial class Upgrade : Node2D
     {
         // Handle the upgrade selection
         // TODO: Store the selected upgrade and prompt user to pick a card to upgrade
-        UpgradeType upgrade = (UpgradeType)UpgradeType;
+        _SelectedUpgrade = (UpgradeType)UpgradeType;
         Callable callable = new Callable(this, "CardSelectedCallback");
-        _HandOfCards.ConnectVisibleCards(callable, upgrade);
+        _HandOfCards.ConnectVisibleCards(callable, _SelectedUpgrade);
         _UpgradeSelection.DisableButtons();
     }
 
     public void CardSelectedCallback(string cardName)
     {
+        UpgradeCard(cardName);
         _CardSelectedTimer.Start();
     }
+
+    // Timer callback to transition to Playing scenes after upgrade selected
     public void CardSelectedTimerCallback()
     {
-        CurrentHand = _HandOfCards.ExportHand();
         RequiredTricks = RequiredTricks + 2;
         CurrentTrump = NextTrump(CurrentTrump);
         GetTree().ChangeSceneToFile("res://3PlayingScene/Playing.tscn");
+    }
+
+    public void UpgradeCard(string cardName)
+    {
+        GD.Print($"Upgrading {cardName} with {_SelectedUpgrade}");
+
+        // Find the card in current hand
+        CardContainer card = _HandOfCards.GetCardContainer(cardName);
+
+        // Apply upgrade
+        card.ApplyUpgrade(_SelectedUpgrade);
+        card.SetAnimation();
+
+        CurrentHand = _HandOfCards.ExportHand();
+        // replace first instance in CurrentHand
+        for (int i = 0; i < CurrentHand.Count; i++)
+        {
+            if (CurrentHand[i] == cardName)
+            {
+                GD.Print($"Updating CurrentHand at index {i} with {card.ToString()}");
+                CurrentHand[i] = card.ToString();
+                break;
+            }
+        }
     }
 }

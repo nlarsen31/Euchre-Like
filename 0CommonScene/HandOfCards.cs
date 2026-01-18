@@ -177,14 +177,26 @@ public partial class HandOfCards : Node2D
 		}
 	}
 
-
 	public void HideCard(string card)
 	{
 		foreach (CardContainer cardContainer in _CardsInHand)
 		{
 			if (card == cardContainer.ToString())
+			{
 				cardContainer.Visible = false;
+				break;
+			}
 		}
 		DrawHand();
+	}
+
+	public CardContainer GetCardContainer(string card)
+	{
+		foreach (CardContainer cardContainer in _CardsInHand)
+		{
+			if (card == cardContainer.ToString())
+				return cardContainer;
+		}
+		return null;
 	}
 }
