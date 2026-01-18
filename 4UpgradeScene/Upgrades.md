@@ -16,6 +16,6 @@
 
 ## Development notes (Notes in reverse order)
 
-- Known issue, when you have two of the same card, they both disappear when one is played..
+- (Resolved) Known issue, when you have two of the same card, they both disappear when one is played..
 - Got Strength working added somethings for next upgrades
 - Got the upgrade screen to go back to playing with keeping track of the cards that are not players.
