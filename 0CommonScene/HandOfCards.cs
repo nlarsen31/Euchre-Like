@@ -87,14 +87,6 @@ public partial class HandOfCards : Node2D
 		_CardsInHand.Sort();
 		int numberOfVisibleCards = NumberOfCardsLeftToPlay;
 
-		// Print each element for debugging
-		if (Debugging)
-		{
-			GD.Print("Current Hand:");
-			foreach (CardContainer card in _CardsInHand)
-				GD.Print(card.ToString());
-		}
-
 		// Add half Width if we are an odd number of cards.
 
 		int xStart;
@@ -244,6 +236,15 @@ public partial class HandOfCards : Node2D
 		DrawHand();
 	}
 
+	// DEBUGGING ONLY
+	public void UpgradeAllCards()
+	{
+		foreach (CardContainer cardContainer in _CardsInHand)
+		{
+			cardContainer.ApplyUpgrade(UpgradeType.ChangeToRightBower);
+			cardContainer.SetAnimation();
+		}
+	}
 	public CardContainer GetCardContainer(string card)
 	{
 		foreach (CardContainer cardContainer in _CardsInHand)

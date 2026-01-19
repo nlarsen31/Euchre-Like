@@ -96,8 +96,6 @@ public partial class Upgrade : Node2D
             }
             // else we are rare
 
-            rarity = Rarity.Rare;
-
             // Fallback to common if no upgrades left in this rarity
             if (_upgradeChangeMap[rarity].Count == 0)
             {

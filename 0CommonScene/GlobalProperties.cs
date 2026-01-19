@@ -7,6 +7,13 @@ public partial class GlobalProperties : Node
 {
 	public const int HAND_SIZE = 13;
 
+	public enum WonGameState
+	{
+		NotFinished,
+		Won,
+		Lost
+	};
+	public static WonGameState CurrentWonGameState = WonGameState.NotFinished;
 	public static bool Debugging = true;
 	public enum Suit
 	{
@@ -121,7 +128,7 @@ public partial class GlobalProperties : Node
 		  { UpgradeType.ChangeClubs, "Change Clubs" },
 		  { UpgradeType.ChangeSpades, "Change Spades" },
 		  { UpgradeType.ChangeToJack, "Change to Jack" },
-		  { UpgradeType.NoJackToTrump, "No Jack to Trump" },
+		  { UpgradeType.NoJackToTrump, "Non Jack to Trump" },
 		  { UpgradeType.ChangeToLeftBower, "Change to Left Bower" },
 		  { UpgradeType.ChangeToRightBower, "Change to Right Bower" }
 	 };

@@ -70,7 +70,7 @@ text = "X"
 
 [node name="Timer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.1
+wait_time = 0.5
 one_shot = true
 
 [node name="TrumpChip" parent="." instance=ExtResource("8_p1npp")]
@@ -98,7 +98,7 @@ text = "You won X Tricks!"
 uppercase = true
 
 [node name="PlayFinishedTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 4.0
 
 [node name="HandFinishedTimer" type="Timer" parent="."]
 

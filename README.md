@@ -40,6 +40,7 @@ Euchre Rogue LIke made in Godot
 
 - (Planned out) Plan out the work for upgrading cards
 - (Coded and tested) Try to code out Strength
+- Finished upgrades and end scenes. There is a TODO: to clean up some bad code.
 
 ### Jan 17 2026
 
