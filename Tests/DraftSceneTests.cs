@@ -57,7 +57,12 @@ public partial class DraftSceneTests : Node
         // Check the value of the one card is correct
         List<string> cardsInHand = hand.ExportHand();
         Assert.IsTrue(cardsInHand.Contains(firstCard), "The selected card should be in the hand.");
+    }
 
+    [Test]
+    public void DraftSceneRandomRanksTest()
+    {
+        _draftScene.CurrentDraftingMode = DraftScene.DraftingMode.RANK_BASED;
     }
 
     [AfterAll]
