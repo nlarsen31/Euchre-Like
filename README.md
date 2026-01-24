@@ -7,34 +7,27 @@ Euchre Rogue LIke made in Godot
 - Run ./gd-local-setup.sh - this will install godot to the repo folder
 - Download and install .NET with the current version of GoDot <https://dotnet.microsoft.com/en-us/download> 8.0 is recommended.
 
-## Changes Starting on July 7 to be included in 1.1.0
-
-### Long term updates
+## Long term updates
 
 - Add speed settings on the main screen
+- Add better scoreboard
 - How to play screen
-- Win/Loss screen
+- Refactor playing to be clear. Each timer needs to be more clear on what it is waiting for. Document first then code
+- Brain storm how to make the game longer
+- How do we make the game harder to win
+  - Can we make the opponents smarter?
+  - How can we incorporate making changes to your partner?
 
-### Known bugs
+## Known bugs
 
-- Sometimes when the Upgrade Scene loads one of the options doesn't get replaced and shows "option <n>" Most recently this happened after winning 5 tricks.
+- [Resolved] Sometimes when the Upgrade Scene loads one of the options doesn't get replaced and shows "option <n>" Most recently this happened after winning 5 tricks.
   - Last time this happened the options were `No Jack to Trump` `Change to Jack` `option 3`
 
-### Add Modifiers
-
-- Prerequisite changes
-  - After first hand, we need to keep track of the "other cards" so we deal the same cards every time
-  - <del>Add a "modifier screen" that displays options, for starters this can be just a UI on top of the game</del>
-
-- Purposed Modifiers
-  - Increase the rank of 1 card in your hand (common)
-  - Change the suit of one card in your hand (common)
-  - Make one card a jack in your hand (uncommon)
-  - Make one card always Trump (uncommon)
-  - Make one card always left (rare)
-  - Make one card always right (rare)
-
 ## Work log
+
+### Jan 23
+
+- Make the scoreboard a better looking thing.
 
 ### Jan 18
 
