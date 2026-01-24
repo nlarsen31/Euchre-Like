@@ -84,15 +84,16 @@ rotation = 1.5708
 position = Vector2(960, 540)
 
 [node name="ScoreBoard" parent="." instance=ExtResource("10_ttpq8")]
-position = Vector2(960, 0)
+position = Vector2(1439, 294)
+scale = Vector2(1.03983, 1.0081)
 
 [node name="ResultLabel" type="Label" parent="."]
 unique_name_in_owner = true
 visible = false
-offset_left = 473.0
-offset_top = 138.0
-offset_right = 1439.0
-offset_bottom = 275.0
+offset_left = 476.0
+offset_top = 716.0
+offset_right = 1442.0
+offset_bottom = 853.0
 theme_override_font_sizes/font_size = 100
 text = "You won X Tricks!"
 uppercase = true

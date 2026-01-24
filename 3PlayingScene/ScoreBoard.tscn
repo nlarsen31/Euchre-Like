@@ -1,24 +1,214 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0cr2855yncbd"]
+[gd_scene load_steps=6 format=3 uid="uid://c0cr2855yncbd"]
 
 [ext_resource type="Script" uid="uid://dg82shx1rk00d" path="res://3PlayingScene/ScoreBoard.cs" id="1_fm1qt"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6tels"]
+load_path = "res://.godot/imported/0-0-0.png-76f3138edca3d6c53a69cca50d83217f.ctex"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q4adu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_6tels")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yfmmc"]
+load_path = "res://.godot/imported/check.png-73aaf9eba22c3efb5c2b6ab7cb1154a0.ctex"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f58gq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_yfmmc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="ScoreBoard" type="Node2D"]
 script = ExtResource("1_fm1qt")
 
 [node name="Required" type="Label" parent="."]
+visible = false
 offset_left = -184.0
 offset_right = -24.0
 offset_bottom = 23.0
 text = "Required Tricks: XX"
 
 [node name="TricksWon" type="Label" parent="."]
+visible = false
 offset_left = -16.0
 offset_right = 104.0
 offset_bottom = 23.0
 text = "Tricks won: XX"
 
 [node name="TricksLeft" type="Label" parent="."]
+visible = false
 offset_left = 112.0
 offset_right = 216.0
 offset_bottom = 23.0
 text = "Tricks left: XX"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_q4adu")
+
+[node name="won_1" type="AnimatedSprite2D" parent="."]
+position = Vector2(-314, -1)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="won_2" type="AnimatedSprite2D" parent="."]
+position = Vector2(-282, -1)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="won_3" type="AnimatedSprite2D" parent="."]
+position = Vector2(-251, -1)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="won_4" type="AnimatedSprite2D" parent="."]
+position = Vector2(-219, -1)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="won_5" type="AnimatedSprite2D" parent="."]
+position = Vector2(-314, 29)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="won_6" type="AnimatedSprite2D" parent="."]
+position = Vector2(-282, 29)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="won_7" type="AnimatedSprite2D" parent="."]
+position = Vector2(-251, 29)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="won_8" type="AnimatedSprite2D" parent="."]
+position = Vector2(-219, 29)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="won_9" type="AnimatedSprite2D" parent="."]
+position = Vector2(-314, 59)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="won_10" type="AnimatedSprite2D" parent="."]
+position = Vector2(-282, 59)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="won_11" type="AnimatedSprite2D" parent="."]
+position = Vector2(-251, 59)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="won_12" type="AnimatedSprite2D" parent="."]
+position = Vector2(-219, 59)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="won_13" type="AnimatedSprite2D" parent="."]
+position = Vector2(-314, 89)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="left_1" type="AnimatedSprite2D" parent="."]
+position = Vector2(-91, -1)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="left_2" type="AnimatedSprite2D" parent="."]
+position = Vector2(-58, -1)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="left_3" type="AnimatedSprite2D" parent="."]
+position = Vector2(-28, -1)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="left_4" type="AnimatedSprite2D" parent="."]
+position = Vector2(4, -1)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="left_5" type="AnimatedSprite2D" parent="."]
+position = Vector2(-91, 29)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="left_6" type="AnimatedSprite2D" parent="."]
+position = Vector2(-59, 29)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="left_7" type="AnimatedSprite2D" parent="."]
+position = Vector2(-28, 29)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="left_8" type="AnimatedSprite2D" parent="."]
+position = Vector2(4, 29)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="left_9" type="AnimatedSprite2D" parent="."]
+position = Vector2(-91, 59)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="left_10" type="AnimatedSprite2D" parent="."]
+position = Vector2(-59, 59)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="left_11" type="AnimatedSprite2D" parent="."]
+position = Vector2(-28, 59)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="left_12" type="AnimatedSprite2D" parent="."]
+position = Vector2(4, 59)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="left_13" type="AnimatedSprite2D" parent="."]
+position = Vector2(-91, 89)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="req_1" type="AnimatedSprite2D" parent="."]
+position = Vector2(176, 0)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="req_2" type="AnimatedSprite2D" parent="."]
+position = Vector2(208, 0)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="req_3" type="AnimatedSprite2D" parent="."]
+position = Vector2(239, 0)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="req_4" type="AnimatedSprite2D" parent="."]
+position = Vector2(271, 0)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="req_5" type="AnimatedSprite2D" parent="."]
+position = Vector2(176, 30)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="req_6" type="AnimatedSprite2D" parent="."]
+position = Vector2(208, 30)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="req_7" type="AnimatedSprite2D" parent="."]
+position = Vector2(239, 30)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="req_8" type="AnimatedSprite2D" parent="."]
+position = Vector2(271, 30)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="req_9" type="AnimatedSprite2D" parent="."]
+position = Vector2(176, 60)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="req_10" type="AnimatedSprite2D" parent="."]
+position = Vector2(208, 60)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="req_11" type="AnimatedSprite2D" parent="."]
+position = Vector2(239, 60)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="req_12" type="AnimatedSprite2D" parent="."]
+position = Vector2(271, 60)
+sprite_frames = SubResource("SpriteFrames_f58gq")
+
+[node name="req_13" type="AnimatedSprite2D" parent="."]
+position = Vector2(176, 90)
+sprite_frames = SubResource("SpriteFrames_f58gq")

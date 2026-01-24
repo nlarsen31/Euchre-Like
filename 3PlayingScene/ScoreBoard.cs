@@ -1,5 +1,6 @@
-using Godot;
 using System;
+using System.Collections.Generic;
+using Godot;
 
 public partial class ScoreBoard : Node2D
 {
@@ -46,34 +47,67 @@ public partial class ScoreBoard : Node2D
 			SetRequired(_tricksRequired);
 		}
 	}
+
+	AnimatedSprite2D[] _WonTrickChecks = new AnimatedSprite2D[13];
+	AnimatedSprite2D[] _RequiredTricksChecks = new AnimatedSprite2D[13];
+	AnimatedSprite2D[] _TricksLeftChecks = new AnimatedSprite2D[13];
 	public override void _Ready()
 	{
 		_Required = GetNode<Label>("Required");
 		_TricksLeft = GetNode<Label>("TricksWon");
 		_TricksWon = GetNode<Label>("TricksLeft");
 		_tricksWon = 0;
-
+		for (int i = 0; i < 13; i++)
+		{
+			_WonTrickChecks[i] = GetNode<AnimatedSprite2D>($"won_{i + 1}");
+			_RequiredTricksChecks[i] = GetNode<AnimatedSprite2D>($"req_{i + 1}");
+			_TricksLeftChecks[i] = GetNode<AnimatedSprite2D>($"left_{i + 1}");
+		}
 	}
 
 	public void SetRequired(int iRequiredTricksLeft)
 	{
-		_Required.Text = "Required Tricks: " + iRequiredTricksLeft;
+		for (int i = 0; i < iRequiredTricksLeft; i++)
+		{
+
+			_RequiredTricksChecks[i].Visible = true;
+		}
+		for (int i = iRequiredTricksLeft; i < 13; i++)
+		{
+			_RequiredTricksChecks[i].Visible = false;
+		}
 	}
 	public void SetTricksLeft(int iTricksLeft)
 	{
-		_TricksLeft.Text = "Tricks left: " + iTricksLeft;
+		GD.Print($"Setting tricks left to {iTricksLeft}");
+		for (int i = 0; i < iTricksLeft; i++)
+		{
+			GD.Print($"  Making trick left {i} visible");
+			_TricksLeftChecks[i].Visible = true;
+		}
+		for (int i = iTricksLeft; i < 13; i++)
+		{
+			GD.Print($"  Making trick left {i} invisible");
+			_TricksLeftChecks[i].Visible = false;
+		}
 	}
 	public void SetTricksWon(int iTricksWon)
 	{
-		_TricksWon.Text = "Tricks won: " + iTricksWon;
+		for (int i = 0; i < iTricksWon; i++)
+		{
+			_WonTrickChecks[i].Visible = true;
+		}
+		for (int i = iTricksWon; i < 13; i++)
+		{
+			_WonTrickChecks[i].Visible = false;
+		}
 	}
 	public void Reset(int iRequiredTricksLeft)
 	{
+		TricksWon = 0;
 		TricksLeft = 13;
 		TricksRequired = iRequiredTricksLeft;
-		TricksWon = 0;
 	}
-
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
