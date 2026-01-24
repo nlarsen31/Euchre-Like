@@ -32,6 +32,21 @@ text = "DebugCards"
 [node name="CardContainer" parent="." instance=ExtResource("3_8fexx")]
 position = Vector2(536, 784)
 
+[node name="SpeedSlider" type="HSlider" parent="."]
+offset_left = 38.0
+offset_top = 791.0
+offset_right = 375.0
+offset_bottom = 825.0
+
+[node name="Label" type="Label" parent="SpeedSlider"]
+layout_mode = 0
+offset_left = 62.0
+offset_top = -51.0
+offset_right = 279.0
+offset_bottom = -9.0
+theme_override_font_sizes/font_size = 28
+text = "SPEED OF PLAY"
+
 [connection signal="button_up" from="Play" to="." method="_on_play_button_up"]
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_debug_pressed"]

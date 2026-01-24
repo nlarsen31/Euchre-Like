@@ -21,6 +21,7 @@ public partial class Upgrade : Node2D
 
     // Objects in Scene
     private Timer _CardSelectedTimer;
+    private bool _TimersAdjusted = false;
 
     private Callable _CallableCardSelected;
 
@@ -59,6 +60,12 @@ public partial class Upgrade : Node2D
         _TrumpChip = GetNode<Chip>("NextTrumpChip");
         _ScoreBoard = GetNode<ScoreBoard>("ScoreBoard");
         _ScoreBoard.Reset(RequiredTricks);
+
+        if (!_TimersAdjusted)
+        {
+            _CardSelectedTimer.WaitTime *= GameSpeed;
+            _TimersAdjusted = true;
+        }
 
         if (CurrentTrump == Suit.UNASSIGNED)
         {
@@ -137,7 +144,6 @@ public partial class Upgrade : Node2D
     // Timer callback to transition to Playing scenes after upgrade selected
     public void CardSelectedTimerCallback()
     {
-        RequiredTricks = RequiredTricks + 2;
         CurrentTrump = NextTrump(CurrentTrump);
         GetTree().ChangeSceneToFile("res://3PlayingScene/Playing.tscn");
     }

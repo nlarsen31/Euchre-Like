@@ -146,6 +146,8 @@ public partial class GlobalProperties : Node
 	public static int RequiredTricks = 3;
 	public static Suit CurrentTrump = Suit.UNASSIGNED;
 
+	public static double GameSpeed = 1.0;
+
 	// List of cards that are not the players. This set remains the same once first hand is drafted.
 
 	public static List<string> NonPlayerCards = new List<string>();

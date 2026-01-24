@@ -27,6 +27,7 @@ public partial class Playing : Node2D
 	private Timer PlayTimer;
 	private Timer _PlayFinishedTimer;
 	private Timer _HandFinishedTimer;
+	private bool _TimersAdjusted = false;
 	Callable _Callable;
 
 	private ScoreBoard _ScoreBoard;
@@ -196,6 +197,14 @@ public partial class Playing : Node2D
 
 		GD.Print("Playing_Ready " + NonPlayerCards.Count);
 		SetupPlayersHands();
+
+		if (!_TimersAdjusted)
+		{
+			PlayTimer.WaitTime *= GameSpeed;
+			_PlayFinishedTimer.WaitTime *= GameSpeed;
+			_HandFinishedTimer.WaitTime *= GameSpeed;
+			_TimersAdjusted = true;
+		}
 
 		// Reset scoreboard
 		_ScoreBoard.Reset(RequiredTricks);

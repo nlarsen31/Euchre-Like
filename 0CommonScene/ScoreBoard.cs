@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using static GlobalProperties;
 
 public partial class ScoreBoard : Node2D
 {
@@ -67,18 +68,29 @@ public partial class ScoreBoard : Node2D
 
 	public void SetRequired(int iRequiredTricksLeft)
 	{
+		if (Debugging)
+		{
+			GD.Print($"[Enter] Setting required tricks to {iRequiredTricksLeft}");
+		}
 		for (int i = 0; i < iRequiredTricksLeft; i++)
 		{
-
 			_RequiredTricksChecks[i].Visible = true;
 		}
 		for (int i = iRequiredTricksLeft; i < 13; i++)
 		{
 			_RequiredTricksChecks[i].Visible = false;
 		}
+		if (Debugging)
+		{
+			GD.Print($"[Leaving] Setting required tricks to {iRequiredTricksLeft}");
+		}
 	}
 	public void SetTricksLeft(int iTricksLeft)
 	{
+		if (Debugging)
+		{
+			GD.Print($"[Enter] Setting tricks left to {iTricksLeft}");
+		}
 		GD.Print($"Setting tricks left to {iTricksLeft}");
 		for (int i = 0; i < iTricksLeft; i++)
 		{
@@ -90,9 +102,17 @@ public partial class ScoreBoard : Node2D
 			GD.Print($"  Making trick left {i} invisible");
 			_TricksLeftChecks[i].Visible = false;
 		}
+		if (Debugging)
+		{
+			GD.Print($"[Leaving] Setting tricks left to {iTricksLeft}");
+		}
 	}
 	public void SetTricksWon(int iTricksWon)
 	{
+		if (Debugging)
+		{
+			GD.Print($"[Enter] Setting tricks won to {iTricksWon}");
+		}
 		for (int i = 0; i < iTricksWon; i++)
 		{
 			_WonTrickChecks[i].Visible = true;
@@ -100,6 +120,10 @@ public partial class ScoreBoard : Node2D
 		for (int i = iTricksWon; i < 13; i++)
 		{
 			_WonTrickChecks[i].Visible = false;
+		}
+		if (Debugging)
+		{
+			GD.Print($"[Leaving] Setting tricks won to {iTricksWon}");
 		}
 	}
 	public void Reset(int iRequiredTricksLeft)

@@ -8,9 +8,12 @@ using System.Reflection;
 
 public partial class start_scene : Node2D
 {
+
+	private Slider _SpeedSlider;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_SpeedSlider = GetNode<Slider>("SpeedSlider");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,6 +25,7 @@ public partial class start_scene : Node2D
 	{
 		GD.Print("PLAY PRESSED");
 		GetTree().ChangeSceneToFile("res://2DraftScene/DraftScene.tscn");
+		GameSpeed = 1.0 - (_SpeedSlider.Value / 100.0 / 1.0);
 	}
 
 	public void _on_debug_pressed()

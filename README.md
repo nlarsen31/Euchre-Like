@@ -10,7 +10,6 @@ Euchre Rogue LIke made in Godot
 ## Long term updates
 
 - Add speed settings on the main screen
-- Add better scoreboard
 - How to play screen
 - Refactor playing to be clear. Each timer needs to be more clear on what it is waiting for. Document first then code
 - Brain storm how to make the game longer
@@ -24,6 +23,11 @@ Euchre Rogue LIke made in Godot
   - Last time this happened the options were `No Jack to Trump` `Change to Jack` `option 3`
 
 ## Work log
+
+### Jan 24
+
+- Add scoreboard to upgrade screen
+- Add speed timer to start screen
 
 ### Jan 23
 
