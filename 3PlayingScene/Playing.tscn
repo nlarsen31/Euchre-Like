@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://doc2ljysvimuh" path="res://Sprites/Players/PARTNER.png" id="6_pbpgf"]
 [ext_resource type="PackedScene" uid="uid://1weqnld8a74n" path="res://0CommonScene/Chip.tscn" id="8_p1npp"]
 [ext_resource type="PackedScene" uid="uid://cni2sbqar4qot" path="res://3PlayingScene/PlayedCards.tscn" id="9_bxlyg"]
-[ext_resource type="PackedScene" uid="uid://c0cr2855yncbd" path="res://3PlayingScene/ScoreBoard.tscn" id="10_ttpq8"]
+[ext_resource type="PackedScene" uid="uid://c0cr2855yncbd" path="res://0CommonScene/ScoreBoard.tscn" id="10_ttpq8"]
 
 [node name="Playing" type="Node2D"]
 script = ExtResource("1_1576k")

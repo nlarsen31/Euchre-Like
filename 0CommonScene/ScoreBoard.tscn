@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c0cr2855yncbd"]
 
-[ext_resource type="Script" uid="uid://dg82shx1rk00d" path="res://3PlayingScene/ScoreBoard.cs" id="1_fm1qt"]
+[ext_resource type="Script" uid="uid://dg82shx1rk00d" path="res://0CommonScene/ScoreBoard.cs" id="1_fm1qt"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6tels"]
 load_path = "res://.godot/imported/0-0-0.png-76f3138edca3d6c53a69cca50d83217f.ctex"

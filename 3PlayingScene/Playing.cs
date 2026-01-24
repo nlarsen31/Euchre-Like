@@ -390,6 +390,7 @@ public partial class Playing : Node2D
 		{
 			GD.Print("Player won enough tricks to upgrade.");
 			_ScoreBoard.Reset(_ScoreBoard.TricksRequired + 2);
+			RequiredTricks += 2;
 			CurrentHand = _HandOfCards.ExportHand();
 			CurrentWonGameState = WonGameState.NotFinished;
 			GetTree().ChangeSceneToFile("res://4UpgradeScene/Upgrade.tscn");

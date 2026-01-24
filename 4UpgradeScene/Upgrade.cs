@@ -24,6 +24,8 @@ public partial class Upgrade : Node2D
 
     private Callable _CallableCardSelected;
 
+    private ScoreBoard _ScoreBoard;
+
     private Dictionary<Rarity, List<UpgradeType>> _upgradeChangeMap = new Dictionary<Rarity, List<UpgradeType>>()
     {
         { Rarity.Common, new List<UpgradeType>
@@ -55,6 +57,9 @@ public partial class Upgrade : Node2D
         _HandOfCards = GetNode<HandOfCards>("HandOfCards");
         _CardSelectedTimer = GetNode<Timer>("CardSelectedTimer");
         _TrumpChip = GetNode<Chip>("NextTrumpChip");
+        _ScoreBoard = GetNode<ScoreBoard>("ScoreBoard");
+        _ScoreBoard.Reset(RequiredTricks);
+
         if (CurrentTrump == Suit.UNASSIGNED)
         {
             CurrentTrump = Suit.HEARTS; // Default to Hearts if no trump is set
