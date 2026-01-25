@@ -24,6 +24,7 @@ public partial class Upgrade : Node2D
     private bool _TimersAdjusted = false;
 
     private Callable _CallableCardSelected;
+    private Callable _CallableUpgradeSelected;
 
     private ScoreBoard _ScoreBoard;
 
@@ -87,6 +88,7 @@ public partial class Upgrade : Node2D
         _HandOfCards.DrawHand();
         _UpgradeSelection = GetNode<UpgradeSelection>("UpgradeSelection");
         _CallableCardSelected = new Callable(this, "CardSelectedCallback");
+        _CallableUpgradeSelected = new Callable(this, "UpgradeSelectedCallback");
 
         for (int i = 0; i < 3; i++)
         {
@@ -123,15 +125,18 @@ public partial class Upgrade : Node2D
             _upgrades[i] = upgrade;
         }
 
-        _UpgradeSelection.Connect("UpgradeSelected", new Callable(this, "UpgradeSelectedCallback"));
+        _UpgradeSelection.ConnectUpgradeCards(_CallableUpgradeSelected);
     }
 
-    public void UpgradeSelectedCallback(int UpgradeType)
+    public void UpgradeSelectedCallback(string upgradeType)
     {
+        GD.Print("Upgrade selected callback received: " + upgradeType);
+        _UpgradeSelection.DisconnectUpgradeCards(_CallableUpgradeSelected);
         // Handle the upgrade selection
-        _SelectedUpgrade = (UpgradeType)UpgradeType;
+        // _SelectedUpgrade = (UpgradeType)Enum.Parse(typeof(UpgradeType), upgradeType);
+        _SelectedUpgrade = AnimStringToUpgradeType[upgradeType];
+        GD.Print("Selected upgrade set to: " + _SelectedUpgrade.ToString());
         _HandOfCards.ConnectVisibleCards(_CallableCardSelected, _SelectedUpgrade);
-        _UpgradeSelection.DisableButtons();
     }
 
     public void CardSelectedCallback(string cardName)

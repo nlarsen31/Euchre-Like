@@ -112,6 +112,7 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 		}
 	}
 
+	private UpgradeType _upgrade = UpgradeType.Unselected;
 	private bool _selectable;
 	public bool Selectable
 	{
@@ -122,10 +123,18 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 			{
 				SetBorderColor("red");
 				if (IsMouseInside())
+				{
+					Label tooltip = GetNode<Label>("ToolTip");
+					GD.Print("Showing tooltip for selectable card.");
+					GD.Print(tooltip);
+					tooltip.Visible = true;
 					SetBorderColor("yellow");
+				}
 			}
 			else
 			{
+				Label tooltip = GetNode<Label>("ToolTip");
+				tooltip.Visible = false;
 				SetBorderColor("black");
 			}
 			_selectable = value;
@@ -133,12 +142,69 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 
+	private Dictionary<UpgradeType, string> UpgradeTypeToolTips = new Dictionary<UpgradeType, string>()
+	{
+		{ UpgradeType.Strength, "Increases the rank of this card by one. (Can't be applied to wild trump 10's)" },
+		{ UpgradeType.ChangeHearts, "Changes this card's suit to Hearts." },
+		{ UpgradeType.ChangeDiamonds, "Changes this card's suit to Diamonds." },
+		{ UpgradeType.ChangeClubs, "Changes this card's suit to Clubs." },
+		{ UpgradeType.ChangeSpades, "Changes this card's suit to Spades." },
+		{ UpgradeType.ChangeToJack, "Changes this card's rank to Jack. (Can't apply to wild trump cards)" },
+		{ UpgradeType.NoJackToTrump, "Changes this card's suit to Trump. (Can't be a Jack)" },
+		{ UpgradeType.ChangeToLeftBower, "Changes this card to the Left Bower regardless of trump." },
+		{ UpgradeType.ChangeToRightBower, "Changes this card to the Right Bower regardless of trump." }
+	};
 	public override void _Process(double delta)
 	{
 	}
 	public override string ToString()
 	{
+		if (_upgrade != UpgradeType.Unselected)
+			return $"{UpgradeTypeToAnimString[_upgrade]}";
 		return $"{SuitToString[(int)_suit]}_{RankToString[(int)_rank]}";
+	}
+
+	public void SetUpgradeAnimation(UpgradeType upgrade)
+	{
+		string animName = "";
+		_upgrade = upgrade;
+		Label tooltip = GetNode<Label>("ToolTip");
+		tooltip.Text = UpgradeTypeToolTips[upgrade];
+		tooltip.Visible = false;
+		switch (upgrade)
+		{
+			case UpgradeType.Strength:
+				animName = "upgrade_strength";
+				break;
+			case UpgradeType.ChangeHearts:
+				animName = "upgrade_to_hearts";
+				break;
+			case UpgradeType.ChangeDiamonds:
+				animName = "upgrade_to_diamonds";
+				break;
+			case UpgradeType.ChangeClubs:
+				animName = "upgrade_to_clubs";
+				break;
+			case UpgradeType.ChangeSpades:
+				animName = "upgrade_to_spades";
+				break;
+			case UpgradeType.ChangeToJack:
+				animName = "upgrade_to_jack";
+				break;
+			case UpgradeType.NoJackToTrump:
+				animName = "upgrade_to_trump";
+				break;
+			case UpgradeType.ChangeToLeftBower:
+				animName = "upgrade_to_left";
+				break;
+			case UpgradeType.ChangeToRightBower:
+				animName = "upgrade_to_right";
+				break;
+			default:
+				GD.Print("Unknown upgrade type for animation");
+				return;
+		}
+		GetNode<AnimatedSprite2D>("AnimatedSprite2D").Animation = animName;
 	}
 
 	public void SetAnimation(Rank rank, Suit suit)
@@ -186,7 +252,7 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 			if (input.Pressed && input.ButtonIndex == MouseButton.Left)
 			{
 				string param = this.ToString();
-				// GD.Print($"{SuitToString[(int)this.Suit]}_{RankToString[(int)this.Rank]} was clicked");
+				GD.Print($"Card selected: {param}");
 
 				EmitSignal(SignalName.CardSelected, param);
 			}
@@ -195,12 +261,25 @@ public partial class CardContainer : StaticBody2D, IComparable<CardContainer>
 	public void OnMouseEntered()
 	{
 		if (Selectable)
+		{
+			if (_upgrade != UpgradeType.Unselected)
+			{
+				Label tooltip = GetNode<Label>("ToolTip");
+				GD.Print("Showing tooltip for selectable card.");
+				tooltip.Visible = true;
+				GD.Print(tooltip);
+			}
 			SetBorderColor("yellow");
+		}
 	}
 	public void OnMouseExited()
 	{
 		if (Selectable)
+		{
+			Label tooltip = GetNode<Label>("ToolTip");
+			tooltip.Visible = false;
 			SetBorderColor("red");
+		}
 	}
 
 	public int CompareTo(CardContainer other)

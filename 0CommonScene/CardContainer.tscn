@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://d3mg2ge0vndwe"]
+[gd_scene load_steps=84 format=3 uid="uid://d3mg2ge0vndwe"]
 
 [ext_resource type="Script" uid="uid://fq4s8o107xvc" path="res://0CommonScene/CardContainer.cs" id="1_66f7c"]
 [ext_resource type="Texture2D" uid="uid://cggu4yke4v7up" path="res://Sprites/Cards/10_clubs.png" id="1_hokoa"]
@@ -71,6 +71,15 @@
 [ext_resource type="Texture2D" uid="uid://ch2kigckmjs52" path="res://Sprites/Cards/l_trump.png" id="63_xe6ag"]
 [ext_resource type="Texture2D" uid="uid://btgsboqcg2ytq" path="res://Sprites/Cards/q_trump.png" id="67_eekc0"]
 [ext_resource type="Texture2D" uid="uid://bngt6j1baxutc" path="res://Sprites/Cards/r_trump.png" id="69_khne1"]
+[ext_resource type="Texture2D" uid="uid://b2umascb6pj7a" path="res://Sprites/Upgrades/strength.png" id="70_ya8ul"]
+[ext_resource type="Texture2D" uid="uid://ch1d717l2x8cd" path="res://Sprites/Upgrades/to_clubs.png" id="71_eekc0"]
+[ext_resource type="Texture2D" uid="uid://k3vyfxexhanp" path="res://Sprites/Upgrades/to_diamonds.png" id="71_ruh7p"]
+[ext_resource type="Texture2D" uid="uid://v7v407nmweps" path="res://Sprites/Upgrades/to_hearts.png" id="72_eekc0"]
+[ext_resource type="Texture2D" uid="uid://kgrnpyxo54ov" path="res://Sprites/Upgrades/to_jack.png" id="73_ew7ta"]
+[ext_resource type="Texture2D" uid="uid://delp7ojbvo10r" path="res://Sprites/Upgrades/to_left.png" id="74_gh6jr"]
+[ext_resource type="Texture2D" uid="uid://cvfadpnfjjnau" path="res://Sprites/Upgrades/to_right.png" id="75_hke0l"]
+[ext_resource type="Texture2D" uid="uid://b7gbwgerho4ga" path="res://Sprites/Upgrades/to_spades.png" id="76_1n3mf"]
+[ext_resource type="Texture2D" uid="uid://dypxumbm78skn" path="res://Sprites/Upgrades/to_trump.png" id="77_emom2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7tjeh"]
 size = Vector2(96, 128)
@@ -620,6 +629,78 @@ animations = [{
 "loop": true,
 "name": &"r_trump",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("70_ya8ul")
+}],
+"loop": true,
+"name": &"upgrade_strength",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("71_eekc0")
+}],
+"loop": true,
+"name": &"upgrade_to_clubs",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("71_ruh7p")
+}],
+"loop": true,
+"name": &"upgrade_to_diamonds",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("72_eekc0")
+}],
+"loop": true,
+"name": &"upgrade_to_hearts",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("73_ew7ta")
+}],
+"loop": true,
+"name": &"upgrade_to_jack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("74_gh6jr")
+}],
+"loop": true,
+"name": &"upgrade_to_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("75_hke0l")
+}],
+"loop": true,
+"name": &"upgrade_to_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("76_1n3mf")
+}],
+"loop": true,
+"name": &"upgrade_to_spades",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("77_emom2")
+}],
+"loop": true,
+"name": &"upgrade_to_trump",
+"speed": 5.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ltr2m"]
@@ -650,12 +731,20 @@ shape = SubResource("RectangleShape2D_7tjeh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ciseo")
-animation = &"l_trump"
+animation = &"upgrade_to_clubs"
 
 [node name="BorderFrames" type="AnimatedSprite2D" parent="."]
 visible = false
 sprite_frames = SubResource("SpriteFrames_ltr2m")
 animation = &"red"
+
+[node name="ToolTip" type="Label" parent="."]
+visible = false
+offset_left = -1.0
+offset_top = 65.0
+offset_right = 66.0
+offset_bottom = 88.0
+text = "TOOLTIP"
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="OnMouseEntered"]

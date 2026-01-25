@@ -1,34 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccn44abr8xkui"]
+[gd_scene load_steps=3 format=3 uid="uid://ccn44abr8xkui"]
 
 [ext_resource type="Script" uid="uid://ch7ujutk4wocu" path="res://4UpgradeScene/UpgradeSelection.cs" id="1_pb32a"]
+[ext_resource type="PackedScene" uid="uid://d3mg2ge0vndwe" path="res://0CommonScene/CardContainer.tscn" id="2_d66h1"]
 
 [node name="UpgradeSelection" type="Node2D"]
 script = ExtResource("1_pb32a")
-
-[node name="UpgradeButton1" type="Button" parent="."]
-offset_left = -35.0
-offset_top = -52.0
-offset_right = 37.0
-offset_bottom = -21.0
-size_flags_horizontal = 4
-text = "option 1"
-
-[node name="UpgradeButton2" type="Button" parent="."]
-offset_left = -36.0
-offset_top = -17.0
-offset_right = 36.0
-offset_bottom = 14.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "option 2"
-
-[node name="UpgradeButton3" type="Button" parent="."]
-offset_left = -36.0
-offset_top = 18.0
-offset_right = 36.0
-offset_bottom = 49.0
-size_flags_horizontal = 4
-text = "option 3"
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 13
@@ -43,6 +19,11 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Select an Upgrade!"
 
-[connection signal="pressed" from="UpgradeButton1" to="." method="OnUpgradeSelected" binds= [0]]
-[connection signal="pressed" from="UpgradeButton2" to="." method="OnUpgradeSelected" binds= [1]]
-[connection signal="pressed" from="UpgradeButton3" to="." method="OnUpgradeSelected" binds= [2]]
+[node name="Upgrade1" parent="." instance=ExtResource("2_d66h1")]
+position = Vector2(-111, 29)
+
+[node name="Upgrade2" parent="." instance=ExtResource("2_d66h1")]
+position = Vector2(0, 29)
+
+[node name="Upgrade3" parent="." instance=ExtResource("2_d66h1")]
+position = Vector2(112, 29)

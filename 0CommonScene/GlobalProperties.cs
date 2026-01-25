@@ -120,6 +120,32 @@ public partial class GlobalProperties : Node
 		ChangeToLeftBower,
 		ChangeToRightBower
 	}
+
+	public static Dictionary<UpgradeType, string> UpgradeTypeToAnimString = new Dictionary<UpgradeType, string>()
+	 {
+		  { UpgradeType.Strength, "upgrade_strength" },
+		  { UpgradeType.ChangeHearts, "upgrade_to_hearts" },
+		  { UpgradeType.ChangeDiamonds, "upgrade_to_diamonds" },
+		  { UpgradeType.ChangeClubs, "upgrade_to_clubs" },
+		  { UpgradeType.ChangeSpades, "upgrade_to_spades" },
+		  { UpgradeType.ChangeToJack, "upgrade_to_jack" },
+		  { UpgradeType.NoJackToTrump, "upgrade_to_trump" },
+		  { UpgradeType.ChangeToLeftBower, "upgrade_to_left_bower" },
+		  { UpgradeType.ChangeToRightBower, "upgrade_to_right_bower" }
+	 };
+	public static Dictionary<string, UpgradeType> AnimStringToUpgradeType = new Dictionary<string, UpgradeType>()
+	 {
+		  { "upgrade_strength", UpgradeType.Strength },
+		  { "upgrade_to_hearts", UpgradeType.ChangeHearts },
+		  { "upgrade_to_diamonds", UpgradeType.ChangeDiamonds },
+		  { "upgrade_to_clubs", UpgradeType.ChangeClubs },
+		  { "upgrade_to_spades", UpgradeType.ChangeSpades },
+		  { "upgrade_to_jack", UpgradeType.ChangeToJack },
+		  { "upgrade_to_trump", UpgradeType.NoJackToTrump },
+		  { "upgrade_to_left_bower", UpgradeType.ChangeToLeftBower },
+		  { "upgrade_to_right_bower", UpgradeType.ChangeToRightBower }
+	 };
+
 	public static Dictionary<UpgradeType, string> UpgradeToString = new Dictionary<UpgradeType, string>()
 	 {
 		  { UpgradeType.Strength, "Strength" },
