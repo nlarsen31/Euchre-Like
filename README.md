@@ -9,7 +9,8 @@ Euchre Rogue LIke made in Godot
 
 ## Long term updates
 
-- Add speed settings on the main screen
+- New icons for upgrades with tool tips
+- Icons for players
 - How to play screen
 - Refactor playing to be clear. Each timer needs to be more clear on what it is waiting for. Document first then code
 - Brain storm how to make the game longer
@@ -19,6 +20,7 @@ Euchre Rogue LIke made in Godot
 
 ## Known bugs
 
+- On replay, card changes seem to continue
 - [Resolved] Sometimes when the Upgrade Scene loads one of the options doesn't get replaced and shows "option <n>" Most recently this happened after winning 5 tricks.
   - Last time this happened the options were `No Jack to Trump` `Change to Jack` `option 3`
 
