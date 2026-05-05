@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System.Linq; // Added for LINQ functionality
 using Godot;
 
 public partial class GlobalProperties : Node
 {
 	public const int HAND_SIZE = 13;
+
+	private static Random randy = new Random(); // For random number generation
 
 	public enum WonGameState
 	{
@@ -169,8 +171,28 @@ public partial class GlobalProperties : Node
 
 	public static Phase GlobalGamePhase;
 	public static List<string> CurrentHand;
-	public static int RequiredTricks = 3;
+	public static List<Suit> FixedTrumpOrder = new List<Suit>();
+	public static int CurrentTrumpIndex = 0;
+	public static HashSet<Suit> SuitsWon = new HashSet<Suit>();
+
+	public static void GenerateTrumpSuitOrder()
+	{
+		FixedTrumpOrder = GetAllSuits().OrderBy(_ => randy.Next()).ToList();
+		SuitsWon.Clear();
+	}
+
+	public static void MarkSuitWon(Suit suit)
+	{
+		SuitsWon.Add(suit);
+	}
+
+	public static bool AllSuitsWon()
+	{
+		return SuitsWon.Count >= 4;
+	}
+
 	public static Suit CurrentTrump = Suit.UNASSIGNED;
+	public static int RequiredTricks = 3;
 
 	public static double GameSpeed = 1.0;
 

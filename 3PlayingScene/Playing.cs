@@ -169,10 +169,9 @@ public partial class Playing : Node2D
 		}
 		SetHandCountLabels();
 
-		// 4. randomly select CurrentTrump
+		CurrentTrump = FixedTrumpOrder[CurrentTrumpIndex];
+		GD.Print("Trump suit for this hand: " + SuitToString[(int)CurrentTrump]);
 		Chip TrumpChip = GetNode<Chip>("TrumpChip");
-		if (CurrentTrump == Suit.UNASSIGNED)
-			CurrentTrump = (Suit)randy.Next(0, 4);
 		TrumpChip.SetAnimation(CurrentTrump);
 
 		ActivePlayer = (Player)randy.Next(0, 4);
@@ -195,7 +194,7 @@ public partial class Playing : Node2D
 		_ScoreBoard = GetNode<ScoreBoard>("ScoreBoard");
 		CurrentWonGameState = WonGameState.NotFinished;
 
-		GD.Print("Playing_Ready " + NonPlayerCards.Count);
+		GenerateTrumpSuitOrder();
 		SetupPlayersHands();
 
 		if (!_TimersAdjusted)
@@ -395,10 +394,23 @@ public partial class Playing : Node2D
 		bool won = _ScoreBoard.TricksWon >= _ScoreBoard.TricksRequired;
 		GD.Print("Player won: " + won);
 
-		if (won && _ScoreBoard.TricksRequired < 13)
+		if (won)
+		{
+			MarkSuitWon(CurrentTrump);
+			GD.Print("Suit " + SuitToString[(int)CurrentTrump] + " marked as won. Suits won: " + SuitsWon.Count);
+		}
+
+		if (won && AllSuitsWon() && _ScoreBoard.TricksRequired >= 13)
+		{
+			GD.Print("Player has won all suits at 13 tricks");
+			CurrentWonGameState = WonGameState.Won;
+			GetTree().ChangeSceneToFile("res://5Results/Results.tscn");
+		}
+		if (won && AllSuitsWon())
 		{
 			GD.Print("Player won enough tricks to upgrade.");
-			_ScoreBoard.Reset(_ScoreBoard.TricksRequired + 2);
+			CurrentTrumpIndex = (CurrentTrumpIndex + 1) % FixedTrumpOrder.Count;
+			GD.Print("Next trump index: " + CurrentTrumpIndex);
 			RequiredTricks += 2;
 			CurrentHand = _HandOfCards.ExportHand();
 			CurrentWonGameState = WonGameState.NotFinished;
@@ -406,9 +418,17 @@ public partial class Playing : Node2D
 		}
 		else if (won)
 		{
-			GD.Print("Player won the game.");
-			CurrentWonGameState = WonGameState.Won;
-			GetTree().ChangeSceneToFile("res://5Results/Results.tscn");
+			GD.Print("Player won the hand, but not all suits yet.");
+			CurrentTrumpIndex = (CurrentTrumpIndex + 1) % FixedTrumpOrder.Count;
+			GD.Print("Next trump index: " + CurrentTrumpIndex);
+			CurrentHand = _HandOfCards.ExportHand();
+			CurrentWonGameState = WonGameState.NotFinished;
+
+			// Reset the playing scene with new trump and same hand.
+			SetupPlayersHands();
+			_PlayedCards.ClearCards();
+			_ScoreBoard.Reset(RequiredTricks);
+			PlayTimer.Start();
 		}
 		else
 		{
