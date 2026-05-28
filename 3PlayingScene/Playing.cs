@@ -426,6 +426,7 @@ public partial class Playing : Node2D
 
 			// Reset the playing scene with new trump and same hand.
 			SetupPlayersHands();
+			CurrentTrump = FixedTrumpOrder[CurrentTrumpIndex];
 			_PlayedCards.ClearCards();
 			_ScoreBoard.Reset(RequiredTricks);
 			PlayTimer.Start();

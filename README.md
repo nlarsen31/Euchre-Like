@@ -26,6 +26,10 @@ Euchre Rogue LIke made in Godot
 
 ## Work log
 
+### May 4
+
+- Set up playing to play through each trump once before increasing tricks required.
+
 ### Jan 24
 
 - Add scoreboard to upgrade screen
