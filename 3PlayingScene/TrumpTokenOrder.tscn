@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://4msxip4pvphq"]
+
+[ext_resource type="PackedScene" uid="uid://1weqnld8a74n" path="res://0CommonScene/Chip.tscn" id="1_08b07"]
+[ext_resource type="Script" uid="uid://bu8ox0cw504no" path="res://3PlayingScene/TrumpTokenOrder.cs" id="1_cpwxx"]
+
+[node name="TrumpTokenOrder" type="Node2D"]
+script = ExtResource("1_cpwxx")
+
+[node name="Chip0" parent="." instance=ExtResource("1_08b07")]
+unique_name_in_owner = true
+position = Vector2(-74, 25)
+
+[node name="Chip1" parent="." instance=ExtResource("1_08b07")]
+unique_name_in_owner = true
+position = Vector2(-24, 26)
+
+[node name="Chip2" parent="." instance=ExtResource("1_08b07")]
+unique_name_in_owner = true
+position = Vector2(26, 26)
+
+[node name="Chip3" parent="." instance=ExtResource("1_08b07")]
+unique_name_in_owner = true
+position = Vector2(76, 27)

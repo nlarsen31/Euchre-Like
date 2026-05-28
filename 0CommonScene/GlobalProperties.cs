@@ -178,7 +178,6 @@ public partial class GlobalProperties : Node
 	public static void GenerateTrumpSuitOrder()
 	{
 		FixedTrumpOrder = GetAllSuits().OrderBy(_ => randy.Next()).ToList();
-		SuitsWon.Clear();
 	}
 
 	public static void MarkSuitWon(Suit suit)

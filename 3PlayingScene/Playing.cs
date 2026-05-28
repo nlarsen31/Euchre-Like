@@ -24,6 +24,8 @@ public partial class Playing : Node2D
 	private List<CardContainer> LeftHand = new List<CardContainer>();
 	private List<CardContainer> RightHand = new List<CardContainer>();
 	private List<CardContainer> PartnerHand = new List<CardContainer>();
+
+	private TrumpTokenOrder _TrumpTokenOrder;
 	private Timer PlayTimer;
 	private Timer _PlayFinishedTimer;
 	private Timer _HandFinishedTimer;
@@ -193,8 +195,13 @@ public partial class Playing : Node2D
 		_Callable = new Callable(this, "SelectCardCallback");
 		_ScoreBoard = GetNode<ScoreBoard>("ScoreBoard");
 		CurrentWonGameState = WonGameState.NotFinished;
+		_TrumpTokenOrder = GetNode<TrumpTokenOrder>("TrumpTokenOrder");
 
-		GenerateTrumpSuitOrder();
+		if (FixedTrumpOrder.Count == 0)
+		{
+			GenerateTrumpSuitOrder();
+			_TrumpTokenOrder.SetTrumpOrder(FixedTrumpOrder.ToArray());
+		}
 		SetupPlayersHands();
 
 		if (!_TimersAdjusted)
@@ -404,6 +411,7 @@ public partial class Playing : Node2D
 		{
 			GD.Print("Player has won all suits at 13 tricks");
 			CurrentWonGameState = WonGameState.Won;
+			SuitsWon.Clear();
 			GetTree().ChangeSceneToFile("res://5Results/Results.tscn");
 		}
 		if (won && AllSuitsWon())
@@ -414,6 +422,7 @@ public partial class Playing : Node2D
 			RequiredTricks += 2;
 			CurrentHand = _HandOfCards.ExportHand();
 			CurrentWonGameState = WonGameState.NotFinished;
+			SuitsWon.Clear();
 			GetTree().ChangeSceneToFile("res://4UpgradeScene/Upgrade.tscn");
 		}
 		else if (won)
@@ -434,6 +443,7 @@ public partial class Playing : Node2D
 		else
 		{
 			GD.Print("Player lost the game.");
+			SuitsWon.Clear();
 			CurrentWonGameState = WonGameState.Lost;
 			GetTree().ChangeSceneToFile("res://5Results/Results.tscn");
 		}
