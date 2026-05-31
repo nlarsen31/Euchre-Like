@@ -201,6 +201,7 @@ public partial class Playing : Node2D
 		{
 			GenerateTrumpSuitOrder();
 			_TrumpTokenOrder.SetTrumpOrder(FixedTrumpOrder.ToArray());
+			_TrumpTokenOrder.SetActiveTrump(CurrentTrumpIndex);
 		}
 		SetupPlayersHands();
 
@@ -429,6 +430,7 @@ public partial class Playing : Node2D
 		{
 			GD.Print("Player won the hand, but not all suits yet.");
 			CurrentTrumpIndex = (CurrentTrumpIndex + 1) % FixedTrumpOrder.Count;
+			_TrumpTokenOrder.SetActiveTrump(CurrentTrumpIndex);
 			GD.Print("Next trump index: " + CurrentTrumpIndex);
 			CurrentHand = _HandOfCards.ExportHand();
 			CurrentWonGameState = WonGameState.NotFinished;

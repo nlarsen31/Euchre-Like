@@ -27,7 +27,7 @@ animations = [{
 "texture": ExtResource("3_p1pcd")
 }],
 "loop": true,
-"name": &"clubs_deactive",
+"name": &"clubs_inactive",
 "speed": 5.0
 }, {
 "frames": [{
@@ -51,7 +51,7 @@ animations = [{
 "texture": ExtResource("6_e1v8w")
 }],
 "loop": true,
-"name": &"diamonds_deactive",
+"name": &"diamonds_inactive",
 "speed": 5.0
 }, {
 "frames": [{
@@ -67,7 +67,7 @@ animations = [{
 "texture": ExtResource("8_bkdb5")
 }],
 "loop": true,
-"name": &"hearts_deactive",
+"name": &"hearts_inactive",
 "speed": 5.0
 }, {
 "frames": [{
@@ -91,7 +91,7 @@ animations = [{
 "texture": ExtResource("11_lhw8w")
 }],
 "loop": true,
-"name": &"spades_deactive",
+"name": &"spades_inactive",
 "speed": 5.0
 }]
 
@@ -100,4 +100,4 @@ script = ExtResource("1_s5q2w")
 
 [node name="ChipAnim" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_15w5p")
-animation = &"spades_deactive"
+animation = &"spades_inactive"
