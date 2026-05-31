@@ -173,8 +173,6 @@ public partial class Playing : Node2D
 
 		CurrentTrump = FixedTrumpOrder[CurrentTrumpIndex];
 		GD.Print("Trump suit for this hand: " + SuitToString[(int)CurrentTrump]);
-		Chip TrumpChip = GetNode<Chip>("TrumpChip");
-		TrumpChip.SetAnimation(CurrentTrump);
 
 		ActivePlayer = (Player)randy.Next(0, 4);
 		ActivePlayer = Player.PLAYER;

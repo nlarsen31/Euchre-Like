@@ -74,9 +74,6 @@ unique_name_in_owner = true
 wait_time = 0.5
 one_shot = true
 
-[node name="TrumpChip" parent="." instance=ExtResource("8_p1npp")]
-position = Vector2(64, 64)
-
 [node name="LeadChip" parent="." instance=ExtResource("8_p1npp")]
 position = Vector2(48, 760)
 rotation = 1.5708
