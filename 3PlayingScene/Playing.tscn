@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b0vas17ygq78u"]
+[gd_scene load_steps=13 format=3 uid="uid://b0vas17ygq78u"]
 
 [ext_resource type="Script" uid="uid://dgnvth61m3050" path="res://3PlayingScene/Playing.cs" id="1_1576k"]
 [ext_resource type="Texture2D" uid="uid://h0lusuua7idr" path="res://Sprites/Backgrounds/PlayingBackground.png" id="1_sykbu"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cni2sbqar4qot" path="res://3PlayingScene/PlayedCards.tscn" id="9_bxlyg"]
 [ext_resource type="PackedScene" uid="uid://c0cr2855yncbd" path="res://0CommonScene/ScoreBoard.tscn" id="10_ttpq8"]
 [ext_resource type="PackedScene" uid="uid://4msxip4pvphq" path="res://3PlayingScene/TrumpTokenOrder.tscn" id="11_6088o"]
+[ext_resource type="PackedScene" uid="uid://ctsdjebi0ghhw" path="res://0CommonScene/Consumables/Consumables.tscn" id="12_0iryj"]
 
 [node name="Playing" type="Node2D"]
 script = ExtResource("1_1576k")
@@ -103,6 +104,17 @@ wait_time = 4.0
 
 [node name="TrumpTokenOrder" parent="." instance=ExtResource("11_6088o")]
 position = Vector2(134, 104)
+
+[node name="GoldLabel" type="Label" parent="."]
+offset_left = 42.0
+offset_top = 57.0
+offset_right = 149.0
+offset_bottom = 102.0
+theme_override_font_sizes/font_size = 32
+text = "Gold: 0"
+
+[node name="Consumables" parent="." instance=ExtResource("12_0iryj")]
+position = Vector2(117, 193)
 
 [connection signal="timeout" from="Timer" to="." method="OnTimeout"]
 [connection signal="timeout" from="PlayFinishedTimer" to="." method="OnPlayFinishedTimeout"]

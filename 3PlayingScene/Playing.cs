@@ -33,6 +33,7 @@ public partial class Playing : Node2D
 	Callable _Callable;
 
 	private ScoreBoard _ScoreBoard;
+	private Label _GoldLabel;
 
 	// Look at Trump ActivePlayer PlayedCards, assume that ActivePlayer+1 was the player that lead.
 	// TODO: Refactor to be a member of playedCards...
@@ -194,13 +195,21 @@ public partial class Playing : Node2D
 		_ScoreBoard = GetNode<ScoreBoard>("ScoreBoard");
 		CurrentWonGameState = WonGameState.NotFinished;
 		_TrumpTokenOrder = GetNode<TrumpTokenOrder>("TrumpTokenOrder");
+		_GoldLabel = GetNode<Label>("GoldLabel");
+		_GoldLabel.Text = $"Gold: {Gold}";
+
+		Consumables consumables = GetNode<Consumables>("Consumables");
+		for (int i = 0; i < CurrentConsumables.Count; i++)
+		{
+			consumables.SetConsumableAnimation(i, CurrentConsumables[i]);
+		}
 
 		if (FixedTrumpOrder.Count == 0)
 		{
 			GenerateTrumpSuitOrder();
-			_TrumpTokenOrder.SetTrumpOrder(FixedTrumpOrder.ToArray());
-			_TrumpTokenOrder.SetActiveTrump(CurrentTrumpIndex);
 		}
+		_TrumpTokenOrder.SetTrumpOrder(FixedTrumpOrder.ToArray());
+		_TrumpTokenOrder.SetActiveTrump(CurrentTrumpIndex);
 		SetupPlayersHands();
 
 		if (!_TimersAdjusted)
@@ -404,6 +413,12 @@ public partial class Playing : Node2D
 		{
 			MarkSuitWon(CurrentTrump);
 			GD.Print("Suit " + SuitToString[(int)CurrentTrump] + " marked as won. Suits won: " + SuitsWon.Count);
+
+			int goldEarned = _ScoreBoard.TricksLeft;
+			Gold += goldEarned;
+			GD.Print($"Awarded {goldEarned} gold. Total gold: {Gold}");
+			if (_GoldLabel != null)
+				_GoldLabel.Text = $"Gold: {Gold}";
 		}
 
 		if (won && AllSuitsWon() && _ScoreBoard.TricksRequired >= 13)

@@ -15,7 +15,6 @@ public partial class Upgrade : Node2D
     private HandOfCards _HandOfCards;
     private UpgradeSelection _UpgradeSelection;
     private UpgradeType[] _upgrades = new UpgradeType[3];
-    private Chip _TrumpChip;
 
     private UpgradeType _SelectedUpgrade = UpgradeType.Unselected;
 
@@ -27,6 +26,8 @@ public partial class Upgrade : Node2D
     private Callable _CallableUpgradeSelected;
 
     private ScoreBoard _ScoreBoard;
+
+    private Label _GoldLabel;
 
     private Dictionary<Rarity, List<UpgradeType>> _upgradeChangeMap = new Dictionary<Rarity, List<UpgradeType>>()
     {
@@ -58,21 +59,17 @@ public partial class Upgrade : Node2D
         // Member variables
         _HandOfCards = GetNode<HandOfCards>("HandOfCards");
         _CardSelectedTimer = GetNode<Timer>("CardSelectedTimer");
-        _TrumpChip = GetNode<Chip>("NextTrumpChip");
         _ScoreBoard = GetNode<ScoreBoard>("ScoreBoard");
+        _GoldLabel = GetNode<Label>("GoldLabel");
         _ScoreBoard.Reset(RequiredTricks);
+
+        _GoldLabel.Text = $"Gold: {Gold}";
 
         if (!_TimersAdjusted)
         {
             _CardSelectedTimer.WaitTime *= GameSpeed;
             _TimersAdjusted = true;
         }
-
-        if (CurrentTrump == Suit.UNASSIGNED)
-        {
-            CurrentTrump = Suit.HEARTS; // Default to Hearts if no trump is set
-        }
-        _TrumpChip.SetAnimation(NextTrump(CurrentTrump));
         if (CurrentHand == null)
         {
             _HandOfCards.addRandomHand();
@@ -149,7 +146,6 @@ public partial class Upgrade : Node2D
     // Timer callback to transition to Playing scenes after upgrade selected
     public void CardSelectedTimerCallback()
     {
-        CurrentTrump = NextTrump(CurrentTrump);
         GetTree().ChangeSceneToFile("res://3PlayingScene/Playing.tscn");
     }
 

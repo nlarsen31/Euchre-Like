@@ -167,10 +167,34 @@ public partial class GlobalProperties : Node
 		Rare
 	}
 
+	public enum ConsumableType
+	{
+		Missing,
+		ToTrump
+	}
+
+	public static Dictionary<ConsumableType, string> ConsumableTypeToAnimString = new Dictionary<ConsumableType, string>()
+	 {
+		  { ConsumableType.Missing, "missing" },
+		  { ConsumableType.ToTrump, "to_trump" }
+	 };
+	public static Dictionary<string, ConsumableType> AnimStringToConsumableType = new Dictionary<string, ConsumableType>()
+	 {
+		  { "missing", ConsumableType.Missing },
+		  { "to_trump", ConsumableType.ToTrump }
+	 };
+
+	public static Dictionary<ConsumableType, string> ConsumableToString = new Dictionary<ConsumableType, string>()
+	 {
+		  { ConsumableType.Missing, "Missing" },
+		  { ConsumableType.ToTrump, "To Trump" }
+	 };
+
 	// Game state Variables
 
 	public static Phase GlobalGamePhase;
 	public static List<string> CurrentHand;
+	public static List<ConsumableType> CurrentConsumables = new List<ConsumableType>() { ConsumableType.Missing, ConsumableType.Missing, ConsumableType.Missing };
 	public static List<Suit> FixedTrumpOrder = new List<Suit>();
 	public static int CurrentTrumpIndex = 0;
 	public static HashSet<Suit> SuitsWon = new HashSet<Suit>();
@@ -192,6 +216,7 @@ public partial class GlobalProperties : Node
 
 	public static Suit CurrentTrump = Suit.UNASSIGNED;
 	public static int RequiredTricks = 3;
+	public static int Gold = 0;
 
 	public static double GameSpeed = 1.0;
 

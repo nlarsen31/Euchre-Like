@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctu40w4kl4pke"]
+
+[ext_resource type="Script" uid="uid://dcd85u0bjofi" path="res://0CommonScene/Consumables/Consumable.cs" id="1_255iu"]
+[ext_resource type="Texture2D" uid="uid://dyhc0iovy5bpy" path="res://Sprites/Consumables/MissingConsumable.png" id="1_pmw3l"]
+[ext_resource type="Texture2D" uid="uid://dmta01teaerno" path="res://Sprites/Consumables/ConsumableTrump_ai.png" id="2_255iu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qgp6y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_pmw3l")
+}],
+"loop": true,
+"name": &"missing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_255iu")
+}],
+"loop": true,
+"name": &"to_trump",
+"speed": 5.0
+}]
+
+[node name="Consumable" type="Node2D"]
+script = ExtResource("1_255iu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
+sprite_frames = SubResource("SpriteFrames_qgp6y")
+animation = &"missing"

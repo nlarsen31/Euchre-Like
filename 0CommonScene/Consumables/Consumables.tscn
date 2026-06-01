@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctsdjebi0ghhw"]
+
+[ext_resource type="Texture2D" uid="uid://bgpme81ryk4lw" path="res://Sprites/Consumables/BackgroundConsumables.png" id="1_junc5"]
+[ext_resource type="PackedScene" uid="uid://ctu40w4kl4pke" path="res://0CommonScene/Consumables/Consumable.tscn" id="2_28fph"]
+[ext_resource type="Script" uid="uid://csakag0fwjdkv" path="res://0CommonScene/Consumables/Consumables.cs" id="3_jkh5g"]
+
+[node name="Consumables" type="Node2D"]
+script = ExtResource("3_jkh5g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_junc5")
+
+[node name="Consumable" parent="." instance=ExtResource("2_28fph")]
+position = Vector2(-30, 0)
+
+[node name="Consumable2" parent="." instance=ExtResource("2_28fph")]
+
+[node name="Consumable3" parent="." instance=ExtResource("2_28fph")]
+position = Vector2(31, 0)
