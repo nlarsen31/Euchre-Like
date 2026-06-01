@@ -731,7 +731,7 @@ shape = SubResource("RectangleShape2D_7tjeh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ciseo")
-animation = &"upgrade_to_clubs"
+animation = &"j_diamonds"
 
 [node name="BorderFrames" type="AnimatedSprite2D" parent="."]
 visible = false

@@ -389,10 +389,25 @@ public partial class Playing : Node2D
 		else PlayTurn();
 	}
 
+	private void RevertAppliedConsumables()
+	{
+		foreach (var consumable in AppliedConsumables)
+		{
+			switch (consumable)
+			{
+				case ConsumableType.ToTrump:
+					// TODO: revert ToTrump effect
+					break;
+			}
+		}
+		AppliedConsumables.Clear();
+	}
+
 	public void OnPlayFinishedTimeout()
 	{
 		GD.Print("[Enter] OnPlayFinishedTimeout");
 		_PlayFinishedTimer.Stop();
+		RevertAppliedConsumables();
 
 		// Check if player won the last hand. 
 		// TODO: This needs to be refactored to have common logic for when this is added.
