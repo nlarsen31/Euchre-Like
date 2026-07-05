@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://ctu40w4kl4pke"]
 
 [ext_resource type="Script" uid="uid://dcd85u0bjofi" path="res://0CommonScene/Consumables/Consumable.cs" id="1_255iu"]
-[ext_resource type="Texture2D" uid="uid://dyhc0iovy5bpy" path="res://Sprites/Consumables/MissingConsumable.png" id="1_pmw3l"]
-[ext_resource type="Texture2D" uid="uid://dmta01teaerno" path="res://Sprites/Consumables/ConsumableTrump_ai.png" id="2_255iu"]
+[ext_resource type="Texture2D" uid="uid://cgy3skudy34ox" path="res://Sprites/Consumables/MissingConsumable.png" id="1_pmw3l"]
+[ext_resource type="Texture2D" uid="uid://bt1kun2pmp1lb" path="res://Sprites/Consumables/ConsumableTrump_ai.png" id="2_255iu"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qgp6y"]
 animations = [{

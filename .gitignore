@@ -17,3 +17,10 @@ mono_crash.*.json
 
 GoDot/**
 godot.zip
+
+Sprites/ignore/**
+export/**
+
+CLAUDE.md
+
+**.import
