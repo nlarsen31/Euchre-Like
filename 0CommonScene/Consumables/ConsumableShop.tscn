@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1eimqjecvdsx"]
+
+[ext_resource type="Texture2D" uid="uid://dtc83ooirewwj" path="res://Sprites/Consumables/BackgroundConsumables.png" id="1_dvank"]
+[ext_resource type="PackedScene" uid="uid://ctu40w4kl4pke" path="res://0CommonScene/Consumables/Consumable.tscn" id="2_dumtc"]
+
+[node name="ConsumableShop" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(7.62939e-06, 1.90735e-06)
+scale = Vector2(1.84375, 2.125)
+texture = ExtResource("1_dvank")
+
+[node name="ConsumableOption1" parent="." instance=ExtResource("2_dumtc")]
+position = Vector2(-57, -15)
+
+[node name="ConsumableOption2" parent="." instance=ExtResource("2_dumtc")]
+position = Vector2(0, -14)
+
+[node name="ConsumableOption3" parent="." instance=ExtResource("2_dumtc")]
+position = Vector2(55, -14)
+
+[node name="GoldCost1" type="Label" parent="."]
+offset_left = -78.0
+offset_top = 3.0
+offset_right = -38.0
+offset_bottom = 26.0
+text = "GP: 1"
+
+[node name="GoldCost2" type="Label" parent="."]
+offset_left = -20.0
+offset_top = 5.0
+offset_right = 20.0
+offset_bottom = 28.0
+text = "GP: 1"
+
+[node name="GoldCost3" type="Label" parent="."]
+offset_left = 34.0
+offset_top = 5.0
+offset_right = 74.0
+offset_bottom = 28.0
+text = "GP: 1"

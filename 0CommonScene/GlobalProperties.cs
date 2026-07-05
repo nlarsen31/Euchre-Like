@@ -195,7 +195,7 @@ public partial class GlobalProperties : Node
 	public static Phase GlobalGamePhase;
 	public static List<string> CurrentHand;
 	public static List<ConsumableType> CurrentConsumables = new List<ConsumableType>() { ConsumableType.Missing, ConsumableType.Missing, ConsumableType.Missing };
-	public static List<ConsumableType> AppliedConsumables = new List<ConsumableType>();
+	public static List<AppliedConsumable> AppliedConsumables = new List<AppliedConsumable>();
 	public static List<Suit> FixedTrumpOrder = new List<Suit>();
 	public static int CurrentTrumpIndex = 0;
 	public static HashSet<Suit> SuitsWon = new HashSet<Suit>();

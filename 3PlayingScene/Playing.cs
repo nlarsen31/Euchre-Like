@@ -393,10 +393,10 @@ public partial class Playing : Node2D
 	{
 		foreach (var consumable in AppliedConsumables)
 		{
-			switch (consumable)
+			switch (consumable.Type)
 			{
 				case ConsumableType.ToTrump:
-					// TODO: revert ToTrump effect
+					// TODO: implement revert logic to restore consumable.OriginalCard
 					break;
 			}
 		}
